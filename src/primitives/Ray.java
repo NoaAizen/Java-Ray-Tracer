@@ -6,8 +6,16 @@ import primitives.Vector;
 import java.util.Objects;
 
 public class Ray {
-    Point p0;
-    Vector dir;
+    final Point p0;
+    final Vector dir;
+
+    public Point getP0() {
+        return p0;
+    }
+
+    public Vector getDir() {
+        return dir;
+    }
 
     /**
      * toString

@@ -4,7 +4,7 @@ import java.util.Objects;
 import primitives.Double3;
 
 public class Point {
-    Double3 xyz;
+    final Double3 xyz;
 
 
     /**
@@ -63,7 +63,7 @@ public class Point {
      * @return the head vector with this point
      */
     public Point add(Vector vector) {
-        return  new Point(xyz.add(vector.xyz));
+        return new Point(xyz.add(vector.xyz));
     }
 
     /**

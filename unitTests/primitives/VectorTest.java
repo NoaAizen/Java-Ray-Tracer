@@ -2,35 +2,45 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VectorTest {
 
     @Test
-    void add() {
+    void testConstuctorZero() {
+        assertThrows(
+                IllegalArgumentException.class,
+                ()->{new Vector(0,0,0);},
+                "ERROR: zero vector does not throw an exception"
+        );
     }
 
     @Test
-    void scale() {
+    void testTestAdd() {
     }
 
     @Test
-    void dotProduct() {
+    void testScale() {
     }
 
     @Test
-    void crossProduct() {
+    void testTestDotProduct() {
     }
 
     @Test
-    void normalize() {
+    void testTestCrossProduct() {
     }
 
     @Test
-    void length() {
+    void testTestNormalize() {
     }
 
     @Test
-    void lengthSquared() {
+    void testTestLength() {
+    }
+
+    @Test
+    void testTestLengthSquared() {
     }
 }

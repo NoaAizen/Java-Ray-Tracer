@@ -15,10 +15,9 @@ public class Sphere implements Geometry {
     double radius;
 
     /**
-     * constctor using super main using Polygon
-     * @param p1
-     * @param p2
-     * @param p3
+     *
+     * @param center
+     * @param radius
      */
     public Sphere(final Point center, final double radius) {
         this.center = center;
@@ -43,11 +42,11 @@ public class Sphere implements Geometry {
 
     /**
      * return vector normal
-     * @param p
+     * @param p1
      * @return vector
      */
-    public Vector getNormal(Point p){
-        return null;
+    public Vector getNormal(Point p1){
+        return p1.subtract(center).normalize();
     }
 
     @Override

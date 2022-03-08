@@ -12,7 +12,7 @@ public class Vector extends Point {
      */
     public Vector(double x, double y, double z) {
         this(new Double3(x, y, z));
-        if (Double3.ZERO.equals(this)) {
+        if (Double3.ZERO.equals(xyz)) {
             throw new IllegalArgumentException("Error!! zero vector");
         }
 
@@ -36,15 +36,12 @@ public class Vector extends Point {
      */
     public Vector add(Vector vector) {
 
-        Double3 result = new Double3(
-                xyz.d1 + vector.xyz.d1,
-                xyz.d2 + vector.xyz.d2,
-                xyz.d3 + vector.xyz.d3);
+        Double3 result = xyz.add(vector.xyz);
 
         if (Double3.ZERO.equals(result)) {
             throw new IllegalArgumentException("Error!! zero vector");
         }
-        return new Vector(result.d1,result.d2, result.d3);
+        return new Vector(result);
     }
 
     /**
@@ -53,12 +50,12 @@ public class Vector extends Point {
      * @return
      */
     Vector Scale(double temp){
-        Double3 result = new Double3(xyz.d1*temp,xyz.d2*temp,xyz.d3*temp);
+        Double3 result = xyz.scale(temp);
 
         if (Double3.ZERO.equals(result)) {
             throw new IllegalArgumentException("Error!! zero vector");
         }
-        return new Vector(result.d1,result.d2, result.d3);
+        return new Vector(result);
     }
 
     /**
@@ -67,10 +64,11 @@ public class Vector extends Point {
      * @return
      */
     public double dotProduct(Vector vector) {
-        return this.xyz.d1 * vector.xyz.d1
-                +this.xyz.d2 * vector.xyz.d2
-                + this.xyz.d3 * vector.xyz.d3;
-
+        Double3 temp = xyz.product(vector.xyz);
+        return temp.d1 + temp.d2 + temp.d3;
+//        return this.xyz.d1 * vector.xyz.d1
+//                +this.xyz.d2 * vector.xyz.d2
+//                + this.xyz.d3 * vector.xyz.d3;
     }
 
     /**
@@ -128,7 +126,7 @@ public class Vector extends Point {
     @Override
     public String toString() {
         return "Vector{" +
-                super.toString() +
+                xyz +
                 '}';
     }
 
