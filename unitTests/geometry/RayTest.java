@@ -1,7 +1,7 @@
-package primitives;
+package geometry;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VectorTest {
+class RayTest {
 
 }

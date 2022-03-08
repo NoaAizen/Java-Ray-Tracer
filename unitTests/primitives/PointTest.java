@@ -5,9 +5,17 @@ import org.junit.jupiter.api.Test;
 import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class check class Point
+ */
 class PointTest {
     Point p1 = new Point(1, 2, 3);
+
     @Test
+    /**
+     * check func add from point.
+     *  Point (1-1, 2-2, 3-3).
+     */
     void testAdd() {
         assertEquals(
                 new Point(0, 0, 0),
@@ -16,52 +24,39 @@ class PointTest {
     }
 
     @Test
+    /**
+     * check func subtract from point.
+     * Vector(2-1, 3-2, 4-3)
+     */
     void testSubtract() {
-//       assertEquals();
-//        Point p1 = new Point(1, 2, 3);
-//        if (!new Vector(1, 1, 1).equals(new Point(2, 3, 4).subtract(p1)))
-//            out.println("ERROR: Point - Point does not work correctly");
+        assertEquals(
+                new Vector(1, 1, 1),
+                new Point(2, 3, 4).subtract(p1),
+                "ERROR: Point - testSubtract does not work correctly");
     }
 
     @Test
+    /**
+     * check func distanceSquared from point.
+     * double ((1-1)*(1-1)+(2-1)*(2-1)+(3-1)*(3-1)=5)
+     */
     void testDistanceSquared() {
+        assertEquals(
+                5,
+                new Point(1, 1, 1).distanceSquared(p1),
+                "ERROR: Point - testDistanceSquared does not work correctly");
     }
 
     @Test
+    /**
+     * check func distance from point.
+     * use distanceSquared in this func  ((1-1)*(1-1)+(2-2)*(2-2)+(3-1)*(3-1)=4)
+     * and after that use math sqrt on 4
+     */
     void testDistance() {
+        assertEquals(
+                2.0,
+                new Point(1, 2, 1).distance(p1),
+                "ERROR: Point - testDistance does not work correctly");
     }
-//
-//    @Test
-//    void add() {
-//        Point p1 = new Point(1, 2, 3);
-//        if (!(p1.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0))))
-//            out.println("ERROR: Point + Vector does not work correctly");
-//    }
-//
-//    @Test
-//    void subtract() {
-//        Point p1 = new Point(1, 2, 3);
-//        if (!new Vector(1, 1, 1).equals(new Point(2, 3, 4).subtract(p1)))
-//            out.println("ERROR: Point - Point does not work correctly");
-//    }
-//
-//    @Test
-//    void distanceSquared() {
-//        Point point0 = new Point(1, 1, -100);
-//        Point point1 = new Point(-1, 1, -99);
-//        Point point2 = new Point(0, 0, -100);
-//        Point point3 = new Point(0.5, 0, -100);
-//        double resultSquared;
-//        double result;
-//
-//        if(0.25 == point3.distanceSquared(new Point(0,0,-100)))
-//            out.println("ERROR: Point - func distanceSquared of Point not work correctly");
-//        result = point3.distance(new Point(0,0,-100));
-//        System.out.println(result);
-//    }
-//
-//    @Test
-//    void distance() {
-//
-//    }
 }
