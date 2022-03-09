@@ -9,5 +9,7 @@ class PlaneTest {
     @Test
     void testGetNormal() {
     }
+    void testConstuctor(){
 
+    }
 }

@@ -9,7 +9,7 @@ import primitives.Point;
  *
  * @author noga and noa
  */
-public class Triangle extends Polygon {
+public class Triangle extends Polygon  implements Geometry {
 
     /**
      * constctor using super main using Polygon

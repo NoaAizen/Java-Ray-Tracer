@@ -11,8 +11,8 @@ import static primitives.Util.*;
  */
 public class Sphere implements Geometry {
 
-    Point center;
-    double radius;
+   final Point center;
+    final double radius;
 
     /**
      *

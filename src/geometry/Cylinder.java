@@ -11,7 +11,7 @@ import static primitives.Util.*;
  */
 public class Cylinder extends Tube {
 
-    double height;
+    final double height;
 
     /**
      * constctor using super main using Polygon

@@ -10,8 +10,8 @@ import static primitives.Util.*;
  * @author noga and noa
  */
 public class Tube implements Geometry {
-    Ray axisRay;
-    double radius;
+    final Ray axisRay;
+    final double radius;
 
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
