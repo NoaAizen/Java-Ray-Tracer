@@ -25,4 +25,13 @@ public class Triangle extends Polygon  implements Geometry {
     public  String toString() {
         return "Triangle{}";
     }
+
+    /**
+     * use func getNormal of class plane
+     * @param p
+     * @return the normal of plane
+     */
+    public Vector getNormal(Point p){
+        return this.plane.getNormal(p);
+    }
 }

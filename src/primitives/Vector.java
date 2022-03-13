@@ -49,7 +49,7 @@ public class Vector extends Point {
      * @param temp
      * @return
      */
-    Vector Scale(double temp){
+    public Vector Scale(double temp){
         Double3 result = xyz.scale(temp);
 
         if (Double3.ZERO.equals(result)) {

@@ -12,9 +12,9 @@ public class Plane implements Geometry{
     final Vector normal;
 
     /**
-     * TODO explanations here
+     * constructor
      * @param q0
-     * @param normal vector for the normal (will be normalized automatically)
+     * @param n vector for the normal (will be normalized automatically)
      */public Plane(Point q0, Vector n) {
         p0 = q0;
         normal = n;
@@ -36,9 +36,11 @@ public class Plane implements Geometry{
         Vector V = p3.subtract(p1);
         Vector N = U.crossProduct(V);
 
-        //right hand rule
-        normal = null;
-        //N.normalize();
+        //normal = null;
+        N.normalize();
+
+        //right-hand rule;
+         normal = N;
     }
 
     public Point getQ0() {

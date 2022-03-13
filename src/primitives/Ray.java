@@ -57,4 +57,8 @@ public class Ray {
         this.p0 = p0;
         this.dir = dir.normalize();
     }
+
+    public Vector getDirection() {
+        return new Vector(dir.xyz);
+    }
 }
