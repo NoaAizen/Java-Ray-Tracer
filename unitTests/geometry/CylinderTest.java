@@ -8,9 +8,8 @@ class CylinderTest {
 
     @Test
     void testGetNormal() {
+
     }
-    @Test
-    void test() {
-    }
+
 
 }

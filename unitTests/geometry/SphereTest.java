@@ -9,6 +9,7 @@ class SphereTest {
 
     @Test
     void testGetNormal() {
+
         Sphere sphere= new Sphere(new Point(0,0,0),1);
         Point p1 = new Point(1,1,1);
         double root = 1/Math.sqrt(3.0);
