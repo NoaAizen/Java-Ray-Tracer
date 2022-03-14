@@ -36,11 +36,9 @@ public class Plane implements Geometry{
         Vector V = p3.subtract(p1);
         Vector N = U.crossProduct(V);
 
-        //normal = null;
-        N.normalize();
 
-        //right-hand rule;
-         normal = N;
+         normal =  N.normalize();
+
     }
 
     public Point getQ0() {

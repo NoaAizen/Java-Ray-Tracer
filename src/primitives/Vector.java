@@ -12,9 +12,9 @@ public class Vector extends Point {
      */
     public Vector(double x, double y, double z) {
         this(new Double3(x, y, z));
-      /**  if (Double3.ZERO.equals(xyz)) {
+       if (Double3.ZERO.equals(xyz)) {
             throw new IllegalArgumentException("Error!! zero vector");
-        }**/
+        }
 
     }
 
@@ -24,9 +24,9 @@ public class Vector extends Point {
      */
     public Vector(Double3 xyz) {
         super(xyz);
-     /**   if (Double3.ZERO.equals(xyz)) {
+      if (Double3.ZERO.equals(xyz)) {
             throw new IllegalArgumentException("Error!! zero vector");
-        }**/
+        }
 
     }
 

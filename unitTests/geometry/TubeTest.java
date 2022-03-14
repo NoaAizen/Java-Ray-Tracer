@@ -7,6 +7,10 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ *     Function of normal test of Tube
+ *
+ */
 class TubeTest {
 
     @Test
@@ -16,10 +20,13 @@ class TubeTest {
         double r=1;
         Vector vector = new Vector(0,0,-1);
         Tube tube = new Tube(new Ray(P0,vector),r);
-        assertEquals(new Vector(1,0,0),tube.getNormal(P1),"ERROR  ");
-
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: There is a simple single test here
+        assertEquals(new Vector(1,0,0),tube.getNormal(P1),"Tube-getNormal=> Simple test failure  ");
+        // =============== Boundary Values Tests ==================
+        // TC02: The point is in front of the head of the foundation
         Point P2 = new Point(1,0,2);
-        assertEquals(new Vector(1,0,0),tube.getNormal(P2),"ERROR   ");
+        assertEquals(new Vector(1,0,0),tube.getNormal(P2),"Tube-getNormal=> Fails when the point is in front of the fund head   ");
 
     }
 }

@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
 class PlaneTest {
+    /**
+     * A method that tests the constructor
+     */
     @Test
     public void testConstructor()
     {
@@ -20,7 +23,12 @@ class PlaneTest {
         Point p3= new Point(3,3,3);
         assertThrows(IllegalArgumentException.class,()-> new Plane(p1,p2,p3),"Plane- The points are on the same plane");
 
+
     }
+
+    /**
+     *Function of normal test of Plane
+     */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -29,7 +37,8 @@ class PlaneTest {
         Point p2=new Point(1,2,3);
         Point p3=new Point(2,0,0);
         Plane pl = new Plane(p1,p2,p3);
-        Vector temp = new Vector(1/Math.sqrt(6),2/Math.sqrt(6),-1/Math.sqrt(6) );//ויקטור מנורמל
+        Vector temp = new Vector(1/Math.sqrt(6),2/Math.sqrt(6),-1/Math.sqrt(6) );
+        ;//nornal vector
         assertEquals(temp,pl.getNormal(new Point(1, 1, 1)), "getNormal=> Simple test failure");
     }
 
