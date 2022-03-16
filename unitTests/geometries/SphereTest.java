@@ -43,9 +43,9 @@ class SphereTest {
         assertEquals(List.of(p1, p2), result, "Ray crosses sphere");
 
         // TC03: Ray starts inside the sphere (1 point)
-        ...
+
         // TC04: Ray starts after the sphere (0 points)
-        ...
+
 
         // =============== Boundary Values Tests ==================
 
