@@ -75,8 +75,23 @@ public class Plane implements Geometry{
                 '}';
     }
 
+    /**
+     * The data:
+     * n = normal of the plane
+     * p = the point in the plane
+     * (this we get from the plane)
+     * @parm ray
+     * @return
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
+        //the data from the ray
+        Point p0 = ray.getP0();
+        Vector v = ray.getDirection();
+        //the data from the plane
+        Vector n = getNormal();
+        Point P = getQ0();
+
         return null;
     }
 }
