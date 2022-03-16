@@ -33,26 +33,19 @@ class SphereTest {
                 "Ray's line out of sphere");
 
         // TC02: Ray starts before and crosses the sphere (2 points)
-        Point p21 = new Point(0.0651530771650466, 0.355051025721682, 0);
-        Point p22= new Point(1.53484692283495, 0.844948974278318, 0);
-        List<Point> result2 = sphere.findIntersections(new Ray(new Point(-1, 0, 0),
+        Point p1 = new Point(0.0651530771650466, 0.355051025721682, 0);
+        Point p2 = new Point(1.53484692283495, 0.844948974278318, 0);
+        List<Point> result = sphere.findIntersections(new Ray(new Point(-1, 0, 0),
                 new Vector(3, 1, 0)));
-        assertEquals(2, result2.size(), "Wrong number of points");
-        if (result2.get(0).getX() > result2.get(1).getX())
-            result2 = List.of(result2.get(1), result2.get(0));
-        assertEquals(List.of(p21, p22), result2, "Ray crosses sphere");
+        assertEquals(2, result.size(), "Wrong number of points");
+        if (result.get(0).getX() > result.get(1).getX())
+            result = List.of(result.get(1), result.get(0));
+        assertEquals(List.of(p1, p2), result, "Ray crosses sphere");
 
         // TC03: Ray starts inside the sphere (1 point)
-        Point p31 = new Point(0.72650,0.58975,0.58975);
-        Point p32 = new Point(-0.8175,-0.5675,-0.5675);
-        List<Point> result3 = sphere.findIntersections(new Ray(new Point(0.5, 0.25, 0.25),
-                new Vector(0.5, 0.75, 0.75)));
-
-        assertEquals(1, result3.size(), "Wrong number of points");
-        assertEquals(List.of(p31), result3, "Ray crosses sphere in the right direction");
-        assertEquals(List.of(p32), result3, "ERROR: Ray crosses sphere in the opposite direction");
+        ...
         // TC04: Ray starts after the sphere (0 points)
-
+        ...
 
         // =============== Boundary Values Tests ==================
 
