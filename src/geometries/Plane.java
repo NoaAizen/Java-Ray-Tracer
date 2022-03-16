@@ -1,7 +1,11 @@
-package geometry;
+package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
+
 /**
  * Plane class a point in the vector anth space
  * @author noga and noa
@@ -69,5 +73,10 @@ public class Plane implements Geometry{
                 "p0=" + p0 +
                 ", normal=" + normal +
                 '}';
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

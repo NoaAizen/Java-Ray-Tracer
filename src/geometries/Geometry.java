@@ -1,12 +1,15 @@
-package geometry;
+package geometries;
 
+import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
+
+import java.util.List;
 
 /**
  * this is the interface for all geometries that need to get a normalized vector.its the most basic interface for all geometries.
  */
-public interface Geometry
+public interface Geometry extends Intersectable
 {
     /**
      *
@@ -14,4 +17,7 @@ public interface Geometry
      * @return Vector
      */
     public Vector getNormal (Point point);
+    public List<Point> findIntersections(Ray ray);
+
+
 }

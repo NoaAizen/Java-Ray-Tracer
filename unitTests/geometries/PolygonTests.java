@@ -1,4 +1,4 @@
-package geometry; /**
+package geometries; /**
  *
  */
 
@@ -6,7 +6,6 @@ package geometry; /**
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import geometry.*;
 import primitives.*;
 
 /**

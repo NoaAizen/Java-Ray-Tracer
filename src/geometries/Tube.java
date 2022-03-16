@@ -1,7 +1,9 @@
-package geometry;
-import java.util.List;
+package geometries;
 
 import primitives.*;
+
+import java.util.List;
+
 import static primitives.Util.*;
 /**
  * Triangle class Vertex polygon
@@ -72,5 +74,10 @@ public class Tube implements Geometry {
                 "axisRay=" + axisRay +
                 ", radius=" + radius +
                 '}';
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

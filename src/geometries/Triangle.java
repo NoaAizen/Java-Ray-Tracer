@@ -1,8 +1,9 @@
-package geometry;
-import java.util.List;
+package geometries;
 import primitives.*;
-import static primitives.Util.*;
 import primitives.Point;
+
+import java.util.List;
+
 /**
  * Triangle class Vertex polygon
  * system
@@ -33,5 +34,8 @@ public class Triangle extends Polygon  implements Geometry {
      */
     public Vector getNormal(Point p){
         return this.plane.getNormal(p);
+    }
+    public List<Point> findIntersections(Ray ray){
+        return null;
     }
 }

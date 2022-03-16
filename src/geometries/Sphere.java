@@ -1,8 +1,9 @@
-package geometry;
-import java.util.List;
+package geometries;
 
 import primitives.*;
-import static primitives.Util.*;
+
+import java.util.List;
+
 /**
  * Triangle class Vertex polygon
  * system
@@ -55,5 +56,10 @@ public class Sphere implements Geometry {
                 "center=" + center +
                 ", radius=" + radius +
                 '}';
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
