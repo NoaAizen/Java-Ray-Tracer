@@ -8,6 +8,4 @@ class CylinderTest {
     void testGetNormal() {
 
     }
-
-
 }

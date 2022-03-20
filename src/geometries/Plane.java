@@ -92,7 +92,7 @@ public class Plane implements Geometry{
 
         //the data from the ray
         Point p0 = ray.getP0();
-        Vector v = ray.getDirection();
+        Vector v = ray.getDir();
 
         //the data from the plane
         Vector n = getNormal();
