@@ -122,6 +122,7 @@ public class Plane implements Geometry{
         //Ray points P = P0 + tV
         Point P = p0.add(v.Scale(t));
 
+        //the points
         return List.of(P);
     }
 }
