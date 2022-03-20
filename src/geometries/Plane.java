@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * Plane class a point in the vector anth space
  * @author noga and noa
@@ -75,8 +78,50 @@ public class Plane implements Geometry{
                 '}';
     }
 
+    /**
+     * The data:
+     * n = normal of the plane
+     * Q = the point in the plane
+     * the P is the point in the plane we search that ray cross plane on it.
+     * (this we get from the plane)
+     * @parm ray
+     * @return
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+
+        //the data from the ray
+        Point p0 = ray.getP0();
+        Vector v = ray.getDirection();
+
+        //the data from the plane
+        Vector n = getNormal();
+        Point Q = getQ0();
+
+        //check if the vector between Q and p0 is zero (it mean that the ray start on plane)
+        if(Q.equals(p0))
+            return null;
+
+        //numerator of the calculation t
+        double numerator = alignZero(n.dotProduct(Q.subtract(p0)));
+
+        //denominator of the calculation t
+        double nv = alignZero(n.dotProduct(v));
+
+        //check if the vector of plane(n) and the vector of ray is Orthogonal
+        if(isZero(nv))
+            return null;
+
+        //the calculation t
+        double t = alignZero(numerator/nv);
+
+        //The opposite direction
+        if (t<=0)
+            return null;
+
+        //Ray points P = P0 + tV
+        Point P = p0.add(v.Scale(t));
+
+        return List.of(P);
     }
 }
