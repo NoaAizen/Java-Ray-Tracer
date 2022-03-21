@@ -5,6 +5,8 @@ import primitives.Double3;
 import primitives.Vector;
 import java.util.Objects;
 
+import static primitives.Util.*;
+
 public class Ray {
     final Point p0;
     final Vector dir;
@@ -60,5 +62,12 @@ public class Ray {
 
     public Vector getDirection() {
         return new Vector(dir.xyz);
+    }
+
+    public Point getPoint(double t){
+        if (isZero(t)){
+            return  p0;
+        }
+        return p0.add(dir.Scale(t));
     }
 }

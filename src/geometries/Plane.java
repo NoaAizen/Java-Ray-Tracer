@@ -120,7 +120,7 @@ public class Plane implements Geometry{
             return null;
 
         //Ray points P = P0 + tV
-        Point P = p0.add(v.Scale(t));
+        Point P = ray.getPoint(t);
 
         //the points of the ray on plane
         return List.of(P);
