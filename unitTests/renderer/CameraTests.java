@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import renderer.Camera;
 import primitives.*;
 
 /**
@@ -13,7 +12,7 @@ import primitives.*;
  * @author Dan
  *
  */
-class CameraTest {
+class CameraTests {
     static final Point ZERO_POINT = new Point(0, 0, 0);
 
     /**
@@ -56,5 +55,6 @@ class CameraTest {
                 camera.setVPSize(8, 8).constructRay(4, 4, 1, 0), badRay);
 
     }
+
 
 }
