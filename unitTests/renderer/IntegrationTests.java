@@ -15,7 +15,7 @@ import java.util.List;
 
 class IntegrationTests {
     /**
-     * help function for calculating points of intersection
+     * help function for calculating points of intersection.
      * @param camera
      * @param g
      * @param nx
