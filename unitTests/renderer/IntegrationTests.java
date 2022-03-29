@@ -20,7 +20,7 @@ class IntegrationTests {
      * @param g
      * @param nx
      * @param ny
-     * @return  int
+     * @return int
      */
     private int SumPointCross(Camera camera, Intersectable g, int nx, int ny) {
         int counter = 0;
