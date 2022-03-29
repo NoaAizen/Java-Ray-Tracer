@@ -7,6 +7,7 @@ import static primitives.Util.isZero;
 
 
 public class Camera {
+
     private Vector Vto;
     private Vector Vup;
     private Vector Vright;
@@ -16,34 +17,54 @@ public class Camera {
     private double width;
     private double height;
 
+    /*
+    moth get
+     */
+    /*
+    return Vto the vector to the view plane
+     */
     public Vector getVto() {
         return Vto;
     }
-
+    /*
+    return Vup the vector is orthogonals to Vto and Vright
+     */
     public Vector getVup() {
         return Vup;
     }
-
+    /*
+    return Vright the vector is orthogonals to Vto and Vright
+    */
     public Vector getVright() {
         return Vright;
     }
-
+    /*
+    return the point that the camera be there
+     */
     public Point getP0() {
         return P0;
     }
-
+    /*
+    the distance between the camera and view plane
+    */
     public double getDistance() {
         return distance;
     }
-
+    /*
+    return width of the view plane
+     */
     public double getWidth() {
         return width;
     }
-
+    /*
+    return height of the view plane
+    */
     public double getHeight() {
         return height;
     }
-
+    /*
+    constructor
+    */
     public Camera( Point p0,Vector vto, Vector vup) {
         if (!isZero(vto.dotProduct(vup))) {
             throw new IllegalArgumentException("Error!! Two vectors not orthogonals");
