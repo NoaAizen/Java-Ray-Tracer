@@ -102,11 +102,16 @@ public class Point {
         return Math.sqrt(distanceSquared(other));
     }
 
-
+    /*
+    * return d1 of point
+    */
     public double getX() {
         return xyz.d1;
     }
 
+    /*
+     *  return d2 of point
+     */
     public double getY() {
         return xyz.d2;
     }
