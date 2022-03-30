@@ -24,15 +24,16 @@ public class Geometries implements Intersectable {
         List<Point> result = null;
         for (Intersectable item : _intersectableList) {
             List<Point> itempoints = item.findIntersections(ray);
-            if(itempoints!= null){
-                if(result== null){
-                    result= new LinkedList<>();
+            if (itempoints != null) {
+                if (result == null) {
+                    result = new LinkedList<>();
                 }
                 result.addAll(itempoints);
             }
         }
-       // if(result.size()==0)
-         //   return  null;
+        // if(result.size()==0)
+        //   return  null;
         return result;
     }
+
 }

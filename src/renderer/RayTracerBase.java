@@ -3,32 +3,18 @@ package renderer;
 import Scene.Scene;
 import primitives.Color;
 import primitives.Ray;
+//עשינו בכיתה
+public abstract class RayTracerBase {
+        protected Scene scene;
 
-public abstract class RayTracerBase {//abstract
-        protected Scene _scene;
-
-        /**
-         * constructor for class RayTracerBase
-         */
-        public RayTracerBase() {
-                _scene = scene;
+        public RayTracerBase(Scene scene) {
+                this.scene = scene;
         }
 
-        /**
-         *
-         * @param ray
-         * @return color from class primitives.Color
-         */
-        public abstract  Color treaceRay(Ray ray){
-                //ומחזירה צבע (Color
-                return null;
-        }
+        public abstract Color traceRay(Ray ray);
 
-        /**
-         *  public void renderImage() {
-         *
-         *         }
-         */
+        public void renderImage() {
+
+        }
 }
-
 

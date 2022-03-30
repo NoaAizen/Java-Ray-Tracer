@@ -2,23 +2,37 @@ package renderer;
 
 import Scene.Scene;
 import primitives.Color;
+import primitives.Point;
 import primitives.Ray;
 
-/**
- * ). יש להוסיף תיעוד למחלקה ולבנאי.
- */
 public class RayTracerBasic extends RayTracerBase {
+
+    //עשינו בכיתה
     /**
-     * constructor for class RayTracerBasic, use  constructor from class RayTracerBase
+     * Constructor
      * @param scene
      */
     public RayTracerBasic(Scene scene) {
-        //בנאי מפעיל את הבנאי של מחלקת האב ומימוש ריק (עם חריגה או עם החזרת ערך null).
-        super();//מפעיל את הבנאי של מחלקת האב
+        super(scene);
     }
 
+    /**
+     * default Constructor
+     */
+    public RayTracerBasic() {
+        super(null);
+    }
+    private Color calcColor(Point point) {
+        return scene.getAmbientLight().getIntensity();
+    }
+//לכתוב תיעוד
     @Override
-    public Color treaceRay(Ray ray) {
-        return null;
+    public Color traceRay(Ray ray) {
+        var listOfPoints=scene.getGeometries().findIntersections(ray);
+      if(listOfPoints == null){
+          return  scene.getBackground();
+      }
+        Point closetsPoint=ray.findClosestPoint(listOfPoints);
+        return calcColor(closetsPoint);
     }
 }

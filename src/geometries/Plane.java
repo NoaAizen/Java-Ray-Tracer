@@ -89,7 +89,7 @@ public class Plane implements Geometry{
      */
     @Override
     public List<Point> findIntersections(Ray ray) {
-
+/**
         //the data from the ray
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
@@ -123,6 +123,26 @@ public class Plane implements Geometry{
         Point P = ray.getPoint(t);
 
         //the points of the ray on plane
+
         return List.of(P);
+ **/
+        Vector n=getNormal();
+        double nv=n.dotProduct(ray.getDirection());
+        if(isZero(nv))
+        {
+            return  null;
+        }
+        Vector p0Q;
+        try {
+            p0Q = p0.subtract(ray.getP0());
+        }
+        catch (Exception e)
+        {
+            return  null;
+        }
+        double t=alignZero(n.dotProduct(p0Q)/nv);
+        if(t<=0)
+            return null;
+        return List.of(ray.getPoint(t));
     }
 }

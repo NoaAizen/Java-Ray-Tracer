@@ -78,6 +78,8 @@ public class Ray {
         Point closestPoint=null;
         double distance=Double.MAX_VALUE;
         double d;
+        if (pointList==null)
+            return null;
         if(!pointList.isEmpty())
             return closestPoint;
         for (var pt: pointList)//בודק את נקודה הכי קורבה לקרן עם חישוב מרחק
@@ -92,6 +94,5 @@ public class Ray {
 
         }
         return  closestPoint;
-
     }
 }
