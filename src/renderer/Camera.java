@@ -2,6 +2,10 @@ package renderer;
 
 import primitives.*;
 
+import primitives.Color;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
@@ -18,6 +22,8 @@ public class Camera {
     private double distance;
     private double width;
     private double height;
+    private ImageWriter _imageWriter;
+    private RayTracerBase  _rayTracerBase;
 
 
 
@@ -158,5 +164,25 @@ public class Camera {
         return new Ray(P0, Pij.subtract(P0));
 
     }
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        _imageWriter = imageWriter;
+        return this;
+    }
 
+    public void writeToImage() {
+        _imageWriter.writeToImage();
+    }
+
+    public void printGrid(int gap, Color intervalColor) {
+        _imageWriter.printGrid(gap,intervalColor);
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracerBase) {
+        _rayTracerBase = rayTracerBase;
+        return this;
+    }
+
+    public void renderImage() {
+        _rayTracerBase.renderImage();
+    }
 }

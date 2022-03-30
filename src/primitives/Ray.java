@@ -3,6 +3,8 @@ package primitives;
 import primitives.Point;
 import primitives.Double3;
 import primitives.Vector;
+
+import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.*;
@@ -69,5 +71,27 @@ public class Ray {
             return  p0;
         }
         return p0.add(dir.Scale(t));
+    }
+    //ומחזירה את הנקודה הקרובה לתחילת הקרן.
+    public Point findClosestPoint(List<Point> pointList)//
+    {
+        Point closestPoint=null;
+        double distance=Double.MAX_VALUE;
+        double d;
+        if(!pointList.isEmpty())
+            return closestPoint;
+        for (var pt: pointList)//בודק את נקודה הכי קורבה לקרן עם חישוב מרחק
+        {
+            d=p0.distance(pt);
+
+            if(d<distance)
+            {
+                distance=d;
+                closestPoint=pt;
+            }
+
+        }
+        return  closestPoint;
+
     }
 }

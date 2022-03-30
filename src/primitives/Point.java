@@ -5,7 +5,7 @@ import primitives.Double3;
 
 public class Point {
     final Double3 xyz;
-
+    public static Point ZERO=new Point(0,0,0);
 
     /**
      * primary constructor for Point

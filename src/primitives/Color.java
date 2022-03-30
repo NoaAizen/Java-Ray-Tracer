@@ -1,5 +1,5 @@
 package primitives;
-
+import java.awt.*;//להשלים
 /**
  * Wrapper class for java.jwt.Color The constructors operate with any
  * non-negative RGB values. The colors are maintained without upper limit of
@@ -19,6 +19,10 @@ public class Color {
 	 * Black color = (0,0,0)
 	 */
 	public static final Color BLACK = new Color();
+	/**
+	 * Blue color = (0,0,0)
+	 */
+	public static final Color BLUE = new Color(java.awt.Color.BLUE);//לתקן
 
 	/**
 	 * Default constructor - to generate Black Color (privately)
