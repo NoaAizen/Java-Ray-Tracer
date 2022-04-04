@@ -169,10 +169,18 @@ public class Camera {
         return this;
     }
 
+    /**
+     * Check that a blank value has been entered in the image manufacturer's field
+     */
     public void writeToImage() {
         _imageWriter.writeToImage();
     }
 
+    /**
+     * Check that a blank value has been entered in the image manufacturer's field
+     * @param gap
+     * @param intervalColor
+     */
     public void printGrid(int gap, Color intervalColor) {
         _imageWriter.printGrid(gap,intervalColor);
     }
@@ -182,6 +190,9 @@ public class Camera {
         return this;
     }
 
+    /**
+     * check That in all the fields a non-empty value was entered, else Throw an exception
+     */
     public void renderImage() {
         _rayTracerBase.renderImage();
     }
