@@ -1,6 +1,11 @@
+import Scene.Scene;
+import elements.AmbientLight;
+import geometries.Sphere;
+import geometries.Triangle;
 import primitives.*;
-import static java.lang.System.out;
-import static primitives.Util.*;
+import renderer.Camera;
+import renderer.ImageWriter;
+import renderer.RayTracerBasic;
 
 /**
  * Test program for the 1st stage
@@ -15,7 +20,30 @@ public final class Main {
 	 * @param args irrelevant here
 	 */
 	public static void main(String[] args) {
+		Scene scene = new Scene.SceneBuilder("Test scene")//
+				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), new Double3(1,1,1))) //
+				.setBackground(new Color(75, 127, 90))
+				.build();
 
+		scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50),
+				new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
+				// left
+				new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
+				// left
+				new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
+		// right
+		Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPDistance(100) //
+				.setVPSize(500, 500) //
+				.setImageWriter(new ImageWriter("base render test", 1000, 1000))
+				.setRayTracer(new RayTracerBasic(scene));
+
+		camera.renderImage();
+		camera.printGrid(100, new Color(java.awt.Color.YELLOW));
+		camera.writeToImage();
+	}
+
+/**
 		try { // test zero vector
 			new Vector(0, 0, 0);
 			out.println("ERROR: zero vector does not throw an exception");
@@ -72,4 +100,5 @@ public final class Main {
 
 		out.println("If there were no any other outputs - all tests succeeded!");
 	}
+	**/
 }

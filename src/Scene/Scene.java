@@ -9,38 +9,38 @@ import primitives.Color;
  */
 public class Scene {
 
-    private final String _name;                 // scene name
-    private final Color _background;            // background color
-    private final AmbientLight _ambientLight;   // ambient light
-    private final Geometries _geometries;       // composite for all geometric object
+    private final String name;                 // scene name
+    private final Color background;            // background color
+    private final AmbientLight ambientLight;   // ambient light
+    private final Geometries geometries;       // composite for all geometric object
 
     /**
      * Construcor using Builder Pattern
      * @param builder the builder for the scene
      */
     private Scene(SceneBuilder builder){
-        _name = builder._name;
-        _background = builder._background;
-        _ambientLight = builder._ambientLight;
-        _geometries = builder._geometries;
+        name = builder._name;
+        background = builder._background;
+        ambientLight = builder._ambientLight;
+        geometries = builder._geometries;
     }
 
     //getters without Dan permission
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public Color getBackground() {
-        return _background;
+        return background;
     }
 
     public AmbientLight getAmbientLight() {
-        return _ambientLight;
+        return ambientLight;
     }
 
     public Geometries getGeometries() {
-        return _geometries;
+        return geometries;
     }
 
     /**

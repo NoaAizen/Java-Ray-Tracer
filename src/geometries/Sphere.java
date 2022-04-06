@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -74,6 +75,7 @@ public class Sphere implements Geometry {
      */
     @Override
     public List<Point> findIntersections(Ray ray) {
+
         //the data from the ray
         Point p0 = ray.getP0();
         Vector v = ray.getDir().normalize();
@@ -96,9 +98,9 @@ public class Sphere implements Geometry {
         }
         if (t1 > 0 && t2 > 0) {
 
-          //  Point p1 = p0.add(v.Scale(t1));
+            //  Point p1 = p0.add(v.Scale(t1));
             //Point p2 = p0.add(v.Scale(t2));
-            Point p1= ray.getPoint(t1);
+            Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
 
             return List.of(p1, p2);
@@ -113,8 +115,9 @@ public class Sphere implements Geometry {
             Point p2 = p0.add(v.Scale(t2));
             return List.of(p2);
         }
-    return null;
+        return null;
     }
-}
+    }
+
 
 

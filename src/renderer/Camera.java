@@ -1,12 +1,12 @@
 package renderer;
 
-import primitives.*;
-
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import static primitives.Util.alignZero;
+
+import java.util.MissingResourceException;
+
 import static primitives.Util.isZero;
 
 /**
@@ -22,8 +22,8 @@ public class Camera {
     private double distance;
     private double width;
     private double height;
-    private ImageWriter _imageWriter;
-    private RayTracerBase  _rayTracerBase;
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
 
 
 
@@ -141,6 +141,7 @@ public class Camera {
      * @return ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
+
         Point Pc = P0.add(Vto.Scale(distance));
         double Rx= height/nX;
         double Ry=width/nY;
@@ -163,47 +164,51 @@ public class Camera {
         Pij = Pij.add(Vright.Scale(Xj).add(Vup.Scale(Yi)));
         return new Ray(P0, Pij.subtract(P0));
 
+
     }
+    //עשינו בכיתה
     public Camera setImageWriter(ImageWriter imageWriter) {
-        _imageWriter = imageWriter;
+        this.imageWriter = imageWriter;
         return this;
     }
+    //עשינו בכיתה
 
-    /**
-     * Check that a blank value has been entered in the image manufacturer's field
-     */
     public void writeToImage() {
-        if (_imageWriter != null)
-            _imageWriter.writeToImage();
-        else
-            throw new MissingResourcesException;
+        imageWriter.writeToImage();
     }
+    //עשינו בכיתה
 
-    /**
-     * Check that a blank value has been entered in the image manufacturer's field
-     * @param gap
-     * @param intervalColor
-     */
     public void printGrid(int gap, Color intervalColor) {
-        if (_imageWriter != null)
-            _imageWriter.printGrid(gap,intervalColor);
-        else
-            throw new MissingResourcesException;
+        imageWriter.printGrid(gap,intervalColor);
     }
+    //עשינו בכיתה
 
-    public Camera setRayTracer(RayTracerBase rayTracerBase) {
-        _rayTracerBase = rayTracerBase;
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        rayTracerBase = rayTracer;
         return this;
     }
 
-    /**
-     * check That in all the fields a non-empty value was entered, else Throw an exception
-     */
     public void renderImage() {
-        if (getVto()!=null &&getVup()!=null&&getVright()!=null&& getP0()!=null&& getDistance()!=null&& getWidth()!=null&&getHeight()!=null&&_imageWriter!=null&&_rayTracerBase!=null )
-            _rayTracerBase.renderImage();
-        else
-            throw new MissingResourcesException;
+        //צריך לשנות הערות של הזריקה
+        try {
+            if (imageWriter == null)
+                throw new MissingResourceException("image writer is null", "ImageWriter", " writer");
+            if (rayTracerBase == null)
+                throw new MissingResourceException("ray tracer is null", "RayTracerBase", " ray trace");
+            if (height == 0 || width == 0 || distance == 0)
+                throw new MissingResourceException("One of the camera's elemnts is illegal", "double", "double");
 
+            for (int i = 0; i < imageWriter.getNy(); i++) {//שורות
+                for (int j = 0; j < imageWriter.getNx(); j++) {
+                    var ray=constructRay(imageWriter.getNx(), imageWriter.getNy(),j,i);
+                    var color=rayTracerBase.traceRay(ray);
+                    imageWriter.writePixel(j,i,color);
+                }
+            }
+
+        }
+        catch (Exception exception){
+            throw new UnsupportedOperationException("Can't render the image");
+    }
     }
 }

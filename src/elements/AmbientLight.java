@@ -1,7 +1,7 @@
 package elements;
 import primitives.*;
 
-
+//עשינו בכיתה
 public class AmbientLight {
     private final Color intensity;//עוצמה-של צבע
 
