@@ -173,7 +173,10 @@ public class Camera {
      * Check that a blank value has been entered in the image manufacturer's field
      */
     public void writeToImage() {
-        _imageWriter.writeToImage();
+        if (_imageWriter != null)
+            _imageWriter.writeToImage();
+        else
+            throw new MissingResourcesException;
     }
 
     /**
@@ -182,7 +185,10 @@ public class Camera {
      * @param intervalColor
      */
     public void printGrid(int gap, Color intervalColor) {
-        _imageWriter.printGrid(gap,intervalColor);
+        if (_imageWriter != null)
+            _imageWriter.printGrid(gap,intervalColor);
+        else
+            throw new MissingResourcesException;
     }
 
     public Camera setRayTracer(RayTracerBase rayTracerBase) {
@@ -194,6 +200,10 @@ public class Camera {
      * check That in all the fields a non-empty value was entered, else Throw an exception
      */
     public void renderImage() {
-        _rayTracerBase.renderImage();
+        if (getVto()!=null &&getVup()!=null&&getVright()!=null&& getP0()!=null&& getDistance()!=null&& getWidth()!=null&&getHeight()!=null&&_imageWriter!=null&&_rayTracerBase!=null )
+            _rayTracerBase.renderImage();
+        else
+            throw new MissingResourcesException;
+
     }
 }
