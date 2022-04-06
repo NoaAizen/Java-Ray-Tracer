@@ -44,7 +44,7 @@ public class Triangle extends Polygon  implements Geometry {
      * the P is the point in the plane we search that ray cross plane on it.
      * (this we get from the plane)
      * @parm ray
-     * @return
+     * @return list of point, that cross the view plane
      */
     public List<Point> findIntersections(Ray ray){
 

@@ -48,7 +48,12 @@ public class Plane implements Geometry{
 
     }
 
-    public Point getQ0() {
+    /**
+     * func getter
+     * @return point
+     */
+    public Point getQ0()
+    {
         return p0;
     }
 

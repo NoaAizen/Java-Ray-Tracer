@@ -8,16 +8,30 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Geometries implements Intersectable {
-    private List<Intersectable> _intersectableList=new LinkedList<>();
+    //list of cross points
+    private List<Intersectable> _intersectableList = new LinkedList<>();
 
-
-
+    /**
+     * constructor, add point cross to the list
+     * @param geometries
+     */
     public Geometries(Intersectable... geometries){
         add(geometries);
     }
+
+    /**
+     * add all point cross to the list
+     * @param geometries
+     */
     public void add(Intersectable... geometries){
         Collections.addAll(_intersectableList, geometries);
     }
+
+    /**
+     * find cross point and add to the list
+     * @param ray
+     * @return List of cross point
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
 
@@ -31,8 +45,6 @@ public class Geometries implements Intersectable {
                 result.addAll(itempoints);
             }
         }
-        // if(result.size()==0)
-        //   return  null;
         return result;
     }
 

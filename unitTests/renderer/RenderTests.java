@@ -45,3 +45,4 @@ public class RenderTests {
 		camera.writeToImage();
 	}
 }
+//אם רוצים לעשות בונוס לקחת מהמודל

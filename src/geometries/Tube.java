@@ -76,6 +76,10 @@ public class Tube implements Geometry {
                 '}';
     }
 
+    /**
+     * @param ray
+     * @return list of point that cross the view plane
+F     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         return null;

@@ -10,7 +10,7 @@ import java.util.MissingResourceException;
 import static primitives.Util.isZero;
 
 /**
- * noa and moga
+ * noa and noga
  */
 public class Camera {
 
@@ -166,35 +166,53 @@ public class Camera {
 
 
     }
-    //עשינו בכיתה
+
+    /**
+     *
+     * @param imageWriter
+     * @return
+     */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return this;
     }
-    //עשינו בכיתה
 
+    /**
+     *
+     */
     public void writeToImage() {
         imageWriter.writeToImage();
     }
-    //עשינו בכיתה
 
+    /**
+     *
+     * @param gap
+     * @param intervalColor
+     */
     public void printGrid(int gap, Color intervalColor) {
         imageWriter.printGrid(gap,intervalColor);
     }
-    //עשינו בכיתה
 
+    /**
+     *
+     * @param rayTracer
+     * @return Camera
+     */
     public Camera setRayTracer(RayTracerBase rayTracer) {
         rayTracerBase = rayTracer;
         return this;
     }
 
+    /**
+     *
+     */
     public void renderImage() {
         //צריך לשנות הערות של הזריקה
         try {
             if (imageWriter == null)
-                throw new MissingResourceException("image writer is null", "ImageWriter", " writer");
+                throw new MissingResourceException("dont have something in image writer ", "ImageWriter", " writer");
             if (rayTracerBase == null)
-                throw new MissingResourceException("ray tracer is null", "RayTracerBase", " ray trace");
+                throw new MissingResourceException("dont have something in ray tracer", "RayTracerBase", " ray trace");
             if (height == 0 || width == 0 || distance == 0)
                 throw new MissingResourceException("One of the camera's elemnts is illegal", "double", "double");
 

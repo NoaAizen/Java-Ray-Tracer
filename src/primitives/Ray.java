@@ -62,17 +62,30 @@ public class Ray {
         this.dir = dir.normalize();
     }
 
+    /**
+     * func of get
+     * @return vector
+     */
     public Vector getDirection() {
         return new Vector(dir.xyz);
     }
 
+    /**
+     * Multiply by double the point
+     * @param t
+     * @return point
+     */
     public Point getPoint(double t){
         if (isZero(t)){
             return  p0;
         }
         return p0.add(dir.Scale(t));
     }
-    //ומחזירה את הנקודה הקרובה לתחילת הקרן.
+
+    /**
+     * @param pointList
+     * @return the point closest to the beginning of the foundation.
+     */
     public Point findClosestPoint(List<Point> pointList)//
     {
         Point closestPoint=null;

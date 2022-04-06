@@ -7,7 +7,7 @@ public interface Intersectable {
     /**
      *to do-להשלי
      * @param ray
-     * @return
+     * @return list of point of cross
      */
     public List<Point> findIntersections(Ray ray);
 }

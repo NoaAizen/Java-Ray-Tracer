@@ -20,6 +20,7 @@ public class Sphere implements Geometry {
     final double radius;
 
     /**
+     * constructor
      * @param center
      * @param radius
      */
@@ -30,7 +31,6 @@ public class Sphere implements Geometry {
 
     /**
      * get the point center
-     *
      * @return point
      */
     public Point getCenter() {
@@ -39,7 +39,6 @@ public class Sphere implements Geometry {
 
     /**
      * get the radius center
-     *
      * @return double
      */
     public double getRadius() {
@@ -48,7 +47,6 @@ public class Sphere implements Geometry {
 
     /**
      * return vector normal
-     *
      * @param p1
      * @return vector
      */
@@ -117,7 +115,7 @@ public class Sphere implements Geometry {
         }
         return null;
     }
-    }
+}
 
 
 

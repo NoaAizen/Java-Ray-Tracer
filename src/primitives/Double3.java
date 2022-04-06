@@ -44,6 +44,11 @@ public class Double3 {
         this.d3 = value;
     }
 
+    /**
+     * it the obj is equals to the object that called a function
+     * @param obj
+     * @return type boolean
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

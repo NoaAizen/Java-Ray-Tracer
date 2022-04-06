@@ -7,7 +7,7 @@ import primitives.Ray;
 
 public class RayTracerBasic extends RayTracerBase {
 
-    //עשינו בכיתה
+
     /**
      * Constructor
      * @param scene
