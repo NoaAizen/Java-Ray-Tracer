@@ -111,7 +111,7 @@ public class Vector extends Point {
     }
 
     /*
-     * lengthSquared
+     * length Squared
      * @return
      */
     public double lengthSquared() {
@@ -121,7 +121,7 @@ public class Vector extends Point {
     }
 
     /**
-     * toString
+     * to String
      * @return string
      */
     @Override
