@@ -75,7 +75,7 @@ public class Vector extends Point {
     /**
      * cross Product
      * @param vector
-     * @return
+     * @return Vector
      */
     public Vector crossProduct(Vector vector) {
         double ax = xyz.d1;
@@ -104,7 +104,7 @@ public class Vector extends Point {
 
     /**
      * length
-     * @return
+     * @return double
      */
     public double length() {
         return Math.sqrt(lengthSquared());
