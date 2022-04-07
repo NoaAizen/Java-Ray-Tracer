@@ -73,7 +73,7 @@ public class Vector extends Point {
     }
 
     /**
-     * crossProduct
+     * cross Product
      * @param vector
      * @return Vector
      */
