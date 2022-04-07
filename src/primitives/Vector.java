@@ -122,7 +122,7 @@ public class Vector extends Point {
 
     /**
      * toString
-     * @return
+     * @return string
      */
     @Override
     public String toString() {

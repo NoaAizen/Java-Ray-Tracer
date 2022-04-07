@@ -26,7 +26,6 @@ public class Scene {
     }
 
     //getters without Dan permission
-
     public String getName() {
         return name;
     }

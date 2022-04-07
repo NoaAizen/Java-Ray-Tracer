@@ -22,17 +22,27 @@ public class RayTracerBasic extends RayTracerBase {
     public RayTracerBasic() {
         super(null);
     }
+
+    /**
+     * @param point
+     * @return color
+     */
     private Color calcColor(Point point) {
         return scene.getAmbientLight().getIntensity();
     }
-//לכתוב תיעוד
+
+    /**
+     * trace ray, and find cross point and return calcColor of the point if dont have point return Backgroung
+     * @param ray
+     * @return Color
+     */
     @Override
     public Color traceRay(Ray ray) {
-        var listOfPoints=scene.getGeometries().findIntersections(ray);
+        var listOfPoints= scene.getGeometries().findIntersections(ray);
       if(listOfPoints == null){
           return  scene.getBackground();
       }
-        Point closetsPoint=ray.findClosestPoint(listOfPoints);
+        Point closetsPoint = ray.findClosestPoint(listOfPoints);
         return calcColor(closetsPoint);
     }
 }

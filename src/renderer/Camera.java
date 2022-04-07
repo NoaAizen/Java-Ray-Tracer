@@ -27,8 +27,8 @@ public class Camera {
 
 
 
-    /**\
-     *     return Vto the vector to the view plane
+    /**
+     * return Vto the vector to the view plane
      * @return Vector
      */
     public Vector getVto() {
@@ -37,7 +37,7 @@ public class Camera {
 
 
     /**
-     *     return Vup the vector is orthogonals to Vto and Vright
+     * return Vup the vector is orthogonals to Vto and Vright
      * @return Vector
      */
     public Vector getVup() {
@@ -45,7 +45,7 @@ public class Camera {
     }
 
     /**
-     *     return Vright the vector is orthogonals to Vto and Vright
+     * return Vright the vector is orthogonals to Vto and Vright
      * @return Vector
      */
     public Vector getVright() {
@@ -54,7 +54,7 @@ public class Camera {
 
 
     /**
-     *     return the point that the camera be there
+     * return the point that the camera be there
      * @return p0
      */
     public Point getP0() {
@@ -63,7 +63,7 @@ public class Camera {
 
 
     /**
-     * getDistance-    the distance between the camera and view plane
+     * getDistance - the distance between the camera and view plane
      * @return distance
      */
     public double getDistance() {
@@ -71,7 +71,7 @@ public class Camera {
     }
 
     /**
-     * get
+     * get func
      * @return width
      */
     public double getWidth() {
@@ -79,7 +79,7 @@ public class Camera {
     }
 
     /**
-     * getHeight
+     * getHeight func
      * @return height
      */
     public double getHeight() {
@@ -87,7 +87,7 @@ public class Camera {
     }
 
     /**
-     * constructor-with parameters for position values and two vectors of direction
+     * constructor - with parameters for position values and two vectors of direction
      * @param p0
      * @param vto
      * @param vup
@@ -105,10 +105,10 @@ public class Camera {
     }
 
     /**
-     *         constructor-• Update method (set) for the View Plane size, which receives two numbers - width and height
+     * constructor - Update method (set) for the View Plane size, which receives two numbers - width and height
      * @param w
      * @param h
-     * @return
+     * @return this \ camera
      */
     public Camera setVPSize(double w, double h) {
         if (w <= 0 || h <= 0) {
@@ -120,7 +120,7 @@ public class Camera {
     }
 
     /**
-     * • Update method for the View Plane distance from the camera
+     * Update method for the View Plane distance from the camera
      * @param d
      * @return camera
      */
@@ -168,9 +168,9 @@ public class Camera {
     }
 
     /**
-     *
+     * turn on imageWriter
      * @param imageWriter
-     * @return
+     * @return Camera
      */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
@@ -178,14 +178,14 @@ public class Camera {
     }
 
     /**
-     *
+     * turn off writeToImage
      */
     public void writeToImage() {
         imageWriter.writeToImage();
     }
 
     /**
-     *
+     * turn on printGrid with gap and intervalColor the func get
      * @param gap
      * @param intervalColor
      */
@@ -194,7 +194,7 @@ public class Camera {
     }
 
     /**
-     *
+     * set Ray Tracer
      * @param rayTracer
      * @return Camera
      */
@@ -204,10 +204,10 @@ public class Camera {
     }
 
     /**
-     *
+     * check imageWriter and rayTracerBase is null, and check height and width and distance is zero
+     * and write pixel.
      */
     public void renderImage() {
-        //צריך לשנות הערות של הזריקה
         try {
             if (imageWriter == null)
                 throw new MissingResourceException("dont have something in image writer ", "ImageWriter", " writer");
@@ -226,7 +226,7 @@ public class Camera {
 
         }
         catch (Exception exception){
-            throw new UnsupportedOperationException("Can't render the image");
-    }
+            throw new UnsupportedOperationException("can not render the image");
+        }
     }
 }
