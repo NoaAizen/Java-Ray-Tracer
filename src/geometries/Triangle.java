@@ -12,7 +12,7 @@ import static primitives.Util.alignZero;
  *
  * @author noga and noa
  */
-public class Triangle extends Polygon  implements Geometry {
+public class Triangle extends Polygon {
 
     /**
      * constctor using super main using Polygon
@@ -37,16 +37,7 @@ public class Triangle extends Polygon  implements Geometry {
     public Vector getNormal(Point p){
         return this.plane.getNormal(p);
     }
-    /**
-     * The data:
-     * n = normal of the plane
-     * Q = the point in the plane
-     * the P is the point in the plane we search that ray cross plane on it.
-     * (this we get from the plane)
-     * @parm ray
-     * @return list of point, that cross the view plane
-     */
-    public List<Point> findIntersections(Ray ray){
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
 
         var intersection=super.plane.findIntersections(ray);
         if(intersection==null)
@@ -62,6 +53,7 @@ public class Triangle extends Polygon  implements Geometry {
         if(s1*s2<=0) return null;
         double s3=alignZero(v.dotProduct(v3.crossProduct(v1)));
         if(s1*s3<=0) return null;
-        return intersection;
+        return  List.of(new GeoPoint(this,p0));//check
     }
+
 }

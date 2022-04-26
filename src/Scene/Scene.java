@@ -1,6 +1,6 @@
 package Scene;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.Geometries;
 import primitives.Color;
 

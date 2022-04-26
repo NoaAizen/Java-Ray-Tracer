@@ -1,5 +1,5 @@
 import Scene.Scene;
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.*;

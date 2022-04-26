@@ -11,7 +11,7 @@ import static primitives.Util.*;
  *
  * @author noga and noa
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
     final Ray axisRay;
     final double radius;
 
@@ -79,9 +79,10 @@ public class Tube implements Geometry {
     /**
      * @param ray
      * @return list of point that cross the view plane
-F     */
+     */
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+
         return null;
     }
 }

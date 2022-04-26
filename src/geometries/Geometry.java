@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
@@ -9,21 +10,39 @@ import java.util.List;
 /**
  * this is the interface for all geometries that need to get a normalized vector.its the most basic interface for all geometries.
  */
-public interface Geometry extends Intersectable
+
+public abstract class Geometry extends Intersectable
 {
+    protected Color emission = Color.BLACK;
+
+    /**
+     * func gett
+     * @return Color
+     */
+    public Color getEmission() {
+        return emission;
+    }
+
     /**
      *
      * @param point
      * @return Vector
      */
-    public Vector getNormal (Point point);
+    public abstract Vector getNormal (Point point);
 
-    /**
-     *
-     * @param ray
-     * @return list of point
-     */
-    public List<Point> findIntersections(Ray ray);
 
+
+
+
+
+        /**
+         *
+         * @param emission
+         * @return
+         */
+        public Geometry setEmission(Color emission){
+            emission = emission;
+            return this;
+        }
 
 }

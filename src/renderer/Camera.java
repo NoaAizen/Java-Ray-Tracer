@@ -223,7 +223,6 @@ public class Camera {
                     imageWriter.writePixel(j,i,color);
                 }
             }
-
         }
         catch (Exception exception){
             throw new UnsupportedOperationException("can not render the image");

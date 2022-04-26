@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  *
  * @author noga and noa
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     final Point center;
     final double radius;
@@ -62,23 +62,15 @@ public class Sphere implements Geometry {
                 '}';
     }
 
-    /**
-     * The data:
-     * n = normal of the plane
-     * p = the point in the plane
-     * (this we get from the plane)
-     *
-     * @return
-     * @parm ray
-     */
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
         //the data from the ray
         Point p0 = ray.getP0();
         Vector v = ray.getDir().normalize();
-        if (center.equals(p0)) {
-            return List.of(center.add(v.Scale(radius)));
+        if (center.equals(p0)) {// לשנות לGeoPoint
+            return List.of(new GeoPoint(this,center.add(v.Scale(radius))));
         }
         Vector u = center.subtract(p0);
         double tm = (v.dotProduct(u));
@@ -101,17 +93,17 @@ public class Sphere implements Geometry {
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
 
-            return List.of(p1, p2);
+            return List.of(new GeoPoint(this, p2));
         }
         if (t1 > 0) {
 
             Point p1 = p0.add(v.Scale(t1));
-            return List.of(p1);
+            return List.of(new GeoPoint(this,p1));
         }
         if (t2 > 0) {
 
             Point p2 = p0.add(v.Scale(t2));
-            return List.of(p2);
+            return List.of(new GeoPoint(this,p2));
         }
         return null;
     }

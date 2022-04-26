@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  * @author noga and noa
  */
 
-public class Plane implements Geometry{
+public class Plane extends Geometry{
     final Point p0;
     final Vector normal;
 
@@ -83,54 +83,9 @@ public class Plane implements Geometry{
                 '}';
     }
 
-    /**
-     * The data:
-     * n = normal of the plane
-     * Q = the point in the plane
-     * the P is the point in the plane we search that ray cross plane on it.
-     * (this we get from the plane)
-     * @parm ray
-     * @return
-     */
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
-/**
-        //the data from the ray
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
-
-        //the data from the plane
-        Vector n = getNormal();
-        Point Q = getQ0();
-
-        //check if the vector between Q and p0 is zero (it mean that the ray start on plane)
-        if(Q.equals(p0))
-            return null;
-
-        //numerator of the calculation t
-        double numerator = alignZero(n.dotProduct(Q.subtract(p0)));
-
-        //denominator of the calculation t
-        double nv = alignZero(n.dotProduct(v));
-
-        //check if the vector of plane(n) and the vector of ray is Orthogonal
-        if(isZero(nv))
-            return null;
-
-        //the calculation t
-        double t = alignZero(numerator/nv);
-
-        //The opposite direction
-        if (t<=0)
-            return null;
-
-        //Ray points P = P0 + tV
-        Point P = ray.getPoint(t);
-
-        //the points of the ray on plane
-
-        return List.of(P);
- **/
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Vector n=getNormal();
         double nv=n.dotProduct(ray.getDirection());
         if(isZero(nv))
@@ -148,6 +103,6 @@ public class Plane implements Geometry{
         double t=alignZero(n.dotProduct(p0Q)/nv);
         if(t<=0)
             return null;
-        return List.of(ray.getPoint(t));
+        return List.of(new GeoPoint(this,ray.getPoint(t)));
     }
 }

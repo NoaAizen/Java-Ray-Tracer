@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.*;
+import geometries.Intersectable.GeoPoint;
 
 public class Ray {
     final Point p0;
@@ -83,29 +84,49 @@ public class Ray {
     }
 
     /**
-     * @param pointList
+     * @param points
      * @return the point closest to the beginning of the foundation.
      */
-    public Point findClosestPoint(List<Point> pointList)//
-    {
-        Point closestPoint=null;
-        double distance=Double.MAX_VALUE;
-        double d;
-        if (pointList==null)
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
+
+
+    /**
+     *
+     * @param geoPoints
+     * @return The closest point to the began of the ray
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
+
+        if (geoPoints == null) //In case of an empty list
             return null;
-        if(!pointList.isEmpty())
-            return closestPoint;
-        for (var pt: pointList)//בודק את נקודה הכי קורבה לקרן עם חישוב מרחק
-        {
-            d=p0.distance(pt);
-
-            if(d<distance)
-            {
-                distance=d;
-                closestPoint=pt;
-            }
-
+        GeoPoint closePoint = geoPoints.get(0);	//Save the first point in the list
+        for (GeoPoint p : geoPoints) {
+            if (closePoint.point.distance(p0) > p.point.distance(p0))	//In case the distance of closes point is bigger than the p point
+                closePoint = p;
         }
-        return  closestPoint;
+        return closePoint;
+    }
+
+
+    public GeoPoint findGeoClosestPoint(List<GeoPoint> intersections) {
+        GeoPoint closestPoint = null;
+        if(intersections==null)
+            return null;
+        double distance = Double.MAX_VALUE;
+        double d;
+        if(!intersections.isEmpty()) {
+            for (var pt : intersections) {
+                d = p0.distance(pt.point);
+
+                if (d < distance) {
+                    distance = d;
+                    closestPoint = pt;
+                }
+            }
+        }
+        return closestPoint;
     }
 }
