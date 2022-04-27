@@ -3,31 +3,21 @@ package lighting;
 import primitives.*;
 
 //עשינו בכיתה
-public class AmbientLight {
-    //Intensity of color
-    private final Color intensity;
+public class AmbientLight extends Light {
 
     /**
+     * Final power of ambient lighting
      * @param Ia
      * @param Ka
      */
     public AmbientLight(Color Ia, Double3 Ka) {
-        intensity = Ia.scale(Ka);
+       super(Ia.scale(Ka));
     }
 
     /**
-     * func getter
-     *
-     * @return intensity
-     */
-    public Color getIntensity() {
-        return intensity;
-    }
-
-    /**
-     * constructor, put black in intensity
+     * constructor, put black in intensity of class light
      */
     public AmbientLight() {
-        intensity = Color.BLACK;
+        super(Color.BLACK);
     }
 }

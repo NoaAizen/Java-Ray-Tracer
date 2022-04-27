@@ -2,7 +2,11 @@ package Scene;
 
 import lighting.AmbientLight;
 import geometries.Geometries;
+import lighting.LightSource;
 import primitives.Color;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Scene class : Compound class for all the objects of the 3D world to render
@@ -13,7 +17,7 @@ public class Scene {
     private final Color background;            // background color
     private final AmbientLight ambientLight;   // ambient light
     private final Geometries geometries;       // composite for all geometric object
-
+    private List<LightSource> lights = new LinkedList<>();
     /**
      * Construcor using Builder Pattern
      * @param builder the builder for the scene
@@ -23,6 +27,7 @@ public class Scene {
         background = builder._background;
         ambientLight = builder._ambientLight;
         geometries = builder._geometries;
+        lights = builder._lights;
     }
 
     //getters without Dan permission
@@ -42,6 +47,10 @@ public class Scene {
         return geometries;
     }
 
+    public List<LightSource>  getLights() {
+        return lights;
+    }
+
     /**
      * inner class for Scene Builder
      */
@@ -51,6 +60,7 @@ public class Scene {
         private Color _background = Color.BLACK;
         private AmbientLight _ambientLight = new AmbientLight();
         private Geometries _geometries = new Geometries();
+        private List<LightSource> _lights = new LinkedList<>();
 
         /**
          * Construcor for builder
@@ -73,6 +83,10 @@ public class Scene {
 
         public SceneBuilder setGeometries(Geometries geometries) {
             _geometries = geometries;
+            return this;
+        }
+        public SceneBuilder setLights(List<LightSource> lights){
+            _lights = lights;
             return this;
         }
         public Scene build(){
