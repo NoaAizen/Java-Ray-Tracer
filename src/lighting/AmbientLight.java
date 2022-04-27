@@ -1,4 +1,5 @@
 package lighting;
+
 import primitives.*;
 
 //עשינו בכיתה
@@ -7,16 +8,16 @@ public class AmbientLight {
     private final Color intensity;
 
     /**
-     *
      * @param Ia
      * @param Ka
      */
-    public  AmbientLight(Color Ia,Double3 Ka){
-        intensity=Ia.scale(Ka);
+    public AmbientLight(Color Ia, Double3 Ka) {
+        intensity = Ia.scale(Ka);
     }
 
     /**
      * func getter
+     *
      * @return intensity
      */
     public Color getIntensity() {
@@ -27,6 +28,6 @@ public class AmbientLight {
      * constructor, put black in intensity
      */
     public AmbientLight() {
-        intensity=Color.BLACK;
+        intensity = Color.BLACK;
     }
 }

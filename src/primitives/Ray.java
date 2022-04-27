@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.*;
+
 import geometries.Intersectable.GeoPoint;
 
 public class Ray {
@@ -24,6 +25,7 @@ public class Ray {
 
     /**
      * toString
+     *
      * @return
      */
     @Override
@@ -37,6 +39,7 @@ public class Ray {
 
     /**
      * equals
+     *
      * @param o
      * @return
      */
@@ -55,6 +58,7 @@ public class Ray {
 
     /**
      * constructor
+     *
      * @param p0
      * @param dir
      */
@@ -65,6 +69,7 @@ public class Ray {
 
     /**
      * func of get
+     *
      * @return vector
      */
     public Vector getDirection() {
@@ -73,12 +78,13 @@ public class Ray {
 
     /**
      * Multiply by double the point
+     *
      * @param t
      * @return point
      */
-    public Point getPoint(double t){
-        if (isZero(t)){
-            return  p0;
+    public Point getPoint(double t) {
+        if (isZero(t)) {
+            return p0;
         }
         return p0.add(dir.Scale(t));
     }
@@ -94,7 +100,6 @@ public class Ray {
 
 
     /**
-     *
      * @param geoPoints
      * @return The closest point to the began of the ray
      */
@@ -102,9 +107,9 @@ public class Ray {
 
         if (geoPoints == null) //In case of an empty list
             return null;
-        GeoPoint closePoint = geoPoints.get(0);	//Save the first point in the list
+        GeoPoint closePoint = geoPoints.get(0);    //Save the first point in the list
         for (GeoPoint p : geoPoints) {
-            if (closePoint.point.distance(p0) > p.point.distance(p0))	//In case the distance of closes point is bigger than the p point
+            if (closePoint.point.distance(p0) > p.point.distance(p0))    //In case the distance of closes point is bigger than the p point
                 closePoint = p;
         }
         return closePoint;
@@ -113,11 +118,11 @@ public class Ray {
 
     public GeoPoint findGeoClosestPoint(List<GeoPoint> intersections) {
         GeoPoint closestPoint = null;
-        if(intersections==null)
+        if (intersections == null)
             return null;
         double distance = Double.MAX_VALUE;
         double d;
-        if(!intersections.isEmpty()) {
+        if (!intersections.isEmpty()) {
             for (var pt : intersections) {
                 d = p0.distance(pt.point);
 

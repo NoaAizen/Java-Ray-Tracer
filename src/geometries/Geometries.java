@@ -13,17 +13,19 @@ public class Geometries extends Intersectable {
 
     /**
      * constructor, add point cross to the list
+     *
      * @param geometries
      */
-    public Geometries(Intersectable... geometries){
+    public Geometries(Intersectable... geometries) {
         add(geometries);
     }
 
     /**
      * add all point cross to the list
+     *
      * @param geometries
      */
-    public void add(Intersectable... geometries){
+    public void add(Intersectable... geometries) {
         Collections.addAll(_intersectableList, geometries);
     }
 
@@ -34,19 +36,22 @@ public class Geometries extends Intersectable {
      */
 
     /**
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
-        return (List<GeoPoint>) this;
-    }
-    */
+     * @Override protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+     * return (List<GeoPoint>) this;
+     * }
+     */
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> intersections = null;
+        List<GeoPoint> totalIntersections = null;
         for (var geometry : _intersectableList) {
             var geoIntersections = geometry.findGeoIntersections(ray);
-            if (!geoIntersections.isEmpty())
-                intersections.addAll(geoIntersections);
+            if (geoIntersections != null) {
+                if (totalIntersections == null) {
+                    totalIntersections = new LinkedList<>();
+                }
+                totalIntersections.addAll(geoIntersections);
+            }
         }
-        return intersections;
+        return totalIntersections;
     }
 
 }

@@ -23,11 +23,11 @@ public abstract class Intersectable {
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
     public static class GeoPoint{
-        public Geometry _geometry;
+        public Geometry geometry;
         public Point point;
 
         public GeoPoint(Geometry geometry, Point point) {
-            _geometry = geometry;
+            this.geometry = geometry;
             this.point = point;
         }
 
@@ -36,18 +36,18 @@ public abstract class Intersectable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             GeoPoint geoPoint = (GeoPoint) o;
-            return _geometry.equals(geoPoint._geometry) && point.equals(geoPoint.point);
+            return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(_geometry, point);
+            return Objects.hash(geometry, point);
         }
 
         @Override
         public String toString() {
             return "GeoPoint{" +
-                    "_geometry=" + _geometry +
+                    "_geometry=" + geometry +
                     ", point=" + point +
                     '}';
         }

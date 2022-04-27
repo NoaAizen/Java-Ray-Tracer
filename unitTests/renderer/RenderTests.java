@@ -25,10 +25,11 @@ public class RenderTests {
 	public void basicRenderTwoColorTest() {
 		Scene scene = new Scene.SceneBuilder("Test scene")//
 				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), //
-						new Double3(1,1,1))) //
-				.setBackground(new Color(75, 127, 90)).build();
+						new Double3(1, 1, 1))) //
+				.setBackground(new Color(75, 127, 90))
+				.build();
 
-		scene.getGeometries().add(new Sphere( new Point(0, 0, -100),50),
+		scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50d),
 				new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
 				// left
 				new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
@@ -42,7 +43,7 @@ public class RenderTests {
 				.setRayTracer(new RayTracerBasic(scene));
 
 		camera.renderImage();
-		camera.printGrid(100, new Color(java.awt.Color.YELLOW));
+		camera.printGrid(100, new Color(YELLOW));
 		camera.writeToImage();
 	}// For stage 6 - please disregard in stage 5
 	/**

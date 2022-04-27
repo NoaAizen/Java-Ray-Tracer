@@ -39,7 +39,7 @@ public class Triangle extends Polygon {
     }
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
 
-        var intersection=super.plane.findIntersections(ray);
+        var intersection=plane.findGeoIntersectionsHelper(ray);
         if(intersection==null)
             return null;
         Point p0=ray.getP0();
@@ -53,7 +53,7 @@ public class Triangle extends Polygon {
         if(s1*s2<=0) return null;
         double s3=alignZero(v.dotProduct(v3.crossProduct(v1)));
         if(s1*s3<=0) return null;
-        return  List.of(new GeoPoint(this,p0));//check
+        return  List.of(new GeoPoint(this,intersection.get(0).point));//check
     }
 
 }

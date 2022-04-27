@@ -180,8 +180,9 @@ public class Camera {
     /**
      * turn off writeToImage
      */
-    public void writeToImage() {
+    public Camera writeToImage() {
         imageWriter.writeToImage();
+        return this;
     }
 
     /**
@@ -216,16 +217,22 @@ public class Camera {
             if (height == 0 || width == 0 || distance == 0)
                 throw new MissingResourceException("One of the camera's elemnts is illegal", "double", "double");
 
-            for (int i = 0; i < imageWriter.getNy(); i++) {//שורות
-                for (int j = 0; j < imageWriter.getNx(); j++) {
-                    var ray=constructRay(imageWriter.getNx(), imageWriter.getNy(),j,i);
-                    var color=rayTracerBase.traceRay(ray);
-                    imageWriter.writePixel(j,i,color);
+            int Ny = imageWriter.getNy();
+            int Nx = imageWriter.getNx();
+            for (int i = 0; i < Ny; i++) {//שורות
+                for (int j = 0; j < Nx; j++) {
+                    castRay(Nx, Ny, i, j);
                 }
             }
         }
         catch (Exception exception){
             throw new UnsupportedOperationException("can not render the image");
         }
+    }
+
+    private void castRay(int Nx, int Ny, int i, int j) {
+        var ray=constructRay(Nx, Ny, j, i);
+        var color=rayTracerBase.traceRay(ray);
+        imageWriter.writePixel(j, i,color);
     }
 }
