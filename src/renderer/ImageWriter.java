@@ -90,6 +90,11 @@ public class ImageWriter {
 		image.setRGB(xIndex, yIndex, color.getColor().getRGB());
 	}
 
+	/**
+	 *
+	 * @param gap
+	 * @param intervalColor
+	 */
 	public void printGrid(int gap, Color intervalColor) {
 		for (int i = 0; i < nX; i++) {
 			for (int j = 0; j < nY; j++) {

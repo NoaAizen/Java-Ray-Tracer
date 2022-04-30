@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Ray;
-import primitives.Vector;
-import primitives.Point;
+import primitives.*;
 
 import java.util.List;
 
@@ -14,6 +11,8 @@ import java.util.List;
 public abstract class Geometry extends Intersectable
 {
     protected Color emission = Color.BLACK;
+    private Material material = new Material();
+
 
     /**
      * func gett
@@ -30,19 +29,31 @@ public abstract class Geometry extends Intersectable
      */
     public abstract Vector getNormal (Point point);
 
-
-
-
-
-
-        /**
+    /**
          *
          * @param emission
          * @return
          */
-        public Geometry setEmission(Color emission){
+    public Geometry setEmission(Color emission){
             this.emission = emission;
             return this;
         }
 
+    /**
+     * func getter
+     * @return Material
+     */
+    public Material getMaterial() {
+        return material;
+    }
+
+    /**
+     * func setter type builder
+     * @param material
+     * @return Geometry
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
 }

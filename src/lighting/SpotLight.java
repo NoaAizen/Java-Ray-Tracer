@@ -7,6 +7,15 @@ import primitives.Vector;
 public class SpotLight  extends PointLight {
 
     private Vector direction;//כיוון
+    private double narrowBeam = 0d;
+
+    public SpotLight setNarrowBeam(double narrowBeam) {
+        this.narrowBeam = narrowBeam;
+        return this;
+    }
+    public double getNarrowBeam() {
+        return narrowBeam;
+    }
 
     /**
      * constructor
