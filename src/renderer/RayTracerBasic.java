@@ -3,9 +3,10 @@ package renderer;
 import Scene.Scene;
 import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
+import lighting.LightSource;
+import primitives.*;
+
+import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
 
@@ -30,13 +31,39 @@ public class RayTracerBasic extends RayTracerBase {
      * @return color
      */
     private Color calcColor(GeoPoint geoPoint,Ray ray) {
-        //return scene.getAmbientLight().getIntensity();
-        Color ambientLight = scene.getAmbientLight().getIntensity();
-        Color emission = geoPoint.geometry.getEmission();
-
-        Color result = ambientLight.add(emission);
-        return result;
+        Color color = scene.getAmbientLight().getIntensity();
+        color = color.add(calcLocalEffects(geoPoint,ray));
+        return color;
     }
+
+    private Color calcLocalEffects(GeoPoint geoPoint, Ray ray) {
+        Color color = geoPoint.geometry.getEmission();
+        Vector v = ray.getDir();
+        Vector n = geoPoint.geometry.getNormal(geoPoint.point);
+        double nv = alignZero(n.dotProduct(v));
+        Material material = geoPoint.geometry.getMaterial();
+        if(nv==0)
+            return color;
+        for (LightSource lightSource : scene.getLights()) {
+            Vector l = lightSource.getL(geoPoint.point);
+            double nl = alignZero(n.dotProduct(l));
+            if (nl * nv > 0) {
+                    Color iL = lightSource.getIntensity(geoPoint.point);
+                    color = color.add(iL.scale(calcDiffusive(material, nl)),
+                            iL.scale(calcSpecular(material, n, l, nl, v)));
+            }
+        }
+        return color;
+    }
+
+    private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+        Vector r = l.subtract(l.dotProduct(n)*2)
+    }
+
+    private double calcDiffusive(Material material, double nl) {
+        
+    }
+
 
     /**
      * trace ray, and find cross point and return calcColor of the point if dont have point return Backgroung
@@ -45,15 +72,6 @@ public class RayTracerBasic extends RayTracerBase {
      */
     @Override
     public Color traceRay(Ray ray) {
-        /**
-        var listOfPoints= scene.getGeometries().findIntersections(ray);
-      if(listOfPoints == null){
-          return  scene.getBackground();
-      }
-        Point closetsPoint = ray.findClosestPoint(listOfPoints);
-        return calcColor(closetsPoint);
-         */
-
         var intersections = scene.getGeometries().findGeoIntersections(ray);
         if (intersections == null)
             return scene.getBackground();
