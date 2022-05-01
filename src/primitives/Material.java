@@ -4,6 +4,21 @@ public class Material {
     public Double3 kD = Double3.ZERO;
     public Double3 kS = Double3.ZERO;
     public int nShininess = 0;
+    // ***************** Getters ********************** //
+    /**
+     * func getter with double
+     * @return Double3 kS
+     */
+    public Double3 getkS() {
+        return kS;
+    }
+    /**
+     * func getter with double
+     * @return Double3 kS
+     */
+    public Double3 getkD() {
+        return kD;
+    }
 
     // ***************** Setters ********************** //
     /**
@@ -55,4 +70,5 @@ public class Material {
         this.nShininess = nShininess;
         return this;
     }
+
 }

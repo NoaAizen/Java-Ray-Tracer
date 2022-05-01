@@ -56,12 +56,34 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
-    private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-        Vector r = l.subtract(l.dotProduct(n)*2)
+    /**
+     *
+     * @param material
+     * @param n
+     * @param l
+     * @param nl
+     * @param v
+     * @return
+     */
+    private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+        Vector r = l.add(n.Scale(-2*nl));
+        double minusVR = -alignZero(r.dotProduct(v));
+        if (minusVR<=0)
+            return Double3.ZERO;
+        Double3 result =  material.getkS().scale(Math.pow(minusVR,material.nShininess));
+        return result;
     }
 
-    private double calcDiffusive(Material material, double nl) {
-        
+    /**
+     *
+     * @param material
+     * @param nl
+     * @return
+     */
+    private Double3 calcDiffusive(Material material, double nl) {
+        nl = Math.abs(nl);
+        Double3 result = material.getkD().scale(nl);
+        return result;
     }
 
 
