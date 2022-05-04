@@ -107,4 +107,29 @@ class ReflectionRefractionTests {
 				.renderImage() ;//
 		camera.writeToImage();
 	}
+	@Test
+	public void test() {
+		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPSize(200, 200).setVPDistance(1000);
+
+		Scene scene = new Scene.SceneBuilder("Test scene").setAmbientLight(new AmbientLight(new Color(red), new Double3(0.55))).build();
+
+		scene.getGeometries().add( //
+				new Triangle(new Point(0,0, -115), new Point(0, -150, -135), new Point(0, 75, -150)) //
+						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(60)), //
+				new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
+						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(60)), //
+				new Sphere(new Point(60, 0, -50), 1).setEmission(new Color(200,100,250)) //
+						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.6))));
+
+		scene.getLights().add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
+				.setkL(4E-5).setkQ(2E-7));
+
+		ImageWriter imageWriter = new ImageWriter("11", 600, 600);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage() ;//
+		camera.writeToImage();
+	}
+
 }

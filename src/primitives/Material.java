@@ -64,6 +64,13 @@ public class Material {
         return this;
     }
 
+    public Double3 getkT() {
+        return kT;
+    }
+
+    public Double3 getkR() {
+        return kR;
+    }
 
     /**
      * func setter with type builder
