@@ -30,14 +30,14 @@ public abstract class Geometry extends Intersectable
     public abstract Vector getNormal (Point point);
 
     /**
-         *
-         * @param emission
-         * @return
-         */
+     *
+     * @param emission
+     * @return
+     */
     public Geometry setEmission(Color emission){
-            this.emission = emission;
-            return this;
-        }
+        this.emission = emission;
+        return this;
+    }
 
     /**
      * func getter
@@ -56,4 +56,5 @@ public abstract class Geometry extends Intersectable
         this.material = material;
         return this;
     }
+
 }

@@ -1,7 +1,6 @@
 package primitives;
 
-import primitives.Point;
-import primitives.Double3;
+import static primitives.Util.isZero;
 
 public class Vector extends Point {
     // ***************** constructor ********************** //
@@ -48,16 +47,14 @@ public class Vector extends Point {
 
     /**
      * Scale
-     * @param temp
+     * @param factor
      * @return
      */
-    public Vector Scale(double temp){
-        Double3 result = xyz.scale(temp);
-
-        if (Double3.ZERO.equals(result)) {
-            throw new IllegalArgumentException("Error!! zero vector");
+    public Vector scale(double factor){
+        if(isZero(factor)){
+            throw  new IllegalArgumentException("Error!! zero vector");
         }
-        return new Vector(result);
+        return new Vector(xyz.scale(factor));
     }
 
     /**

@@ -2,9 +2,7 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Util.isZero;
 
 class VectorTest {
 
@@ -42,7 +40,7 @@ class VectorTest {
     @Test
     void testScale() {
         assertEquals(new Vector(2, 4, 6),
-                v1.Scale(2.0),
+                v1.scale(2.0),
                 "Wrong vector scale");
     }
 

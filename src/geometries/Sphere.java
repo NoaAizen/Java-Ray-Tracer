@@ -21,6 +21,7 @@ public class Sphere extends Geometry {
 
     /**
      * constructor
+     *
      * @param center
      * @param radius
      */
@@ -31,6 +32,7 @@ public class Sphere extends Geometry {
 
     /**
      * get the point center
+     *
      * @return point
      */
     public Point getCenter() {
@@ -39,6 +41,7 @@ public class Sphere extends Geometry {
 
     /**
      * get the radius center
+     *
      * @return double
      */
     public double getRadius() {
@@ -47,6 +50,7 @@ public class Sphere extends Geometry {
 
     /**
      * return vector normal
+     *
      * @param p1
      * @return vector
      */
@@ -62,19 +66,15 @@ public class Sphere extends Geometry {
                 '}';
     }
 
-    /**
-     *      *Function for finding intersection points
-     * @param ray
-     * @return
-     */
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+
+
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
 
         //the data from the ray
         Point p0 = ray.getP0();
         Vector v = ray.getDir().normalize();
         if (center.equals(p0)) {// לשנות לGeoPoint
-            return List.of(new GeoPoint(this,center.add(v.Scale(radius))));
+            return List.of(new GeoPoint(this,center.add(v.scale(radius))));
         }
         Vector u = center.subtract(p0);
         double tm = (v.dotProduct(u));
@@ -90,28 +90,30 @@ public class Sphere extends Geometry {
         if (isZero(th)) {
             return null;
         }
-        if (t1 > 0 && t2 > 0) {
+        if (t1 > 0 && t2 > 0  && alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0) {
 
             //  Point p1 = p0.add(v.Scale(t1));
             //Point p2 = p0.add(v.Scale(t2));
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
 
-            return List.of(new GeoPoint(this, p2));
+            return List.of(new GeoPoint(this, p1),new GeoPoint(this, p2));
         }
-        if (t1 > 0) {
+        if (t1 > 0 && alignZero(t1 - maxDistance)<=0) {
 
-            Point p1 = p0.add(v.Scale(t1));
+            Point p1 = p0.add(v.scale(t1));
             return List.of(new GeoPoint(this,p1));
         }
-        if (t2 > 0) {
+        if (t2 > 0 && alignZero(t2 - maxDistance) <=0) {
 
-            Point p2 = p0.add(v.Scale(t2));
+            Point p2 = p0.add(v.scale(t2));
             return List.of(new GeoPoint(this,p2));
         }
         return null;
     }
+
 }
+
 
 
 

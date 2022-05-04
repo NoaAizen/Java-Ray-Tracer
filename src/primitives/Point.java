@@ -1,15 +1,18 @@
 package primitives;
 
 import java.util.Objects;
+
 import primitives.Double3;
 
 public class Point {
     final Double3 xyz;
-    public static Point ZERO=new Point(0,0,0);
+    public static Point ZERO = new Point(0, 0, 0);
 
     // ***************** Constructors ********************** //
+
     /**
      * primary constructor for Point
+     *
      * @param xyz Double3 value for x,z,z axis
      */
     public Point(Double3 xyz) {
@@ -23,13 +26,15 @@ public class Point {
      * @param y coordinate value for Y axis
      * @param z coordinate value for Z axis
      */
-    public Point(double x, double y , double z) {
-        xyz = new Double3(x,y,z);
+    public Point(double x, double y, double z) {
+        xyz = new Double3(x, y, z);
     }
 
     // ***************** Override ********************** //
+
     /**
      * check if the o and this equals
+     *
      * @param o
      * @return true or false if it the same class and the same value
      */
@@ -43,6 +48,7 @@ public class Point {
 
     /**
      * hash code
+     *
      * @return int
      */
     @Override
@@ -52,16 +58,19 @@ public class Point {
 
     /**
      * to string
+     *
      * @return string with point and the value
      */
     @Override
     public String toString() {
-        return "Point " + xyz ;
+        return "Point " + xyz;
     }
 
     // ***************** func ********************** //
+
     /**
      * use add from class Double3
+     *
      * @param vector
      * @return the head vector with this point
      */
@@ -71,6 +80,7 @@ public class Point {
 
     /**
      * use subtract from class Double3
+     *
      * @param point
      * @return Vector subtraction
      */
@@ -80,10 +90,11 @@ public class Point {
 
     /**
      * The distance between two points squared
+     *
      * @param other
-     * @return  d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
+     * @return d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
      */
-    public double distanceSquared(Point other){
+    public double distanceSquared(Point other) {
         double x1 = xyz.d1;
         double y1 = xyz.d2;
         double z1 = xyz.d3;
@@ -92,16 +103,17 @@ public class Point {
         double y2 = other.xyz.d2;
         double z2 = other.xyz.d3;
 
-        return ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1));
+        return ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
     }
 
     /**
      * use func distanceSquared and sqrt on it
+     *
      * @param other
      * @return d = Sqrt (lengthSquare)
      * @link https://www.engineeringtoolbox.com/distance-relationship-between-two-points-d_1854.html
      */
-    public  double distance (Point other){
+    public double distance(Point other) {
         return Math.sqrt(distanceSquared(other));
     }
 
@@ -109,6 +121,7 @@ public class Point {
 
     /**
      * return d1 of point
+     *
      * @return double
      */
     public double getX() {
@@ -117,6 +130,7 @@ public class Point {
 
     /**
      * return d2 of point
+     *
      * @return double
      */
     public double getY() {

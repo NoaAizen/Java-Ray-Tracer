@@ -163,7 +163,7 @@ public class Camera {
      */
     public Ray constructRay(int nX, int nY, int j, int i){
 
-        Point Pc = P0.add(Vto.Scale(distance));
+        Point Pc = P0.add(Vto.scale(distance));
         double Rx= height/nX;
         double Ry=width/nY;
         double Yi = -(i - (nY - 1) / 2d) * Ry;
@@ -174,15 +174,15 @@ public class Camera {
             return new Ray(P0, Pij.subtract(P0));
         }
         if (isZero(Xj)) {
-            Pij = Pij.add(Vup.Scale(Yi));
+            Pij = Pij.add(Vup.scale(Yi));
             return new Ray(P0, Pij.subtract(P0));
         }
         if (isZero(Yi)) {
-            Pij = Pij.add(Vright.Scale(Xj));
+            Pij = Pij.add(Vright.scale(Xj));
             return new Ray(P0, Pij.subtract(P0));
         }
 
-        Pij = Pij.add(Vright.Scale(Xj).add(Vup.Scale(Yi)));
+        Pij = Pij.add(Vright.scale(Xj).add(Vup.scale(Yi)));
         return new Ray(P0, Pij.subtract(P0));
 
 

@@ -35,11 +35,7 @@ public class Geometries extends Intersectable {
      * @return List of cross point
      */
 
-    /**
-     * @Override protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
-     * return (List<GeoPoint>) this;
-     * }
-     */
+/**
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> totalIntersections = null;
         for (var geometry : _intersectableList) {
@@ -52,6 +48,34 @@ public class Geometries extends Intersectable {
             }
         }
         return totalIntersections;
+    }**/
+
+
+    /**
+     * find cross point and add to the list
+     * @param ray
+     * @return List of cross point
+     */
+
+    /**
+     * @Override protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+     * return (List<GeoPoint>) this;
+     * }
+     */
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+        List<GeoPoint> totalIntersections = null;
+        for (var geometry : _intersectableList) {
+            var geoIntersections = geometry.findGeoIntersections(ray);
+            if (geoIntersections != null) {
+                if (totalIntersections == null) {
+                    totalIntersections = new LinkedList<>();
+                }
+                totalIntersections.addAll(geoIntersections);
+            }
+        }
+        return totalIntersections;
     }
+
+
 
 }
