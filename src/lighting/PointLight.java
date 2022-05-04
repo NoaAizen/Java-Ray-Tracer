@@ -74,7 +74,7 @@ public class PointLight extends Light implements LightSource{
     }
 
 
-    /**
+    /** get for L, Returns the calculation of l
      * @param p
      * @return Vector
      */

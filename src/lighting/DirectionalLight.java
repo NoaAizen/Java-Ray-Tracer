@@ -25,7 +25,7 @@ public class DirectionalLight extends Light implements LightSource{
         return getIntensity();
     }
 
-    /**
+    /** geter for prmter L
      * @param p
      * @return Vector
      */

@@ -62,7 +62,11 @@ public class Sphere extends Geometry {
                 '}';
     }
 
-
+    /**
+     *      *Function for finding intersection points
+     * @param ray
+     * @return
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 

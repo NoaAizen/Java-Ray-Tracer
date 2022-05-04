@@ -15,8 +15,8 @@ abstract class Light {
     }
 
     /**
-     * func get
-     * @return
+     * func get for  intensity
+     * @return color
      */
     public Color getIntensity() {
         return intensity;

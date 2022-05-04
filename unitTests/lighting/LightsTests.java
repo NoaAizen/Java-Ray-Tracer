@@ -135,7 +135,7 @@ public class LightsTests {
     }
     /**
      * Produce a picture of a two triangles lighted by a narrow spot light
-     */
+     *////
     @Test
     public void trianglesSpotSharp() {
         scene2.getGeometries().add(triangle1, triangle2);

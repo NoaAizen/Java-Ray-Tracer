@@ -12,7 +12,7 @@ public interface LightSource {
     Color getIntensity(Point p);
 
     /**
-     *
+     * get for l
      * @param p
      * @return Vector
      */
