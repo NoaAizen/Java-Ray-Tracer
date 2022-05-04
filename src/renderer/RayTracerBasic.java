@@ -10,7 +10,7 @@ import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
 
-
+    // ***************** Constructors ********************** //
     /**
      * Constructor
      * @param scene
@@ -21,12 +21,14 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * default Constructor
+     *
      */
     public RayTracerBasic() {
         super(null);
     }
 
     /**
+     * Calculate the Color
      * @param geoPoint
      * @return color
      */
@@ -36,6 +38,12 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
+    /**
+     * Calculate refraction and reflection of bodies
+     * @param geoPoint
+     * @param ray
+     * @return Color
+     */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray) {
         Color color = geoPoint.geometry.getEmission();
         Vector v = ray.getDir();
@@ -57,13 +65,13 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     *
+     *  Calculate Flashes, a kind of reflection of light, on the surface
      * @param material
      * @param n
      * @param l
      * @param nl
      * @param v
-     * @return
+     * @return Double3
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
         Vector r = l.add(n.Scale(-2*nl));
@@ -75,10 +83,11 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     *
+     * Calculate Diffusive, The surfaces of the bodies are not smooth, so the reflected light is scattered
+     * In all directions, affects light and shadow on the body, creates a deep look.
      * @param material
      * @param nl
-     * @return
+     * @return Double3
      */
     private Double3 calcDiffusive(Material material, double nl) {
         nl = Math.abs(nl);

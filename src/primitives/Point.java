@@ -7,6 +7,7 @@ public class Point {
     final Double3 xyz;
     public static Point ZERO=new Point(0,0,0);
 
+    // ***************** Constructors ********************** //
     /**
      * primary constructor for Point
      * @param xyz Double3 value for x,z,z axis
@@ -26,6 +27,7 @@ public class Point {
         xyz = new Double3(x,y,z);
     }
 
+    // ***************** Override ********************** //
     /**
      * check if the o and this equals
      * @param o
@@ -40,8 +42,8 @@ public class Point {
     }
 
     /**
-     * hash ??
-     * @return ??
+     * hash code
+     * @return int
      */
     @Override
     public int hashCode() {
@@ -57,6 +59,7 @@ public class Point {
         return "Point " + xyz ;
     }
 
+    // ***************** func ********************** //
     /**
      * use add from class Double3
      * @param vector
@@ -102,15 +105,19 @@ public class Point {
         return Math.sqrt(distanceSquared(other));
     }
 
-    /*
-    * return d1 of point
-    */
+    // ***************** getter ********************** //
+
+    /**
+     * return d1 of point
+     * @return double
+     */
     public double getX() {
         return xyz.d1;
     }
 
-    /*
-     *  return d2 of point
+    /**
+     * return d2 of point
+     * @return double
      */
     public double getY() {
         return xyz.d2;

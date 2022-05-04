@@ -6,7 +6,9 @@ import primitives.Ray;
 public abstract class RayTracerBase {
         protected Scene scene;
 
+        // ***************** Constructors ********************
         /**
+         * Constructors
          * set of scene
          * @param scene
          */

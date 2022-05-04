@@ -4,16 +4,17 @@ public class Material {
     public Double3 kD = Double3.ZERO;
     public Double3 kS = Double3.ZERO;
     public int nShininess = 0;
+
     // ***************** Getters ********************** //
     /**
-     * func getter with double
+     * func getter
      * @return Double3 kS
      */
     public Double3 getkS() {
         return kS;
     }
     /**
-     * func getter with double
+     * func getter
      * @return Double3 kS
      */
     public Double3 getkD() {
@@ -22,9 +23,9 @@ public class Material {
 
     // ***************** Setters ********************** //
     /**
-     * func setter with double
+     * func setter with type builder
      * @param num
-     * @return
+     * @return Material
      */
     public Material setkD(double num) {
         this.kD = new Double3(num);
@@ -32,9 +33,9 @@ public class Material {
     }
 
     /**
-     * func setter with double
+     * func setter with type builder
      * @param num
-     * @return
+     * @return Material
      */
     public Material setkS(double num) {
         this.kS = new Double3(num);
@@ -42,9 +43,9 @@ public class Material {
     }
 
     /**
-     * func setter with Double3
+     * func setter with type builder
      * @param kD
-     * @return
+     * @return Material
      */
     public Material setkD(Double3 kD) {
         this.kD = kD;
@@ -52,9 +53,9 @@ public class Material {
     }
 
     /**
-     * func setter with Double3
+     * func setter with type builder
      * @param kS
-     * @return
+     * @return Material
      */
     public Material setkS(Double3 kS) {
         this.kS = kS;
@@ -62,9 +63,9 @@ public class Material {
     }
 
     /**
-     * func setter
+     * func setter with type builder
      * @param nShininess
-     * @return
+     * @return Material
      */
     public Material setnShininess(int nShininess) {
         this.nShininess = nShininess;

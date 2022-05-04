@@ -25,7 +25,6 @@ public class ImageWriter {
 
 	private BufferedImage image;
 	private String imageName;
-
 	private Logger logger = Logger.getLogger("ImageWriter");
 
 	// ***************** Constructors ********************** //
@@ -43,10 +42,9 @@ public class ImageWriter {
 		image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
 	}
 
-	// ***************** Getters/Setters ********************** //
+	// ***************** Getters ********************** //
 	/**
 	 * View Plane Y axis resolution
-	 *
 	 * @return the amount of vertical pixels
 	 */
 	public int getNy() {
@@ -55,7 +53,6 @@ public class ImageWriter {
 
 	/**
 	 * View Plane X axis resolution
-	 *
 	 * @return the amount of horizontal pixels
 	 */
 	public int getNx() {
@@ -91,7 +88,7 @@ public class ImageWriter {
 	}
 
 	/**
-	 *
+	 * Print Grid call to func writePixel
 	 * @param gap
 	 * @param intervalColor
 	 */

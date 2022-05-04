@@ -62,6 +62,7 @@ public class Scene {
         private Geometries _geometries = new Geometries();
         private List<LightSource> _lights = new LinkedList<>();
 
+        // ***************** Constructors ********************** //
         /**
          * Construcor for builder
          * @param name mandatory name
@@ -69,26 +70,52 @@ public class Scene {
         public SceneBuilder(String name){
             _name = name;
         }
-        //chaining methods
 
+        // ***************** Setters  ********************** //
+        /**
+         * func setter type builder
+         * @param background
+         * @return SceneBuilder
+         */
         public SceneBuilder setBackground(Color background) {
             _background = background;
             return this;
         }
 
+        /**
+         * func setter type builder
+         * @param ambientLight
+         * @return SceneBuilder
+         */
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             _ambientLight = ambientLight;
             return this;
         }
 
+        /**
+         * func setter type builder
+         * @param geometries
+         * @return SceneBuilder
+         */
         public SceneBuilder setGeometries(Geometries geometries) {
             _geometries = geometries;
             return this;
         }
+
+        /**
+         * func setter type builder
+         * @param lights
+         * @return SceneBuilder
+         */
         public SceneBuilder setLights(List<LightSource> lights){
             _lights = lights;
             return this;
         }
+
+        /**
+         * build Scene
+         * @return Scene
+         */
         public Scene build(){
             return new Scene(this);
         }

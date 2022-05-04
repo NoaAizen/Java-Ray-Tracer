@@ -26,66 +26,7 @@ public class Camera {
     private RayTracerBase rayTracerBase;
 
 
-
-    /**
-     * return Vto the vector to the view plane
-     * @return Vector
-     */
-    public Vector getVto() {
-        return Vto;
-    }
-
-
-    /**
-     * return Vup the vector is orthogonals to Vto and Vright
-     * @return Vector
-     */
-    public Vector getVup() {
-        return Vup;
-    }
-
-    /**
-     * return Vright the vector is orthogonals to Vto and Vright
-     * @return Vector
-     */
-    public Vector getVright() {
-        return Vright;
-    }
-
-
-    /**
-     * return the point that the camera be there
-     * @return p0
-     */
-    public Point getP0() {
-        return P0;
-    }
-
-
-    /**
-     * getDistance - the distance between the camera and view plane
-     * @return distance
-     */
-    public double getDistance() {
-        return distance;
-    }
-
-    /**
-     * get func
-     * @return width
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * getHeight func
-     * @return height
-     */
-    public double getHeight() {
-        return height;
-    }
-
+    // ***************** Constructors ********************** //
     /**
      * constructor - with parameters for position values and two vectors of direction
      * @param p0
@@ -104,6 +45,64 @@ public class Camera {
 
     }
 
+// ***************** Getters ********************** //
+    /**
+     * return Vto the vector to the view plane
+     * @return Vector
+     */
+    public Vector getVto() {
+        return Vto;
+    }
+
+    /**
+     * return Vup the vector is orthogonals to Vto and Vright
+     * @return Vector
+     */
+    public Vector getVup() {
+        return Vup;
+    }
+
+    /**
+     * return Vright the vector is orthogonals to Vto and Vright
+     * @return Vector
+     */
+    public Vector getVright() {
+        return Vright;
+    }
+
+    /**
+     * return the point that the camera be there
+     * @return p0
+     */
+    public Point getP0() {
+        return P0;
+    }
+
+    /**
+     * getDistance - the distance between the camera and view plane
+     * @return distance
+     */
+    public double getDistance() {
+        return distance;
+    }
+
+    /**
+     * get func
+     * @return width (double)
+     */
+    public double getWidth() {
+        return width;
+    }
+
+    /**
+     * getHeight func
+     * @return height (double)
+     */
+    public double getHeight() {
+        return height;
+    }
+
+    // ***************** Setters ********************** //
     /**
      * constructor - Update method (set) for the View Plane size, which receives two numbers - width and height
      * @param w
@@ -132,6 +131,28 @@ public class Camera {
        return this;
     }
 
+    /**
+     * set Ray Tracer
+     * @param rayTracer
+     * @return Camera
+     */
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        rayTracerBase = rayTracer;
+        return this;
+    }
+
+    /**
+     * turn on imageWriter
+     * @param imageWriter
+     * @return Camera
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+
+    // ***************** func ********************** //
     /**
      * Returns the cut ray, before a formula learned in class
      * @param nX
@@ -168,16 +189,6 @@ public class Camera {
     }
 
     /**
-     * turn on imageWriter
-     * @param imageWriter
-     * @return Camera
-     */
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
-    }
-
-    /**
      * turn off writeToImage
      */
     public Camera writeToImage() {
@@ -192,16 +203,6 @@ public class Camera {
      */
     public void printGrid(int gap, Color intervalColor) {
         imageWriter.printGrid(gap,intervalColor);
-    }
-
-    /**
-     * set Ray Tracer
-     * @param rayTracer
-     * @return Camera
-     */
-    public Camera setRayTracer(RayTracerBase rayTracer) {
-        rayTracerBase = rayTracer;
-        return this;
     }
 
     /**
@@ -230,6 +231,13 @@ public class Camera {
         }
     }
 
+    /**
+     * Take imageWriter and call func writePixel
+     * @param Nx
+     * @param Ny
+     * @param i
+     * @param j
+     */
     private void castRay(int Nx, int Ny, int i, int j) {
         var ray=constructRay(Nx, Ny, j, i);
         var color=rayTracerBase.traceRay(ray);

@@ -1,28 +1,46 @@
 package primitives;
 
-import primitives.Point;
-import primitives.Double3;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.*;
-
 import geometries.Intersectable.GeoPoint;
 
 public class Ray {
     final Point p0;
     final Vector dir;
 
+    // ***************** constructor ********************** //
+    /**
+     * constructor
+     *
+     * @param p0
+     * @param dir
+     */
+    public Ray(Point p0, Vector dir) {
+        this.p0 = p0;
+        this.dir = dir.normalize();
+    }
+    // ***************** getter ********************** //
+    /**
+     * start of the ray
+     * @return Point
+     */
     public Point getP0() {
         return p0;
     }
 
+    /**
+     * the direction of the ray
+     * @return Vector
+     */
     public Vector getDir() {
         return dir;
     }
 
+    // ***************** Override ********************** //
     /**
      * toString
      *
@@ -35,7 +53,6 @@ public class Ray {
                 ", dir=" + dir +
                 '}';
     }
-
 
     /**
      * equals
@@ -51,22 +68,16 @@ public class Ray {
         return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
+    /**
+     * hash Code
+     * @return int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(p0, dir);
     }
 
-    /**
-     * constructor
-     *
-     * @param p0
-     * @param dir
-     */
-    public Ray(Point p0, Vector dir) {
-        this.p0 = p0;
-        this.dir = dir.normalize();
-    }
-
+    // ***************** getter ********************** //
     /**
      * func of get
      *
@@ -89,6 +100,7 @@ public class Ray {
         return p0.add(dir.Scale(t));
     }
 
+    // ***************** func ********************** //
     /**
      * @param points
      * @return the point closest to the beginning of the foundation.
@@ -97,7 +109,6 @@ public class Ray {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
-
 
     /**
      * @param geoPoints
@@ -115,7 +126,11 @@ public class Ray {
         return closePoint;
     }
 
-
+    /**
+     * find Geo point Closest Point,  geo point it is the point from list of cross geometries
+     * @param intersections
+     * @return GeoPoint
+     */
     public GeoPoint findGeoClosestPoint(List<GeoPoint> intersections) {
         GeoPoint closestPoint = null;
         if (intersections == null)

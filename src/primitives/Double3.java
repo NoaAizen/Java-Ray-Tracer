@@ -20,6 +20,7 @@ public class Double3 {
 	 */
 	public static final Double3 ZERO = new Double3(0, 0, 0);
 
+	// ***************** Constructors ********************** //
 	/**
 	 * Constructor to initialize Double3 based object with its three number values
 	 *
@@ -44,6 +45,7 @@ public class Double3 {
 		this.d3 = value;
 	}
 
+	// ***************** Override ********************** //
 	/**
 	 * it the obj is equals to the object that called a function
 	 * @param obj
@@ -71,6 +73,7 @@ public class Double3 {
 		return "(" + d1 + "," + d2 + "," + d3 + ")";
 	}
 
+	// ***************** Func ********************** //
 	/**
 	 * Sum two floating point triads into a new triad where each couple of numbers
 	 * is summarized

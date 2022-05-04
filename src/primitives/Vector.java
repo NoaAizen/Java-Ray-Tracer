@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Double3;
 
 public class Vector extends Point {
+    // ***************** constructor ********************** //
     /**
      * constructor with Double
      * @param x
@@ -15,7 +16,6 @@ public class Vector extends Point {
        if (Double3.ZERO.equals(xyz)) {
             throw new IllegalArgumentException("Error!! zero vector");
         }
-
     }
 
     /**
@@ -30,6 +30,7 @@ public class Vector extends Point {
 
     }
 
+    // ***************** func ********************** //
     /**
      * add vector
      * @param vector
@@ -110,9 +111,9 @@ public class Vector extends Point {
         return Math.sqrt(lengthSquared());
     }
 
-    /*
+    /**
      * length Squared
-     * @return
+     * @return double
      */
     public double lengthSquared() {
         return xyz.d1 * xyz.d1
@@ -120,6 +121,7 @@ public class Vector extends Point {
                 + xyz.d3 * xyz.d3;
     }
 
+    // ***************** Override ********************** //
     /**
      * to String
      * @return string
@@ -130,5 +132,4 @@ public class Vector extends Point {
                 xyz +
                 '}';
     }
-
 }

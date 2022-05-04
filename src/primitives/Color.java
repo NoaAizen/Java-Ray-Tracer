@@ -14,7 +14,6 @@ public class Color {
 	 * whatever...
 	 */
 	private final Double3 rgb;
-
 	/**
 	 * Black color = (0,0,0)
 	 */
@@ -22,8 +21,10 @@ public class Color {
 	/**
 	 * Blue color = (0,0,0)
 	 */
-	public static final Color BLUE = new Color(java.awt.Color.BLUE);//לתקן
+	public static final Color BLUE = new Color(java.awt.Color.BLUE);
 
+
+	// ***************** Constructors ********************** //
 	/**
 	 * Default constructor - to generate Black Color (privately)
 	 */
@@ -44,7 +45,6 @@ public class Color {
 			throw new IllegalArgumentException("Negative color component is illegal");
 		rgb = new Double3(r, g, b);
 	}
-
 
 	/**
 	 * Constructor to generate a color according to RGB components Each component in
@@ -67,6 +67,7 @@ public class Color {
 		rgb = new Double3(other.getRed(), other.getGreen(), other.getBlue());
 	}
 
+	// ***************** Getter ********************** //
 	/**
 	 * Color getter - returns the color after converting it into java.awt.Color
 	 * object During the conversion any component bigger than 255 is set to 255
@@ -80,6 +81,7 @@ public class Color {
 		return new java.awt.Color(ir > 255 ? 255 : ir, ig > 255 ? 255 : ig, ib > 255 ? 255 : ib);
 	}
 
+	// ***************** Func ********************** //
 	/**
 	 * Operation of adding this and one or more other colors (by component)
 	 *
