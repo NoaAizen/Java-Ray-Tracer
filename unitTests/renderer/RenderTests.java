@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 import lighting.AmbientLight;
 import geometries.*;
 import primitives.*;
+import renderer.*;
 import Scene.Scene;
-
 import static java.awt.Color.*;
-import static java.awt.Color.YELLOW;
 
 /**
  * Test rendering a basic image
@@ -26,8 +25,7 @@ public class RenderTests {
 		Scene scene = new Scene.SceneBuilder("Test scene")//
 				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), //
 						new Double3(1, 1, 1))) //
-				.setBackground(new Color(75, 127, 90))
-				.build();
+				.setBackground(new Color(75, 127, 90)).build();
 
 		scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50d),
 				new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
@@ -45,7 +43,9 @@ public class RenderTests {
 		camera.renderImage();
 		camera.printGrid(100, new Color(YELLOW));
 		camera.writeToImage();
-	}// For stage 6 - please disregard in stage 5
+	}
+
+	// For stage 6 - please disregard in stage 5
 	/**
 	 * Produce a scene with basic 3D model - including individual lights of the
 	 * bodies and render it into a png image with a grid
@@ -56,6 +56,7 @@ public class RenderTests {
 				.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))).build(); //
 
 		scene.getGeometries().add( //
+
 				new Sphere(new Point(0, 0, -100), 50),
 				// up left
 				new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
@@ -80,10 +81,13 @@ public class RenderTests {
 
 	/**
 	 * Test for XML based scene - for bonus
+	 *///
 
+
+	/*
 	@Test
 	public void basicRenderXml() {
-		Scene scene = new Scene.SceneBuilder("XML Test scene").build();
+		Scene scene = new Scene("XML Test scene");
 		// enter XML file name and parse from XML file into scene object
 		// ...
 
@@ -94,6 +98,6 @@ public class RenderTests {
 		camera.renderImage();
 		camera.printGrid(100, new Color(YELLOW));
 		camera.writeToImage();
-	}
-	*/
+	}//*/
+
 }
