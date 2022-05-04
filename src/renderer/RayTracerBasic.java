@@ -31,15 +31,22 @@ public class RayTracerBasic extends RayTracerBase {
             return true;
         }
         for (var item: intersections ) {
-            if (item.geometry.getMaterial().kT== new Double3(0)){//לתקן את מקדם שקיפות אם הוא 1 אז ירגמו להצללה
-               //intersections.remove(item);
+            if (item.geometry.getMaterial().kT== Double3.ONE){//לתקן את מקדם שקיפות אם הוא 1 אז יגרמו להצללה
+                intersections.remove(item);
                 return false;
                 }}
         return true;
     }
 
+
+
+
+
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(ray);
+      if(intersections==null)  {
+          return null;
+      }
         GeoPoint closestPoint = ray.findGeoClosestPoint(intersections);
         return closestPoint;
     }
@@ -103,17 +110,17 @@ public class RayTracerBasic extends RayTracerBase {
             Ray refractedRay = constructRefractedRay(gp.point, ray, n);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
              if (refractedPoint!=null) {
-                 color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkr).scale(kr));
+                 color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
              }
         }
         return color;
 }
 
     private Ray constructRefractedRay(Point point, Ray ray, Vector n) {
-        return  new Ray(point,ray.getDir(),n);
+        return  new Ray(point,ray.getDir(),n.normalize());
     }
 
-    private Ray constructReflectedRay(Point point, Ray ray, Vector n) {
+    private Ray constructReflectedRay(Point point, Ray ray, Vector n) {//השתקפות
         Vector v = ray.getDir();
         double vn = alignZero(v.dotProduct(n));
         Vector r = v.subtract(n.scale(2*vn));
