@@ -18,6 +18,10 @@ public class PointLight extends Light implements LightSource{
         this.position = _position;
 
     }
+    public double getDistance(Point point){
+        double distance = point.distance(position);
+        return distance;
+    }
 
     /**
      * func setter (type builder)

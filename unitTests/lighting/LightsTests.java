@@ -139,7 +139,8 @@ public class LightsTests {
     @Test
     public void trianglesSpotSharp() {
         scene2.getGeometries().add(triangle1, triangle2);
-        scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setkL(0.001).setkQ(0.003));
+        scene2.getLights().	add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setkL(0.001).setkQ(0.00004));
+
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpotSharp", 500, 500);
         camera2.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene2)) //

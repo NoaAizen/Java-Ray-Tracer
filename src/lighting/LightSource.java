@@ -11,6 +11,8 @@ public interface LightSource {
      */
     Color getIntensity(Point p);
 
+    double getDistance(Point point);
+
     /**
      * get for l
      * @param p

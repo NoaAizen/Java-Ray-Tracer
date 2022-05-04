@@ -13,7 +13,9 @@ public class DirectionalLight extends Light implements LightSource{
         super(intensity);
         direction = _direction.normalize();
     }
-
+    public double getDistance(Point point){
+        return Double.POSITIVE_INFINITY;
+    }
     /**
      * Get light intensity at a point IL
      *
