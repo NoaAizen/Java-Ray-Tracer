@@ -50,7 +50,7 @@ public class Cylinder extends Tube {
         if (t == 0 || isZero(height - t)) // if it's close to 0, we'll get ZERO vector exception
             return v;
 
-        o = o.add(v.Scale(t));
+        o = o.add(v.scale(t));
         return p.subtract(o).normalize();
     }
 

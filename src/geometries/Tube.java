@@ -53,7 +53,7 @@ public class Tube extends Geometry {
             return P0_P.normalize();
         }
 
-        Point P1 = P0.add(v.Scale(t));
+        Point P1 = P0.add(v.scale(t));
 
         if (p.equals(P1)) {
             throw new IllegalArgumentException("point cannot be on the tube axis");
@@ -80,9 +80,17 @@ public class Tube extends Geometry {
      * @param ray
      * @return list of point that cross the view plane
      */
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+   @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+       return null;
+   }
+    /**
+     * @param ray
+     * @return list of point that cross the view plane
+     */
+   // @Override
+/**    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
         return null;
-    }
+   **/
 }

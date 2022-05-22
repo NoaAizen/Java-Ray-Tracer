@@ -1,6 +1,9 @@
 package primitives;
 
 public class Material {
+
+    public Double3 kT =Double3.ZERO;//שקיפות
+    public Double3 kR =Double3.ZERO;//השתקפות
     public Double3 kD = Double3.ZERO;
     public Double3 kS = Double3.ZERO;
     public int nShininess = 0;
@@ -31,17 +34,6 @@ public class Material {
         this.kD = new Double3(num);
         return this;
     }
-
-    /**
-     * func setter with type builder
-     * @param num
-     * @return Material
-     */
-    public Material setkS(double num) {
-        this.kS = new Double3(num);
-        return this;
-    }
-
     /**
      * func setter with type builder
      * @param kD
@@ -52,6 +44,27 @@ public class Material {
         return this;
     }
 
+    //תיעוד
+    public Material setkT(double num) {
+        this.kT = new Double3(num);
+        return this;
+    }
+    ///תיעוד
+    public Material setkR(double num) {
+        this.kR = new Double3(num);
+        return this;
+    }
+    /**
+     * func setter with type builder
+     * @param num
+     * @return Material
+     */
+    public Material setkS(double num) {
+        this.kS = new Double3(num);
+        return this;
+    }
+
+
     /**
      * func setter with type builder
      * @param kS
@@ -61,7 +74,15 @@ public class Material {
         this.kS = kS;
         return this;
     }
-
+    //תיעוד
+    public Material setkT(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }//תיעוד
+    public Material setkR(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
     /**
      * func setter with type builder
      * @param nShininess

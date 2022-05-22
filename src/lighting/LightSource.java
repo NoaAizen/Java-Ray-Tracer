@@ -10,6 +10,11 @@ public interface LightSource {
      * @return Color
      */
     Color getIntensity(Point p);
+    //תיעוד
+
+    double getDistance(Point point);
+
+    double getDistance(Point point);
 
     /**
      * get for l

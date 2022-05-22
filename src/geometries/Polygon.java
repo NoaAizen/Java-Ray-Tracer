@@ -1,7 +1,7 @@
 package geometries;
 
 import java.util.List;
-
+import static geometries.Intersectable.GeoPoint;
 import primitives.*;
 import static primitives.Util.*;
 
@@ -90,7 +90,13 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-		return (List<GeoPoint>) this;
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+		List<GeoPoint> list = plane.findGeoIntersectionsHelper(ray, maxDistance);
+		if(list == null){
+			return  null;
+		}
+		return List.of(new GeoPoint(this,list.get(0).point));
 	}
+
+
 }

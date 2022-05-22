@@ -1,18 +1,21 @@
 package primitives;
 
-import primitives.*;
+import geometries.Intersectable;
 
 import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.*;
-import geometries.Intersectable.GeoPoint;
+
+import static geometries.Intersectable.GeoPoint;
 
 public class Ray {
+    private static final double DELTA = 0.1 ;
     final Point p0;
     final Vector dir;
 
     // ***************** constructor ********************** //
+
     /**
      * constructor
      *
@@ -23,9 +26,30 @@ public class Ray {
         this.p0 = p0;
         this.dir = dir.normalize();
     }
+    /**
+     * constructor
+     *
+     * @param p0
+     * @param v
+     */
+    public Ray(Point p0, Vector v, Vector n) {
+        this.dir = v.normalize();
+        double vn = alignZero(v.dotProduct(n));
+        Vector epsilon;
+        if( vn < 0){
+            epsilon = n.scale(-DELTA);
+        }
+        else{
+            epsilon = n.scale(DELTA);
+        }
+
+        this.p0 = p0.add(epsilon);
+    }
     // ***************** getter ********************** //
+
     /**
      * start of the ray
+     *
      * @return Point
      */
     public Point getP0() {
@@ -34,6 +58,7 @@ public class Ray {
 
     /**
      * the direction of the ray
+     *
      * @return Vector
      */
     public Vector getDir() {
@@ -41,6 +66,7 @@ public class Ray {
     }
 
     // ***************** Override ********************** //
+
     /**
      * toString
      *
@@ -70,6 +96,7 @@ public class Ray {
 
     /**
      * hash Code
+     *
      * @return int
      */
     @Override
@@ -78,6 +105,7 @@ public class Ray {
     }
 
     // ***************** getter ********************** //
+
     /**
      * func of get
      *
@@ -97,37 +125,27 @@ public class Ray {
         if (isZero(t)) {
             return p0;
         }
-        return p0.add(dir.Scale(t));
+        return p0.add(dir.scale(t));
     }
 
     // ***************** func ********************** //
+
     /**
      * @param points
      * @return the point closest to the beginning of the foundation.
      */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
-                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+                : findGeoClosestPoint(points
+                .stream()
+                .map(p -> new GeoPoint(null, p))
+                .toList()).point;
     }
 
-    /**
-     * @param geoPoints
-     * @return The closest point to the began of the ray
-     */
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
-
-        if (geoPoints == null) //In case of an empty list
-            return null;
-        GeoPoint closePoint = geoPoints.get(0);    //Save the first point in the list
-        for (GeoPoint p : geoPoints) {
-            if (closePoint.point.distance(p0) > p.point.distance(p0))    //In case the distance of closes point is bigger than the p point
-                closePoint = p;
-        }
-        return closePoint;
-    }
 
     /**
      * find Geo point Closest Point,  geo point it is the point from list of cross geometries
+     *
      * @param intersections
      * @return GeoPoint
      */
@@ -135,7 +153,7 @@ public class Ray {
         GeoPoint closestPoint = null;
         if (intersections == null)
             return null;
-        double distance = Double.MAX_VALUE;
+        double distance = Double.POSITIVE_INFINITY;
         double d;
         if (!intersections.isEmpty()) {
             for (var pt : intersections) {

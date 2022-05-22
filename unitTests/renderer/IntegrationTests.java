@@ -3,15 +3,13 @@ package renderer;
 import static org.junit.jupiter.api.Assertions.*;
 import static renderer.CameraTests.ZERO_POINT;
 
-import geometries.Intersectable;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;
 
 import primitives.*;
-
-import java.util.List;
+import geometries.Intersectable;
 
 class IntegrationTests {
     /**

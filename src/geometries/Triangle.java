@@ -37,9 +37,10 @@ public class Triangle extends Polygon {
     public Vector getNormal(Point p){
         return this.plane.getNormal(p);
     }
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
 
-        var intersection=plane.findGeoIntersectionsHelper(ray);
+   public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance){
+
+        var intersection=plane.findGeoIntersectionsHelper(ray, maxDistance);
         if(intersection==null)
             return null;
         Point p0=ray.getP0();
@@ -55,5 +56,23 @@ public class Triangle extends Polygon {
         if(s1*s3<=0) return null;
         return  List.of(new GeoPoint(this,intersection.get(0).point));//check
     }
+   /**public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+
+       var intersection=plane.findGeoIntersectionsHelper(ray);
+       if(intersection==null)
+           return null;
+       Point p0=ray.getP0();
+       Vector v=ray.getDirection();
+       Vector v1=vertices.get(0).subtract(p0);
+       Vector v2=vertices.get(1).subtract(p0);
+       Vector v3=vertices.get(2).subtract(p0);
+       double s1=alignZero(v.dotProduct(v1.crossProduct(v2)));
+       if(s1==0) return null;
+       double s2=alignZero(v.dotProduct(v2.crossProduct(v3)));
+       if(s1*s2<=0) return null;
+       double s3=alignZero(v.dotProduct(v3.crossProduct(v1)));
+       if(s1*s3<=0) return null;
+       return  List.of(new GeoPoint(this,intersection.get(0).point));//check
+   }**/
 
 }

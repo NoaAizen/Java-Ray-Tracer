@@ -21,11 +21,17 @@ public abstract class Intersectable {
      * @param ray
      * @return List
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray){
-        return findGeoIntersectionsHelper(ray);
-    }
 
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+    }
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+
+
+
 
     public static class GeoPoint{
         public Geometry geometry;
@@ -33,7 +39,7 @@ public abstract class Intersectable {
 
         /**
          * constructor
-          * @param geometry
+         * @param geometry
          * @param point
          */
         public GeoPoint(Geometry geometry, Point point) {
