@@ -14,7 +14,6 @@ public interface LightSource {
 
     double getDistance(Point point);
 
-    double getDistance(Point point);
 
     /**
      * get for l

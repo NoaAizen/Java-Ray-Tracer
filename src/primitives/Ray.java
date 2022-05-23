@@ -148,7 +148,7 @@ public class Ray {
      *
      * @param intersections
      * @return GeoPoint
-     */
+
     public GeoPoint findGeoClosestPoint(List<GeoPoint> intersections) {
         GeoPoint closestPoint = null;
         if (intersections == null)
@@ -166,5 +166,16 @@ public class Ray {
             }
         }
         return closestPoint;
+    }
+    */
+    public GeoPoint findGeoClosestPoint(List<GeoPoint> geoPoints) {
+        if (geoPoints == null) //In case of an empty list
+            return null;
+        GeoPoint closePoint = geoPoints.get(0);    //Save the first point in the list
+        for (GeoPoint p : geoPoints) {
+            if (closePoint.point.distance(p0) > p.point.distance(p0))    //In case the distance of closes point is bigger than the p point
+                closePoint = p;
+        }
+        return closePoint;
     }
 }

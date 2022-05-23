@@ -33,7 +33,7 @@ class ReflectionRefractionTests {
 
 		scene.getGeometries().add( //
 				new Sphere(new Point(0, 0, -50), 50d).setEmission(new Color(BLUE)) //
-						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(new Double3(0.3))),
+						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
 				new Sphere(new Point(0, 0, -50), 25d).setEmission(new Color(RED)) //
 						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100)));
 		scene.getLights().add( //
