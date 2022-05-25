@@ -145,17 +145,26 @@ public class RayTracerBasic extends RayTracerBase {
      * @return Color
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray) {
-        Color color = geoPoint.geometry.getEmission();
+        //Color color = geoPoint.geometry.getEmission();
+        //לא היה
+        Color color = Color.BLACK;
         Vector v = ray.getDir();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point);
         double nv = alignZero(n.dotProduct(v));
-        Material material = geoPoint.geometry.getMaterial();
+
+        //Material material = geoPoint.geometry.getMaterial();
+        Double3 kd = geoPoint.geometry.getMaterial().kD, ks = geoPoint.geometry.getMaterial().kS;
+        //לא היה לנו
+        int nShininess = geoPoint.geometry.getMaterial().nShininess;
+
         if (nv == 0)
-            return color;
+            return color.BLACK;
         for (LightSource lightSource : scene.getLights()) {
             Vector l = lightSource.getL(geoPoint.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) {
+                // לא היה לנו
+                Double3 ktr=transparency(geoPoint,l,n,nv,lightSource);
                 if (unshaded(geoPoint, lightSource, l, n, nv))//    //תיעוד
                 {
                     Color iL = lightSource.getIntensity(geoPoint.point);
@@ -166,7 +175,29 @@ public class RayTracerBasic extends RayTracerBase {
         }
         return color;
     }
-
+    /**
+     * private Color calcLocalEffects(GeoPoint point, Ray ray,Double3 k) {
+     *         Vector v = ray.getDirection();
+     *         Vector n = point._geometry.getNormal(point._point);
+     *         double nv = alignZero(n.dotProduct(v));
+     *         if (nv == 0) return Color.BLACK;
+     *
+     *         int nShininess = point._geometry.getMaterial().nShininess;
+     *         Double3 kd = point._geometry.getMaterial().Kd, ks = point._geometry.getMaterial().Ks;
+     *         Color color = Color.BLACK;
+     *         for (var lightSource : _scene.getLights()) {
+     *             Vector l = lightSource.getL(point._point);
+     *             double nl = alignZero(n.dotProduct(l));
+     *             if (nl * nv > 0) {
+     *                 Double3 ktr=transparency(point,l,n,nv,lightSource);
+     *                 if(!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)){
+     *                     Color lightIntensity = lightSource.getIntensity(point._point).scale(ktr);
+     *                     color = color.add(calcDiffusive(kd, l, n, lightIntensity));
+     *                     color = color.add(calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+     *             }}}
+     *         return color;
+     *     }
+     */
     /**
      * Calculate Flashes, a kind of reflection of light, on the surface
      *
