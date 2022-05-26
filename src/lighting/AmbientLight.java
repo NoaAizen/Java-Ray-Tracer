@@ -2,11 +2,12 @@ package lighting;
 
 import primitives.*;
 
-//עשינו בכיתה
 public class AmbientLight extends Light {
 
+    // ***************** constructor ********************** //
+
     /**
-     * Final power of ambient lighting
+     * constructor, Final power of ambient lighting
      * @param Ia
      * @param Ka
      */

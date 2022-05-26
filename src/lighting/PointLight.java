@@ -4,10 +4,24 @@ import primitives.*;
 
 public class PointLight extends Light implements LightSource{
 
+    /**
+     * the point that start the ray of this light
+     */
     private Point position;
+    /**
+     * Fixed discount coefficient
+     */
     private double kC=1;
+    /**
+     * Discount coefficient
+     */
     private double kL=0;
+    /**
+     * Discount coefficient
+     */
     private double kQ=0;
+
+    // ***************** constructor ********************** //
 
     /**
      * constructor
@@ -16,14 +30,19 @@ public class PointLight extends Light implements LightSource{
     protected PointLight(Color intensity, Point _position) {
         super(intensity);
         this.position = _position;
-
     }
-    //תיעוד
 
+    /**
+     * call to func distance in class point
+     * @param point
+     * @return
+     */
     public double getDistance(Point point){
         double distance = point.distance(position);
         return distance;
     }
+
+    // ***************** setter ********************** //
 
     /**
      * func setter (type builder)
@@ -65,9 +84,10 @@ public class PointLight extends Light implements LightSource{
         return  this;
     }
 
+    // ***************** Override ********************** //
+
     /**
      * Get light intensity at a point IL
-     *
      * @param p
      * @return Color
      */
@@ -79,8 +99,8 @@ public class PointLight extends Light implements LightSource{
         return getIntensity().reduce(factor);
     }
 
-
-    /** get for L, Returns the calculation of l
+    /**
+     * get for L, Returns the calculation of l
      * @param p
      * @return Vector
      */

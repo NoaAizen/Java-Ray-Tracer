@@ -16,12 +16,20 @@ import static primitives.Util.isZero;
  */
 public class Sphere extends Geometry {
 
+    /**
+     * the point of Middle of the circle
+     */
     final Point center;
+
+    /**
+     * the radius of sphere
+     */
     final double radius;
+
+    // ***************** constructor ********************** //
 
     /**
      * constructor
-     *
      * @param center
      * @param radius
      */
@@ -29,6 +37,8 @@ public class Sphere extends Geometry {
         this.center = center;
         this.radius = radius;
     }
+
+    // ***************** getter ********************** //
 
     /**
      * get the point center
@@ -48,6 +58,7 @@ public class Sphere extends Geometry {
         return radius;
     }
 
+
     /**
      * return vector normal
      *
@@ -58,6 +69,12 @@ public class Sphere extends Geometry {
         return p1.subtract(center).normalize();
     }
 
+    // ***************** Override ********************** //
+
+    /**
+     * with parameter of sphere
+     * @return String
+     */
     @Override
     public String toString() {
         return "Sphere{" +
@@ -67,7 +84,12 @@ public class Sphere extends Geometry {
     }
 
 
-
+    /**
+     * find the cross sphere
+     * @param ray
+     * @param maxDistance
+     * @return list of GeoPoint - sphere cross and point cross
+     */
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
 
         //the data from the ray

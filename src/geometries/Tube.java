@@ -12,16 +12,33 @@ import static primitives.Util.*;
  * @author noga and noa
  */
 public class Tube extends Geometry {
+
+    /**
+     *  the ray that Passes inside the tube and determines its direction
+     */
     final Ray axisRay;
+
+    /**
+     *  radius of tube determines his size
+     */
     final double radius;
 
+    // ***************** constructor ********************** //
+
+    /**
+     *  constructor
+     * @param axisRay
+     * @param radius
+     */
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
     }
 
+    // ***************** getter ********************** //
+
     /**
-     * return axisRay of Tube
+     * func get return axisRay of Tube
      * @return Ray
      */
     public Ray getAxisRay() {
@@ -29,7 +46,7 @@ public class Tube extends Geometry {
     }
 
     /**
-     * return radius of Tube
+     * func get return radius of Tube
      * @return double
      */
     public double getRadius() {
@@ -64,6 +81,8 @@ public class Tube extends Geometry {
         return n;
     }
 
+    // ***************** Override ********************** //
+
     /**
      * with Ray (axisRay) and radius (double)
      * @return string
@@ -77,20 +96,13 @@ public class Tube extends Geometry {
     }
 
     /**
+     * find the cross Tube (bunus)
      * @param ray
-     * @return list of point that cross the view plane
+     * @param maxDistance
+     * @return list of GeoPoint - tube cross and point cross
      */
    @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
        return null;
    }
-    /**
-     * @param ray
-     * @return list of point that cross the view plane
-     */
-   // @Override
-/**    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-
-        return null;
-   **/
 }

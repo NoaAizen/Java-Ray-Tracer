@@ -4,7 +4,12 @@ import primitives.Color;
 
 abstract class Light {
 
+    /**
+     *
+     */
     private Color intensity;
+
+    // ***************** constructor ********************** //
 
     /**
      * constructor
@@ -13,6 +18,8 @@ abstract class Light {
     protected Light(Color intensity) {
         this.intensity = intensity;
     }
+
+    // ***************** getter ********************** //
 
     /**
      * func get for  intensity

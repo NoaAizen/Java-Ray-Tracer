@@ -4,7 +4,13 @@ import primitives.*;
 
 public class DirectionalLight extends Light implements LightSource{
 
+    /**
+     * the direction of this light
+     */
     private Vector direction;
+
+    // ***************** constructor ********************** //
+
     /**
      * constructor
      * @param intensity
@@ -13,14 +19,19 @@ public class DirectionalLight extends Light implements LightSource{
         super(intensity);
         direction = _direction.normalize();
     }
-    //תיעוד
 
+    /**
+     * @param point
+     * @return Double.POSITIVE_INFINITY
+     */
     public double getDistance(Point point){
         return Double.POSITIVE_INFINITY;
     }
+
+    // ***************** Override ********************** //
+
     /**
      * Get light intensity at a point IL
-     *
      * @param p
      * @return Color
      */
@@ -29,7 +40,8 @@ public class DirectionalLight extends Light implements LightSource{
         return getIntensity();
     }
 
-    /** geter for prmter L
+    /**
+     * geter for parameter L
      * @param p
      * @return Vector
      */

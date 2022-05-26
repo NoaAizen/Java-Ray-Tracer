@@ -6,8 +6,16 @@ import primitives.Vector;
 
 public class SpotLight  extends PointLight {
 
+    /**
+     * the direction of the light
+     */
     private Vector direction;
+    /**
+     * To narrow the foundation
+     */
     private double narrowBeam = 0d;
+
+    // ***************** setter ********************** //
 
     /**
      * set for narrowBeam
@@ -19,14 +27,17 @@ public class SpotLight  extends PointLight {
         return this;
     }
 
+    // ***************** getter ********************** //
+
     /**
      * get for narrowBeam
      * @return SpotLight
      */
-
     public double getNarrowBeam() {
         return narrowBeam;
     }
+
+    // ***************** constructor ********************** //
 
     /**
      * constructor
@@ -37,8 +48,10 @@ public class SpotLight  extends PointLight {
         this.direction = _direction.normalize();
     }
 
+    // ***************** Override ********************** //
+
     /**
-     *get for Intensity
+     * get for Intensity
      * @param point
      * @return Color
      */
@@ -51,7 +64,7 @@ public class SpotLight  extends PointLight {
     }
 
     /**
-     *    /** get for L, Returns the calculation of l
+     * get for L, Returns the calculation of l
      * @param point
      * @return
      */

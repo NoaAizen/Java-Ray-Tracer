@@ -10,33 +10,23 @@ import java.util.List;
 
 public abstract class Geometry extends Intersectable
 {
+    /**
+     *  glowing color
+     */
     protected Color emission = Color.BLACK;
+    /**
+     * parameter of a department that is responsible for entering data into coefficients
+     */
     private Material material = new Material();
 
+    // ***************** Getter ********************** //
 
     /**
-     * func gett
+     * func getter
      * @return Color
      */
     public Color getEmission() {
         return emission;
-    }
-
-    /**
-     *
-     * @param point
-     * @return Vector
-     */
-    public abstract Vector getNormal (Point point);
-
-    /**
-     *
-     * @param emission
-     * @return
-     */
-    public Geometry setEmission(Color emission){
-        this.emission = emission;
-        return this;
     }
 
     /**
@@ -45,6 +35,25 @@ public abstract class Geometry extends Intersectable
      */
     public Material getMaterial() {
         return material;
+    }
+
+    /**
+     * func getter
+     * @param point
+     * @return Vector
+     */
+    public abstract Vector getNormal (Point point);
+
+    // ***************** Setter ********************** //
+
+    /**
+     * func setter
+     * @param emission
+     * @return
+     */
+    public Geometry setEmission(Color emission){
+        this.emission = emission;
+        return this;
     }
 
     /**

@@ -18,11 +18,14 @@ public class Plane extends Geometry{
     final Point p0;
     final Vector normal;
 
+    // ***************** constructor ********************** //
+
     /**
      * constructor
      * @param q0
      * @param n vector for the normal (will be normalized automatically)
-     */public Plane(Point q0, Vector n) {
+     */
+    public Plane(Point q0, Vector n) {
         p0 = q0;
         normal = n;
     }
@@ -48,6 +51,8 @@ public class Plane extends Geometry{
 
     }
 
+    // ***************** getter ********************** //
+
     /**
      * func getter
      * @return point
@@ -65,6 +70,8 @@ public class Plane extends Geometry{
         return normal;
     }
 
+    // ***************** Override ********************** //
+
     /**
      * implementation of getNormal from Geometry
      * @param point
@@ -75,6 +82,10 @@ public class Plane extends Geometry{
         return getNormal();
     }
 
+    /**
+     * toString with parameter of plane
+     * @return java.lang.String
+     */
     @java.lang.Override
     public java.lang.String toString() {
         return "Plane{" +
@@ -84,7 +95,7 @@ public class Plane extends Geometry{
     }
 
     /**
-     *      *Function for finding intersection points
+     * Function for finding intersection points
      * @param ray
      * @return
      */
@@ -109,30 +120,4 @@ public class Plane extends Geometry{
             return null;
         return List.of(new GeoPoint(this,ray.getPoint(t)));
     }
-    /**
-     *      *Function for finding intersection points
-     * @param ray
-     * @return
-     */
-    /**@Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        Vector n=getNormal();
-        double nv=n.dotProduct(ray.getDirection());
-        if(isZero(nv))
-        {
-            return  null;
-        }
-        Vector p0Q;
-        try {
-            p0Q = p0.subtract(ray.getP0());
-        }
-        catch (Exception e)
-        {
-            return  null;
-        }
-        double t=alignZero(n.dotProduct(p0Q)/nv);
-        if(t<=0)
-            return null;
-        return List.of(new GeoPoint(this,ray.getPoint(t)));
-    }**/
 }

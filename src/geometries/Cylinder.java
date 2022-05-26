@@ -10,15 +10,22 @@ import static primitives.Util.*;
  */
 public class Cylinder extends Tube {
 
+    /**
+     * the height of Cylinder
+     */
     final double height;
 
+    // ***************** constructor ********************** //
+
     /**
-     * constctor using super main using Polygon
+     * constructor using super main using Polygon
      */
     public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
         this.height = height;
     }
+
+    // ***************** Getters ********************** //
 
     /**
      * height of Cylinder
@@ -54,6 +61,10 @@ public class Cylinder extends Tube {
         return p.subtract(o).normalize();
     }
 
+    /**
+     * toString with only Cylinder
+     * @return string with height
+     */
     @Override
     public String toString() {
         return "Cylinder{" +
