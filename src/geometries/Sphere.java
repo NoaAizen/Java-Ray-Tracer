@@ -1,8 +1,9 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -90,7 +91,7 @@ public class Sphere extends Geometry {
      * @param maxDistance
      * @return list of GeoPoint - sphere cross and point cross
      */
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
         //the data from the ray
         Point p0 = ray.getP0();

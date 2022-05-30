@@ -1,6 +1,9 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
 import static primitives.Util.*;
 /**
  * Triangle class Vertex polygon

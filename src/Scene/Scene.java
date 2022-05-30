@@ -56,11 +56,11 @@ public class Scene {
      */
     public static class SceneBuilder {
 
-        private final String _name;
-        private Color _background = Color.BLACK;
-        private AmbientLight _ambientLight = new AmbientLight();
-        private Geometries _geometries = new Geometries();
-        private List<LightSource> _lights = new LinkedList<>();
+        private final String _name;        // Scene Builder name
+        private Color _background = Color.BLACK;////Scene Builder background color
+        private AmbientLight _ambientLight = new AmbientLight();// //  Scene Builder ambient light
+        private Geometries _geometries = new Geometries();////  Scene Builder composite for all geometric object
+        private List<LightSource> _lights = new LinkedList<>();   // Scene Builder name
 
         // ***************** Constructors ********************** //
         /**

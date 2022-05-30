@@ -1,8 +1,11 @@
 package geometries;
 
 import java.util.List;
-import static geometries.Intersectable.GeoPoint;
-import primitives.*;
+
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
 import static primitives.Util.*;
 
 /**

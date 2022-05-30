@@ -1,7 +1,5 @@
 package primitives;
 
-import geometries.Intersectable;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -10,8 +8,17 @@ import static primitives.Util.*;
 import static geometries.Intersectable.GeoPoint;
 
 public class Ray {
-    private static final double DELTA = 0.1 ;
+    /**
+     *
+     */
+    private static final double DELTA = 0.1 ;//
+    /**
+     *point of ray
+     */
     final Point p0;
+    /**
+     * The direction of the point
+     */
     final Vector dir;
 
     // ***************** constructor ********************** //
@@ -146,28 +153,9 @@ public class Ray {
     /**
      * find Geo point Closest Point,  geo point it is the point from list of cross geometries
      *
-     * @param intersections
+     * @param //geoPoints-list
      * @return GeoPoint
-
-    public GeoPoint findGeoClosestPoint(List<GeoPoint> intersections) {
-        GeoPoint closestPoint = null;
-        if (intersections == null)
-            return null;
-        double distance = Double.POSITIVE_INFINITY;
-        double d;
-        if (!intersections.isEmpty()) {
-            for (var pt : intersections) {
-                d = p0.distance(pt.point);
-
-                if (d < distance) {
-                    distance = d;
-                    closestPoint = pt;
-                }
-            }
-        }
-        return closestPoint;
-    }
-    */
+    **/
     public GeoPoint findGeoClosestPoint(List<GeoPoint> geoPoints) {
         if (geoPoints == null) //In case of an empty list
             return null;

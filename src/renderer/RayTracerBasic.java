@@ -1,9 +1,10 @@
 package renderer;
 
 import Scene.Scene;
+import geometries.*;
 import lighting.LightSource;
 import primitives.*;
-import primitives.Ray;
+
 import static geometries.Intersectable.GeoPoint;
 
 import java.util.List;

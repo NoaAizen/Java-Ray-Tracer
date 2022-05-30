@@ -3,16 +3,15 @@
  */
 package renderer;
 
+import geometries.primitives.*;
 import org.junit.jupiter.api.Test;
 
 import static java.awt.Color.*;
 
-import renderer.ImageWriter;
 import lighting.*;
 import geometries.*;
-import primitives.*;
-import renderer.*;
 import Scene.Scene;
+import primitives.*;
 
 /**
  * Tests for reflection and transparency functionality, test for partial shadows
@@ -130,9 +129,6 @@ class ReflectionRefractionTests {
 				.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(60)));
 
 
-		scene.getLights().add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
-				.setkL(4E-5).setkQ(2E-7));
-
 		ImageWriter imageWriter = new ImageWriter("222", 600, 600);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
@@ -143,7 +139,7 @@ class ReflectionRefractionTests {
 	 * Produce a picture of a sphere lighted by a spot light
 	 */
 	@Test
-	public void testnoga() {
+	public void test1() {
 		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPSize(2500, 2500).setVPDistance(10000); //
 
@@ -174,15 +170,15 @@ class ReflectionRefractionTests {
 						.setMaterial(new Material().setkR(new Double3(0.5))),
 				new Sphere(new Point(1100, -1100, -200), 250) //
 						.setEmission(new Color(255, 242, 0)) //
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)));
+						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)),
+				new Sphere(new Point(600, 500, -500), 300d).setEmission(new Color(white)) //
+						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.6))));
 
-		scene.getLights().add(
-				new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4)) //
-				.setkL(0.00001).setkQ(0.000005));
-		scene.getLights().add(
-						new SpotLight(new Color(400, 240, 0), new Point(1100, -1100, -200), new Vector(-2100, 2000, 1200)) //
-								.setkL(1E-5).setkQ(1.5E-7));
-		ImageWriter imageWriter = new ImageWriter("nogatest", 500, 500);
+		scene.getLights().add(new SpotLight(new Color(white), new Point(600, 500, 0), new Vector(0, 0, -1)) //
+				.setkL(4E-5).setkQ(2E-7));
+
+
+		ImageWriter imageWriter = new ImageWriter("test1", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //

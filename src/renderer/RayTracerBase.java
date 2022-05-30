@@ -9,7 +9,7 @@ public abstract class RayTracerBase {
         // ***************** Constructors ********************
         /**
          * Constructors
-         * set of scene
+         * set of scenez
          * @param scene
          */
         public RayTracerBase(Scene scene) {

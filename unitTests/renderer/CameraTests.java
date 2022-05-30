@@ -2,9 +2,10 @@ package renderer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import org.junit.jupiter.api.Test;
-
-import primitives.*;
 
 /**
  * Testing Camera Class

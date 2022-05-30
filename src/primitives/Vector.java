@@ -1,7 +1,5 @@
 package primitives;
 
-import static primitives.Util.isZero;
-
 public class Vector extends Point {
     // ***************** constructor ********************** //
     /**
@@ -51,7 +49,7 @@ public class Vector extends Point {
      * @return
      */
     public Vector scale(double factor){
-        if(isZero(factor)){
+        if(Util.isZero(factor)){
             throw  new IllegalArgumentException("Error!! zero vector");
         }
         return new Vector(xyz.scale(factor));
