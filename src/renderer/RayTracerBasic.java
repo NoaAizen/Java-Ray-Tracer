@@ -11,40 +11,24 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
-    //בשביל עצירה של רקוסיה והיא עושה תלויה בהשתקפות
+
+    /**
+     * MAX CALC COLOR LEVEL
+     */
     private static final int MAX_CALC_COLOR_LEVEL = 10;
+    /**
+     *  MIN CALC COLOR K
+     */
     private static final double MIN_CALC_COLOR_K = 0.001;
+    /**
+     *  Stop conditions of k
+     */
     private static final Double3 INITIAL_K = Double3.ONE;
-    private static final double DELTA = 0.1;    //תיעוד
+    /**
+     *  ??
+     */
+    private static final double DELTA = 0.1;
 
-    //תיעוד
-    private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nv) {
-        Vector lightDirection = l.scale(-1); // from point to light source
-        Ray lightRay = new Ray(gp.point, lightDirection, n);
-        double maxdistance = lightSource.getDistance(gp.point);
-        List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
-
-        if (intersections==null){
-             return Double3.ONE;
-        }//משתנה K כמות הצללה
-        Double3 ktr=Double3.ONE;
-        for (var item: intersections ) {
-            var kT=item.geometry.getMaterial().kT;
-            ktr=kT.product(ktr);
-            }
-        return ktr;
-    }
-
-
-
-    private GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(ray);
-      if(intersections==null)  {
-          return null;
-      }
-        GeoPoint closestPoint = ray.findGeoClosestPoint(intersections);
-        return closestPoint;
-    }
 
     // ***************** Constructors ********************** //
 
@@ -64,9 +48,10 @@ public class RayTracerBasic extends RayTracerBase {
         super(null);
     }
 
+    // ***************** func's calcColor ********************** //
+
     /**
      * Calculate the Color
-     *
      * @param gp
      * @return color
      */
@@ -75,6 +60,14 @@ public class RayTracerBasic extends RayTracerBase {
                 .add(scene.getAmbientLight().getIntensity());
            }
 
+    /**
+     * A recursive function that returns the color at a specific point
+     * @param gp
+     * @param ray
+     * @param level
+     * @param k
+     * @return Color
+     */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(gp, ray,k);
         if(level == 1){
@@ -84,6 +77,15 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
+    /**
+     *  She is responsible for the global effects
+     * (Transparency and reflection of color)
+     * @param gp
+     * @param ray
+     * @param level
+     * @param k
+     * @return Color
+     */
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = Color.BLACK;
 
@@ -111,11 +113,25 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
 }
 
+    /**
+     *  The thought of transparency
+     * @param point
+     * @param ray
+     * @param n
+     * @return
+     */
     private Ray constructRefractedRay(Point point, Ray ray, Vector n) {
         return  new Ray(point,ray.getDir(),n.normalize());
     }
 
-    private Ray constructReflectedRay(Point point, Ray ray, Vector n) {//השתקפות
+    /**
+     *  Thought reflection
+     * @param point
+     * @param ray
+     * @param n
+     * @return
+     */
+    private Ray constructReflectedRay(Point point, Ray ray, Vector n) {
         Vector v = ray.getDir();
         double vn = alignZero(v.dotProduct(n));
         Vector r = v.subtract(n.scale(2*vn));
@@ -151,6 +167,7 @@ public class RayTracerBasic extends RayTracerBase {
     }
         return color;
     }
+
     /**
      * Calculate Flashes, a kind of reflection of light, on the surface
      *
@@ -185,6 +202,47 @@ public class RayTracerBasic extends RayTracerBase {
 
     }
 
+    /**
+     * Calculates the shading
+     * @param gp
+     * @param lightSource
+     * @param l
+     * @param n
+     * @param nv
+     * @return
+     */
+    private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nv) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Ray lightRay = new Ray(gp.point, lightDirection, n);
+        double maxdistance = lightSource.getDistance(gp.point);
+        List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
+
+        if (intersections==null){
+            return Double3.ONE;
+        }
+        Double3 ktr=Double3.ONE;
+        for (var item: intersections ) {
+            var kT=item.geometry.getMaterial().kT;
+            ktr=kT.product(ktr);
+        }
+        return ktr;
+    }
+
+    /**
+     *  Finds the point of intersection closest to you
+     * @param ray
+     * @return
+     */
+    private GeoPoint findClosestIntersection(Ray ray) {
+        List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(ray);
+        if(intersections==null)  {
+            return null;
+        }
+        GeoPoint closestPoint = ray.findGeoClosestPoint(intersections);
+        return closestPoint;
+    }
+
+    // ***************** Override ********************** //
 
     /**
      * trace ray, and find cross point and return calcColor of the point if dont have point return Backgroung

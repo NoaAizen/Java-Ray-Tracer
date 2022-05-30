@@ -14,15 +14,42 @@ import static primitives.Util.isZero;
  */
 public class Camera {
 
+    /**
+     *  The distance from our viewing plane
+     */
     private Vector Vto;
+    /**
+     *  Top direction of the camera
+     */
     private Vector Vup;
+    /**
+     * Camera direction - Vright Camera right direction
+     */
     private Vector Vright;
+    /**
+     * Position the camera in the space of the center of the lens
+     */
     private Point P0;
 
+    /**
+     *  The distance between the camera and the view plane
+     */
     private double distance;
+    /**
+     *  Image width
+     */
     private double width;
+    /**
+     *  Image height
+     */
     private double height;
+    /**
+     *  Creating an image file, and also on holding the color matrix
+     */
     private ImageWriter imageWriter;
+    /**
+     *
+     */
     private RayTracerBase rayTracerBase;
 
 
@@ -184,12 +211,11 @@ public class Camera {
 
         Pij = Pij.add(Vright.scale(Xj).add(Vup.scale(Yi)));
         return new Ray(P0, Pij.subtract(P0));
-
-
     }
 
     /**
      * turn off writeToImage
+     * @return
      */
     public Camera writeToImage() {
         imageWriter.writeToImage();
