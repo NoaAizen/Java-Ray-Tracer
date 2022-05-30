@@ -2,11 +2,12 @@ package primitives;
 
 import java.util.Objects;
 
-import primitives.Double3;
-
 public class Point {
+    /**
+     *A field that constructor a point
+     */
     final Double3 xyz;
-    public static Point ZERO = new Point(0, 0, 0);
+    public static Point ZERO = new Point(0, 0, 0);//A field that is a zero point
 
     // ***************** Constructors ********************** //
 

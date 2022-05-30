@@ -3,8 +3,6 @@
  */
 package primitives;
 
-import static primitives.Util.*;
-
 /**
  * This class will serve all primitive classes based on three numbers
  *
@@ -56,7 +54,7 @@ public class Double3 {
 		if (obj == null)
 			return false;
 		if (obj instanceof Double3 other)
-			return isZero(d1 - other.d1) && isZero(d2 - other.d2) && isZero(d3 - other.d3);
+			return Util.isZero(d1 - other.d1) && Util.isZero(d2 - other.d2) && Util.isZero(d3 - other.d3);
 		return false;
 	}
 

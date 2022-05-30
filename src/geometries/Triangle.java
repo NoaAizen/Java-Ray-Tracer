@@ -1,5 +1,6 @@
 package geometries;
-import primitives.*;
+import primitives.Ray;
+import primitives.Vector;
 import primitives.Point;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class Triangle extends Polygon {
      * @param maxDistance
      * @return list of GeoPoint - triangle cross and point cross
      */
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance){
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
 
         var intersection=plane.findGeoIntersectionsHelper(ray, maxDistance);
         if(intersection==null)

@@ -1,8 +1,9 @@
 package geometries;
 
-import primitives.*;
-
-import java.util.List;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * this is the interface for all geometries that need to get a normalized vector.its the most basic interface for all geometries.

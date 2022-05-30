@@ -6,9 +6,11 @@ import static renderer.CameraTests.ZERO_POINT;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import org.junit.jupiter.api.Test;
 
-import primitives.*;
 import geometries.Intersectable;
 
 class IntegrationTests {

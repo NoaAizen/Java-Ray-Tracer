@@ -45,7 +45,7 @@ class PlaneTest {
     }
 
     /**
-     * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.MM
+     * Test method for {@link geometries.Plane#findIntersections(Ray)}.MM
      */
     @Test
     public void testfindIntersectionsRay() {
