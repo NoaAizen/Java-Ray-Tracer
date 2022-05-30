@@ -112,6 +112,8 @@ public class Scene {
             return this;
         }
 
+        // ***************** class Sence Type Build  ********************** //
+
         /**
          * build Scene
          * @return Scene
