@@ -1,6 +1,6 @@
 package renderer;
 
-import geometries.primitives.*;
+//import geometries.primitives.*;
 import org.junit.jupiter.api.Test;
 
 import static java.awt.Color.*;

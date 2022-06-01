@@ -1,7 +1,7 @@
 package lighting;
 
 import Scene.Scene;
-import geometries.primitives.*;
+import geometries.*;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
