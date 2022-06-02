@@ -210,11 +210,11 @@ class ReflectionRefractionTests {
 
 				//???
 				new Triangle(new Point(200,650,-400), new Point(1000,750,0), new Point(1000,0,-0)).setEmission(new Color(126,126,126)),
-				new Triangle(new Point(200,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126))
+				new Triangle(new Point(200,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126)),
 
 				//?????
-
-
+	         	new Triangle(new Point(1000,350,70), new Point(188,0,0), new Point(1000,0,50)).setEmission(new Color(pink)),
+				new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink))
 
 		//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
 
