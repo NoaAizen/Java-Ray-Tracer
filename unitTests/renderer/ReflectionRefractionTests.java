@@ -219,7 +219,7 @@ class ReflectionRefractionTests {
 				new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
 
 				//for shadow
-				new Sphere(new Point(0, 100, 4500), 100).setEmission(new Color(yellow)) //
+				new Sphere(new Point(100, 350, 4500), 100).setEmission(new Color(yellow)) //
 						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.3)))
 
 		);
