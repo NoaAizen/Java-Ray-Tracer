@@ -192,18 +192,42 @@ class ReflectionRefractionTests {
 
 		Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color (0,162,232)).build();
 		scene.getGeometries().add(
+				//?? ????
+				new Triangle(new Point(0,-1350,-500), new Point(1300,1250,0), new Point(0,960,-500)).setEmission(new Color(white)),
+				new Triangle(new Point(0,-1350,-500), new Point(1250,1200,0), new Point(1250,-1250,0)).setEmission(new Color(white)),
 
-				new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
+				//?? ????
+				new Triangle(new Point(0,-1450,-500), new Point(-1300,1250,0), new Point(0,960,-500)).setEmission(new Color(255,255,200)),
+				new Triangle(new Point(0,-1450,-500), new Point(-1250,1200,0), new Point(-1250,-1250,0)).setEmission(new Color(255,255,200)),
 
-		        new Sphere(new Point(-1000,-900,50),550).setEmission(new Color(185,122,87)),
-				new Sphere(new Point(1000,-900,50),550).setEmission(new Color(185,122,87)),
+				//????
+				new Triangle(new Point(-1300,1250,0), new Point(0,1000,-1000), new Point(1300,1250,0)).setEmission(new Color(82,0,0)),
+
+				//???
+				new Sphere(new Point(600,400,0),200).setEmission(new Color(156,103,73)),
+				new Sphere(new Point(450,375,-300),120).setEmission(new Color(185,122,87)),
+				new Sphere(new Point(750,425,100),120).setEmission(new Color(185,122,87)),
+
+				//???
+				new Triangle(new Point(200,650,-400), new Point(1000,700,0), new Point(1000,0,-0)).setEmission(new Color(126,126,126)),
+				new Triangle(new Point(200,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126))
+
+				//?????
+
+
+
+		//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
+
+		        //new Sphere(new Point(-1000,-900,50),550).setEmission(new Color(185,122,87)),
+
+				//new Sphere(new Point(1000,-900,50),550).setEmission(new Color(185,122,87)),
 
 				//HOME
-
+				/**
 				new Triangle(new Point(300, -50, 500),new Point(-300,-50,500),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
 						.setMaterial(new Material().setkR(new Double3(0.90))),
 				new Triangle(new Point(-300, -50, 500),new Point(-300,400,0),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
-						.setMaterial(new Material().setkR(new Double3(0.90))),
+						.setMaterial(new Material().setkR(new Double3(0.90))),S
 				new Triangle(new Point(300, -50, 500),new Point(300,400,0),new Point(350,420,0)).setEmission(new Color(255, 255, 128))
 						.setMaterial(new Material().setkR(new Double3(0.90))),
 				new Triangle(new Point(300, -50, 500),new Point(350,420,0),new Point(350,0,0)).setEmission(new Color(255, 255, 128))
@@ -211,19 +235,19 @@ class ReflectionRefractionTests {
 				new Triangle(new Point(0, 600, 420),new Point(-300,400,0),new Point(300,400,0)).setEmission(new Color(RED))
 						,
 				new Triangle(new Point(0, 600, 420),new Point(350,420,0),new Point(300,400,0)).setEmission(new Color(RED)),
-
+*/
 				//WATER after
-				new Triangle(new Point(-1500, -800, 1500),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
-				new Triangle(new Point(1500, -1400, 2000),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
+				//new Triangle(new Point(-1500, -800, 1500),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
+				//new Triangle(new Point(1500, -1400, 2000),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
 
 				//WATER BEFUR
 
-				new Triangle(new Point(-1500, -800, -1500),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
-				new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
+				//new Triangle(new Point(-1500, -800, -1500),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
+				//new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
 
 				//for shadow
-				new Sphere(new Point(0, 100, 4500), 100).setEmission(new Color(yellow)) //
-						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.3)))
+				//new Sphere(new Point(100, 350, 4500), 100).setEmission(new Color(yellow)) //
+				//		.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.3)))
 
 		);
 
