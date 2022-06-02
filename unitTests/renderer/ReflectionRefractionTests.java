@@ -190,12 +190,13 @@ class ReflectionRefractionTests {
 		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPSize(2500, 2500).setVPDistance(10000); //
 
-		Scene scene = new Scene.SceneBuilder("Test scene").setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1))).build();
+		Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color (0,162,232)).build();
 
 		scene.getGeometries().add(
-				//new Sphere(new Point(0,-1000,1000),1000).setEmission(new Color(white)),
+
 				new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(128,64,0)),
 				//HOME
+
 				new Triangle(new Point(300, -50, 500),new Point(-300,-50,500),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
 						.setMaterial(new Material().setkR(new Double3(0.90))),
 				new Triangle(new Point(-300, -50, 500),new Point(-300,400,0),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
@@ -206,25 +207,26 @@ class ReflectionRefractionTests {
 						.setMaterial(new Material().setkR(new Double3(0.90))),
 				new Triangle(new Point(0, 600, 420),new Point(-300,400,0),new Point(300,400,0)).setEmission(new Color(RED))
 						,
-				new Triangle(new Point(0, 600, 420),new Point(350,420,0),new Point(300,400,0)).setEmission(new Color(RED))
-						,
+				new Triangle(new Point(0, 600, 420),new Point(350,420,0),new Point(300,400,0)).setEmission(new Color(RED)),
+
 				//WATER after
-				new Triangle(new Point(-1500, -800, 1500),new Point(1500,-800,2000		),new Point(-1500,-1400,1500)).setEmission(new Color(BLUE))
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)),
-				new Triangle(new Point(1500, -1400, 2000),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(BLUE))
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)),
+				new Triangle(new Point(-1500, -800, 1500),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
+				new Triangle(new Point(1500, -1400, 2000),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
+
 				//WATER BEFUR
-				new Triangle(new Point(-1500, -800, -1500),new Point(1500,-800,-2000		),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234))
-						.setMaterial(new Material().setkR(new Double3(0.90))),
-				new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234))
-						.setMaterial(new Material().setkR(new Double3(0.90))),
-				new Sphere(new Point(0, -2500, -2500), 500).setEmission(new Color(RED)) //
-						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.6)))
+
+				new Triangle(new Point(-1500, -800, -1500),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
+				new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
+
+				//for shadow
+				new Sphere(new Point(0, 100, 4500), 100).setEmission(new Color(yellow)) //
+						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.3)))
 
 		);
 
-		scene.getLights().add(new SpotLight(new Color(255, 255, 128), new Point(0, -5000, -5000), new Vector(4500, 5050, -300)) //
+		scene.getLights().add(new SpotLight(new Color(255, 255, 128), new Point(0, 0, 5000), new Vector(300,-1050,-4500)) //
 				.setkL(4E-5).setkQ(2E-7));
+
 
 		ImageWriter imageWriter = new ImageWriter("testnoga", 500, 500);
 		camera.setImageWriter(imageWriter) //
