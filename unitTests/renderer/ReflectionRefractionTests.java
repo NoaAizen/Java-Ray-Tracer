@@ -186,15 +186,18 @@ class ReflectionRefractionTests {
 	}
 
 	@Test
-	public void testnoga() {
+	public void test4() {
 		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPSize(2500, 2500).setVPDistance(10000); //
 
 		Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color (0,162,232)).build();
-
 		scene.getGeometries().add(
 
-				new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(128,64,0)),
+				new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
+
+		        new Sphere(new Point(-1000,-900,50),550).setEmission(new Color(185,122,87)),
+				new Sphere(new Point(1000,-900,50),550).setEmission(new Color(185,122,87)),
+
 				//HOME
 
 				new Triangle(new Point(300, -50, 500),new Point(-300,-50,500),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
@@ -228,7 +231,7 @@ class ReflectionRefractionTests {
 				.setkL(4E-5).setkQ(2E-7));
 
 
-		ImageWriter imageWriter = new ImageWriter("testnoga", 500, 500);
+		ImageWriter imageWriter = new ImageWriter("333", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
