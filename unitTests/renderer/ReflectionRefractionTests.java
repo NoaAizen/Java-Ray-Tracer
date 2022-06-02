@@ -192,31 +192,40 @@ class ReflectionRefractionTests {
 
 		Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color (0,162,232)).build();
 		scene.getGeometries().add(
-				//?? ????
+				//right
 				new Triangle(new Point(0,-1350,-500), new Point(1300,1250,0), new Point(0,960,-500)).setEmission(new Color(white)),
 				new Triangle(new Point(0,-1350,-500), new Point(1250,1200,0), new Point(1250,-1250,0)).setEmission(new Color(white)),
 
-				//?? ????
+				//left
 				new Triangle(new Point(0,-1450,-500), new Point(-1300,1250,0), new Point(0,960,-500)).setEmission(new Color(255,255,200)),
 				new Triangle(new Point(0,-1450,-500), new Point(-1250,1200,0), new Point(-1250,-1250,0)).setEmission(new Color(255,255,200)),
 
-				//????
+				//up
 				new Triangle(new Point(-1300,1250,0), new Point(0,1000,-1000), new Point(1300,1250,0)).setEmission(new Color(82,0,0)),
 
-				//???
+				//monkey
 				new Sphere(new Point(600,400,0),200).setEmission(new Color(156,103,73)),
 				new Sphere(new Point(450,375,-300),120).setEmission(new Color(185,122,87)),
 				new Sphere(new Point(750,425,100),120).setEmission(new Color(185,122,87)),
 
-				//???
+				//Monkey background
 				new Triangle(new Point(200,650,-400), new Point(1000,750,0), new Point(1000,0,-0)).setEmission(new Color(126,126,126)),
 				new Triangle(new Point(200,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126)),
 
-				//?????
+				//Table
 	         	new Triangle(new Point(1000,350,70), new Point(188,0,0), new Point(1000,0,50)).setEmission(new Color(pink)),
-				new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink))
+				new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink)),
 
-		//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
+				//lamp
+				new Triangle(new Point(-580,550,-250), new Point(-580,1000,-250), new Point(-520,1000,-270)).setEmission(new Color(black)),
+				new Triangle(new Point(-580,550,-250), new Point(-520,550,-270), new Point(-520,1000,-270)).setEmission(new Color(black)),
+
+				new Sphere(new Point(-570,300,-200),150).setEmission(new Color(yellow)),
+
+				new Triangle(new Point(-550,580,-150), new Point(-550,280,50), new Point(-250,280,-300)).setEmission(new Color(red)),
+				new Triangle(new Point(-850,200,-50), new Point(-550,280,50), new Point(-550,580,-150)).setEmission(new Color(red))
+
+				//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
 
 		        //new Sphere(new Point(-1000,-900,50),550).setEmission(new Color(185,122,87)),
 
