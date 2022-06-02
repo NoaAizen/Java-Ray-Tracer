@@ -214,7 +214,13 @@ class ReflectionRefractionTests {
 
 				//?????
 	         	new Triangle(new Point(1000,350,70), new Point(188,0,0), new Point(1000,0,50)).setEmission(new Color(pink)),
-				new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink))
+				new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink)),
+                //???
+				new Sphere(new Point(470,440,300),35).setEmission(new Color(white)),
+	        	new Sphere(new Point(570,450,300),40).setEmission(new Color(white)),
+
+		        new Sphere(new Point(470,440,350),13).setEmission(new Color(black)),
+		        new Sphere(new Point(570,450,350),15).setEmission(new Color(black))
 
 		//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
 
