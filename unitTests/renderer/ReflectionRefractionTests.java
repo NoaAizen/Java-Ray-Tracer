@@ -208,6 +208,13 @@ class ReflectionRefractionTests {
 				new Sphere(new Point(450,375,-300),120).setEmission(new Color(185,122,87)),
 				new Sphere(new Point(750,425,100),120).setEmission(new Color(185,122,87)),
 
+				//monkey eyes
+				new Sphere(new Point(470,440,300),35).setEmission(new Color(white)),
+				new Sphere(new Point(570,450,300),40).setEmission(new Color(white)),
+
+				new Sphere(new Point(470,440,350),13).setEmission(new Color(black)),
+				new Sphere(new Point(570,450,350),15).setEmission(new Color(black)),
+
 				//Monkey background
 				new Triangle(new Point(200,650,-400), new Point(1000,750,0), new Point(1000,0,-0)).setEmission(new Color(126,126,126)),
 				new Triangle(new Point(200,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126)),
@@ -223,7 +230,7 @@ class ReflectionRefractionTests {
 				new Sphere(new Point(-570,300,-200),150).setEmission(new Color(yellow)),
 
 				new Triangle(new Point(-550,580,-150), new Point(-550,280,50), new Point(-250,280,-300)).setEmission(new Color(red)),
-				new Triangle(new Point(-850,200,-50), new Point(-550,280,50), new Point(-550,580,-150)).setEmission(new Color(red))
+				new Triangle(new Point(-850,280,-50), new Point(-550,280,50), new Point(-550,580,-150)).setEmission(new Color(red))
 
 				//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
 
