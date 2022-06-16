@@ -187,13 +187,13 @@ class ReflectionRefractionTests {
 
 	@Test
 	public void test4() {
-		Camera camera = new Camera(new Point(-500, 850, 15000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-				.setVPSize(2500, 2500).setVPDistance(10000);
+		Camera camera = new Camera(new Point(200, 100, 25000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+						.setVPSize(2500, 2500).setVPDistance(10000);
 		// ????? ????? ??????
-		//Camera camera = new Camera(new Point(0, -10000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
-		//		.setVPSize(2500, 2500).setVPDistance(10000);
+		//Camera camera = new Camera(new Point(0, -15000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
+				//		.setVPSize(2500, 2500).setVPDistance(10000);
 		// ????? ?????? ?????
-		//Camera camera = new Camera(new Point(0, 30000, 9500), new Vector(0, -4200, 0), new Vector(0, 0, 1)) //
+		//Camera camera = new Camera(new Point(200, 5000, 9500), new Vector(0, -4200, 0), new Vector(0, 0, 1)) //
 		//		.setVPSize(2500, 2500).setVPDistance(10000);
 		Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color (0,162,232)).build();
 		scene.getGeometries().add(
@@ -202,55 +202,84 @@ class ReflectionRefractionTests {
 				new Triangle(new Point(0,-1500,8500), new Point(1500,1000,10000), new Point(1500,-1500,10000)).setEmission(new Color(white)),
 
 				//left
-				new Triangle(new Point(0,-1500,8500), new Point(-1500,1000,10000), new Point(0,1000,8500)).setEmission(new Color(255,255,200)),
-				new Triangle(new Point(0,-1500,8500), new Point(-1500,1000,10000), new Point(-1500,-1500,10000)).setEmission(new Color(255,255,200)),
+				new Triangle(new Point(0,-1500,8500), new Point(-1500,1000,10000), new Point(0,1000,8500)).setEmission(new Color(white)),
+				new Triangle(new Point(0,-1500,8500), new Point(-1500,1000,10000), new Point(-1500,-1500,10000)).setEmission(new Color(white)),
 
 				//up
 				new Triangle(new Point(0,1000,8500), new Point(-1500,1000,10000), new Point(0,1000,11500)).setEmission(new Color(82,0,0)),
 				new Triangle(new Point(0,1000,8500), new Point(1500,1000,10000), new Point(0,1000,11500)).setEmission(new Color(82,0,0)),
 
 				//down
-				//new Triangle(new Point(0,-1500,8500), new Point(-1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(green)),
-				//new Triangle(new Point(0,-1500,8500), new Point(1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(green)),
+				new Triangle(new Point(0,-1500,8500), new Point(-1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(green)),
+				new Triangle(new Point(0,-1500,8500), new Point(1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(green)),
 
-				//lamp
+				//lamp middle
 				new Triangle(new Point(-500,1000,9450), new Point(-550,1000,9400), new Point(-500,700,9450)).setEmission(new Color(black)),
 				new Triangle(new Point(-550,1000,9450), new Point(-550,700,9400), new Point(-500,700,9450)).setEmission(new Color(black)),
 
-				new Sphere(new Point(-570,300,-200),150).setEmission(new Color(yellow)),
+				new Sphere(new Point(-525,700,9425),150).setEmission(new Color(yellow)),
 
-				new Triangle(new Point(-550,580,-150), new Point(-550,280,50), new Point(-250,280,-300)).setEmission(new Color(red)),
-				new Triangle(new Point(-850,280,-50), new Point(-550,280,50), new Point(-550,580,-150)).setEmission(new Color(red)),
+				//new Triangle(new Point(-550,580,-150), new Point(-550,280,50), new Point(-250,280,-300)).setEmission(new Color(red)),
+				//new Triangle(new Point(-850,280,-50), new Point(-550,280,50), new Point(-550,580,-150)).setEmission(new Color(red)),
+
+				//lamp first
+				new Triangle(new Point(-910,700,9800), new Point(-960,700,9850), new Point(-960,1000,9850)).setEmission(new Color(black)),
+				new Triangle(new Point(-910,700,9800), new Point(-910,1000,9850), new Point(-960,1000,9850)).setEmission(new Color(black)),
+
+				new Sphere(new Point(-935,700,9825),150).setEmission(new Color(yellow)),
+
+				//lamp last
+				new Triangle(new Point(-85,700,8975), new Point(-135,1000,9025), new Point(-85,1000,8975)).setEmission(new Color(black)),
+				new Triangle(new Point(-85,700,8975), new Point(-135,1000,9025), new Point(-135,700,9000)).setEmission(new Color(black)),
+
+				new Sphere(new Point(-110,700,9000),150).setEmission(new Color(yellow)),
 
 				//monkey
 				new Sphere(new Point(750,-200,9250),200).setEmission(new Color(156,103,73)),
 				new Sphere(new Point(900,-200,9400),120).setEmission(new Color(185,122,87)),
-				new Sphere(new Point(600,-200,9100),120).setEmission(new Color(185,122,87))
+				new Sphere(new Point(600,-200,9100),120).setEmission(new Color(185,122,87)),
 
 				//monkey eyes
-				//new Sphere(new Point(470,440,300),35).setEmission(new Color(white)),
-				//new Sphere(new Point(570,450,300),40).setEmission(new Color(white)),
+				new Sphere(new Point(675,-150,9400),40).setEmission(new Color(white)),
+				new Sphere(new Point(578,-150,9300),35).setEmission(new Color(white)),
 
-				//new Sphere(new Point(470,440,350),13).setEmission(new Color(black)),
-				//new Sphere(new Point(570,450,350),15).setEmission(new Color(black)),
+				new Sphere(new Point(665,-150,9435),15).setEmission(new Color(black)),
+				new Sphere(new Point(558,-150,9330),13).setEmission(new Color(black))
 
-				//Monkey background
-				//new Triangle(new Point(200,650,-400), new Point(1000,750,0), new Point(1000,0,-0)).setEmission(new Color(126,126,126)),
-				//new Triangle(new Point(230,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126)),
+		);
 
-				//Table
-	         	//new Triangle(new Point(1000,350,70), new Point(188,0,0), new Point(1000,0,50)).setEmission(new Color(pink)),
-				//new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink)),
+		scene.getLights().add(new SpotLight(new Color(YELLOW), new Point(-1575, 700, 11275), new Vector(1575,0,-2775)) //
+				.setkL(1E-5).setkQ(1.5E-7));
 
-				//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
 
-		        //new Sphere(new Point(-1000,-900,50),550).setEmission(new Color(185,122,87)),
+		ImageWriter imageWriter = new ImageWriter("333", 500, 500);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage(); //
+		camera.writeToImage();
+	}
+}
 
-				//new Sphere(new Point(1000,-900,50),550).setEmission(new Color(185,122,87)),
 
-				//HOME
-				/**
-				new Triangle(new Point(300, -50, 500),new Point(-300,-50,500),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
+//Monkey background
+//new Triangle(new Point(200,650,-400), new Point(1000,750,0), new Point(1000,0,-0)).setEmission(new Color(126,126,126)),
+//new Triangle(new Point(230,650,-400), new Point(200,0,0), new Point(1000,-0,0)).setEmission(new Color(126,126,126)),
+
+//Table
+//new Triangle(new Point(1000,350,70), new Point(188,0,0), new Point(1000,0,50)).setEmission(new Color(pink)),
+//new Triangle(new Point(980,340,300), new Point(188,0,0), new Point(188,300,100)).setEmission(new Color(pink)),
+
+//new Sphere(new Point(0,-1000,0),1000).setEmission(new Color(156,103,73)),
+
+//new Sphere(new Point(-1000,-900,50),550).setEmission(new Color(185,122,87)),
+
+//new Sphere(new Point(1000,-900,50),550).setEmission(new Color(185,122,87)),
+
+//HOME
+				 /* *
+				 *
+
+				 new Triangle(new Point(300, -50, 500),new Point(-300,-50,500),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
 						.setMaterial(new Material().setkR(new Double3(0.90))),
 				new Triangle(new Point(-300, -50, 500),new Point(-300,400,0),new Point(300,400,0)).setEmission(new Color(255, 255, 128))
 						.setMaterial(new Material().setkR(new Double3(0.90))),S
@@ -262,29 +291,15 @@ class ReflectionRefractionTests {
 						,
 				new Triangle(new Point(0, 600, 420),new Point(350,420,0),new Point(300,400,0)).setEmission(new Color(RED)),
 */
-				//WATER after
-				//new Triangle(new Point(-1500, -800, 1500),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
-				//new Triangle(new Point(1500, -1400, 2000),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
+//WATER after
+//new Triangle(new Point(-1500, -800, 1500),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
+//new Triangle(new Point(1500, -1400, 2000),new Point(1500,-800,2000),new Point(-1500,-1400,1500)).setEmission(new Color(1,191,53)),
 
-				//WATER BEFUR
+//WATER BEFUR
 
-				//new Triangle(new Point(-1500, -800, -1500),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
-				//new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
+//new Triangle(new Point(-1500, -800, -1500),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
+//new Triangle(new Point(1500, -1400, -2000),new Point(1500,-800,-2000),new Point(-1500,-1400,-1500)).setEmission(new Color(62,109,234)),
 
-				//for shadow
-				//new Sphere(new Point(100, 350, 4500), 100).setEmission(new Color(yellow)) //
-				//		.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.3)))
-
-		);
-
-		scene.getLights().add(new SpotLight(new Color(255, 255, 128), new Point(0, 0, 5000), new Vector(300,-1050,-4500)) //
-				.setkL(4E-5).setkQ(2E-7));
-
-
-		ImageWriter imageWriter = new ImageWriter("333", 500, 500);
-		camera.setImageWriter(imageWriter) //
-				.setRayTracer(new RayTracerBasic(scene)) //
-				.renderImage(); //
-		camera.writeToImage();
-	}
-}
+//for shadow
+//new Sphere(new Point(100, 350, 4500), 100).setEmission(new Color(yellow)) //
+//		.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(30).setkT(new Double3(0.3)))
