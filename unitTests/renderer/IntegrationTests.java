@@ -80,7 +80,6 @@ class IntegrationTests {
         //__________________9 Intersection_________
         Plane plane3 = new Plane(new Point(0, 0, -7), new Vector(0,1 ,2 ));
        assertEquals(SumPointCross(camera, plane3, 3, 3), 9);
-
     }
 
     /**

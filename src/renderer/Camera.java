@@ -236,6 +236,7 @@ public class Camera {
      * and write pixel.
      */
     public void renderImage() {
+        int x=0,y=0;
         try {
             if (imageWriter == null)
                 throw new MissingResourceException("dont have something in image writer ", "ImageWriter", " writer");
@@ -248,6 +249,8 @@ public class Camera {
             int Nx = imageWriter.getNx();
             for (int i = 0; i < Ny; i++) {//שורות
                 for (int j = 0; j < Nx; j++) {
+                    x=i;
+                    y=j;
                     castRay(Nx, Ny, i, j);
                 }
             }

@@ -5,7 +5,7 @@ import primitives.Point;
 import primitives.Vector;
 
 public class PointLight extends Light implements LightSource{
-
+// ????? ????? 3
     /**
      * the point that start the ray of this light
      */
@@ -29,7 +29,7 @@ public class PointLight extends Light implements LightSource{
      * constructor
      * @param intensity
      */
-    protected PointLight(Color intensity, Point _position) {
+    public PointLight(Color intensity, Point _position) {
         super(intensity);
         this.position = _position;
     }
