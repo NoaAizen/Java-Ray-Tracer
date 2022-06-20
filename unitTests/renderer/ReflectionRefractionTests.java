@@ -192,7 +192,7 @@ class ReflectionRefractionTests {
 					.setVPSize(2500, 2500).setVPDistance(10000);
 		// look from down to up
 		//Camera camera = new Camera(new Point(0, -15000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
-		//				.setVPSize(2500, 2500).setVPDistance(10000);
+		///		.setVPSize(2500, 2500).setVPDistance(10000);
 		// look from up to down
 		//Camera camera = new Camera(new Point(200, 20000, 9500), new Vector(0, -4200, 0), new Vector(0, 0, 1)) //
 		//		.setVPSize(2500, 2500).setVPDistance(10000);
@@ -308,7 +308,7 @@ class ReflectionRefractionTests {
 		scene.getLights().add(
 				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.0000006));
 
-		ImageWriter imageWriter = new ImageWriter("333", 800, 800);
+		ImageWriter imageWriter = new ImageWriter("333", 800,800);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //

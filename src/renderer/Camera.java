@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
@@ -51,6 +53,8 @@ public class Camera {
      *
      */
     private RayTracerBase rayTracerBase;
+
+    private int size=2;
 
 
     // ***************** Constructors ********************** //
@@ -178,7 +182,6 @@ public class Camera {
         return this;
     }
 
-
     // ***************** func ********************** //
     /**
      * Returns the cut ray, before a formula learned in class
@@ -189,10 +192,10 @@ public class Camera {
      * @return ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-
         Point Pc = P0.add(Vto.scale(distance));
         double Rx= height/nX;
         double Ry=width/nY;
+
         double Yi = -(i - (nY - 1) / 2d) * Ry;
         double Xj = (j - (nX - 1) / 2d) * Rx;
         Point Pij = Pc;
@@ -208,9 +211,62 @@ public class Camera {
             Pij = Pij.add(Vright.scale(Xj));
             return new Ray(P0, Pij.subtract(P0));
         }
-
         Pij = Pij.add(Vright.scale(Xj).add(Vup.scale(Yi)));
         return new Ray(P0, Pij.subtract(P0));
+    }
+
+    public Point PointMiddle(int nX, int nY, int j, int i){//שינוי שם
+        Point Pc = P0.add(Vto.scale(distance));//מרכז הנקודה של  מישור התצןגה
+        double Rx= width/(double)nX;// גודל "וה" של הפיקסל (יחיד(
+        double Ry=height/(double)nY;
+        double Yi = (-(i - ((double)nY - 1) / 2d) * Ry);
+        double Xj = ((j - ((double)nX - 1) / 2d) * Rx) ;
+        Point Pij = Pc;
+        if (Xj!=0d){
+            Pij=Pij.add(getVright().scale(Xj));
+        }
+        if (Yi!=0d){
+            Pij=Pij.add(getVup().scale(Yi));
+        }
+        return Pij;
+    }
+//מחזירה את כל הקרניים באותי הפיסקל
+    public List<Ray> constructRayS(int nX, int nY, int j, int i){
+
+        Point pointCnetr=PointMiddle(nX,nY,j,i);//אנחנו רוצים את נקודת אמצע של פיקסל ונעשה את זה לפני הנוסחה שנלמדה בכיתה
+        List <Ray> rayList=new LinkedList<>();
+        rayList.add(new Ray(P0, pointCnetr.subtract(P0)));
+        double Rx= ((width)/nX)/(double) size;
+        double Ry=((height)/nY)/(double) size;
+        double x=0;
+        double y=0;
+        //כמות הפעמים שאנחנו רוצים שהוא ירוץ ויעשה לנו קרניים
+        //יצירת קרניים בתוך הפיסקל
+        for (int r=0;r<size;r++){
+            //y = -(r - (size - 1) / 2d) * Ry;
+            y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
+            for (int c=0;c<size;c++){
+                //אולי צריך פה בכלל רנדומלי במיקומים
+                x=c>size/2?(size/2)+(size- c)*Rx:(size/2)-c*Rx;
+
+             //   x = (c - (size - 1) / 2d) * Rx;
+                Point Pij = pointCnetr;
+                if (isZero(x) && isZero(y)) {
+                   Pij= Pij.subtract(P0);
+                }
+                if (isZero(y)){
+                    Pij = Pij.add(Vright.scale(x));
+                }
+                else  if (isZero(x)) {
+                    Pij = Pij.add(Vup.scale(y));
+                }
+                else {
+                    Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
+                }
+                rayList.add(new Ray(P0, Pij.subtract(P0)));
+              }
+        }
+        return rayList;
     }
 
     /**
@@ -251,12 +307,13 @@ public class Camera {
                 for (int j = 0; j < Nx; j++) {
                     x=i;
                     y=j;
-                    castRay(Nx, Ny, i, j);
+
+                    castRay(Nx, Ny, j, i);
                 }
             }
         }
         catch (Exception exception){
-            throw new UnsupportedOperationException("can not render the image");
+            throw new UnsupportedOperationException("can not render the image " );
         }
     }
 
@@ -267,9 +324,22 @@ public class Camera {
      * @param i
      * @param j
      */
-    private void castRay(int Nx, int Ny, int i, int j) {
-        var ray=constructRay(Nx, Ny, j, i);
-        var color=rayTracerBase.traceRay(ray);
-        imageWriter.writePixel(j, i,color);
-    }
-}
+    private void castRay(int Nx, int Ny, int j, int i) {
+     if (size==1){
+         imageWriter.writePixel(j, i,rayTracerBase.traceRay(constructRay(Nx, Ny, j, i)));
+     }
+     else {
+        int a=0;
+        int b=0;
+        int c=0;
+        var rays=constructRayS(Nx, Ny, j, i);
+        Color colors=null;
+        for (var ray: rays){
+           Color temp=rayTracerBase.traceRay(ray);
+           a+=temp.getColor().getRed();
+           b+=temp.getColor().getGreen();
+           c+=temp.getColor().getBlue();
+        }
+        colors=new Color(a/(rays.size()),b/(rays.size()),c/(rays.size()));
+        imageWriter.writePixel(j, i,colors);
+    }}}

@@ -109,13 +109,13 @@ public class Plane extends Geometry{
         }
         Vector p0Q;
         try {
-            p0Q = p0.subtract(ray.getP0());
+            p0Q =(p0.subtract(ray.getP0()));
         }
         catch (Exception e)
         {
             return  null;
         }
-        double t=alignZero(n.dotProduct(p0Q)/nv);
+        double t=alignZero((n.dotProduct(p0Q))/nv);
         if(t<=0 || alignZero(t - maxDistance) >= 0)
             return null;
         return List.of(new GeoPoint(this,ray.getPoint(t)));

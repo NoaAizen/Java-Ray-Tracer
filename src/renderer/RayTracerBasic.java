@@ -57,9 +57,9 @@ public class RayTracerBasic extends RayTracerBase {
      * @return color
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
-        return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
-                .add(scene.getAmbientLight().getIntensity());
-           }
+        Color color=calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K);
+        return color.add(scene.getAmbientLight().getIntensity());
+    }
 
     /**
      * A recursive function that returns the color at a specific point
