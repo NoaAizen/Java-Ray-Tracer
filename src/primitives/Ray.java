@@ -129,11 +129,12 @@ public class Ray {
      * @return point
      */
     public Point getPoint(double t) {
-        if (isZero(t)) {
+        if ((t)==0.0) {
             return p0;
         }
+        else{
         return p0.add(dir.scale(t));
-    }
+    }}
 
     // ***************** func ********************** //
 
