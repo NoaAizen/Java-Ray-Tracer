@@ -53,8 +53,11 @@ public class Camera {
      *
      */
     private RayTracerBase rayTracerBase;
-
-    private int size=2;
+    /**
+     * A field that helps calculate how many rays we want to have
+     */
+    //לבדוק רנדומלי או שאני מחליטה
+    private int size=4;
 
 
     // ***************** Constructors ********************** //
@@ -215,9 +218,17 @@ public class Camera {
         return new Ray(P0, Pij.subtract(P0));
     }
 
-    public Point PointMiddle(int nX, int nY, int j, int i){//שינוי שם
-        Point Pc = P0.add(Vto.scale(distance));//מרכז הנקודה של  מישור התצןגה
-        double Rx= width/(double)nX;// גודל "וה" של הפיקסל (יחיד(
+    /**
+     *A function that calculates the midpoint with a pixel with a viewing plane and a camera
+     * @param nX-size of view plan
+     * @param nY-size of view plan
+     * @param j-  Pixel     Location
+     * @param i- Pixel     Location
+     * @return  Point Middle
+     */
+    public Point PointMiddle(int nX, int nY, int j, int i){
+        Point Pc = P0.add(Vto.scale(distance));
+        double Rx= width/(double)nX;
         double Ry=height/(double)nY;
         double Yi = (-(i - ((double)nY - 1) / 2d) * Ry);
         double Xj = ((j - ((double)nX - 1) / 2d) * Rx) ;
@@ -230,25 +241,42 @@ public class Camera {
         }
         return Pij;
     }
-//מחזירה את כל הקרניים באותי הפיסקל
-    public List<Ray> constructRayS(int nX, int nY, int j, int i){
 
-        Point pointCnetr=PointMiddle(nX,nY,j,i);//אנחנו רוצים את נקודת אמצע של פיקסל ונעשה את זה לפני הנוסחה שנלמדה בכיתה
+    /**Antialiasing
+     *Function for calculating that a list of rays intersects the pixel
+     * @param nX-size of view plan
+     * @param nY-size of view plan
+     * @param j-  Pixel     Location
+     * @param i- Pixel     Location
+     * @return List of rays cut
+     */
+        public List<Ray> constructRayS(int nX, int nY, int j, int i){
+
+        Point pointCnetr=PointMiddle(nX,nY,j,i);
         List <Ray> rayList=new LinkedList<>();
         rayList.add(new Ray(P0, pointCnetr.subtract(P0)));
         double Rx= ((width)/nX)/(double) size;
         double Ry=((height)/nY)/(double) size;
         double x=0;
         double y=0;
-        //כמות הפעמים שאנחנו רוצים שהוא ירוץ ויעשה לנו קרניים
-        //יצירת קרניים בתוך הפיסקל
+
         for (int r=0;r<size;r++){
             //y = -(r - (size - 1) / 2d) * Ry;
-            y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
+            if(r>size/2){
+               y= (size/2)+(size- r)*Ry;//
+            }//Variable to move lengthwise
+            else {
+                y=(size/2)-r*Ry;
+            }
+         //   y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
             for (int c=0;c<size;c++){
-                //אולי צריך פה בכלל רנדומלי במיקומים
                 x=c>size/2?(size/2)+(size- c)*Rx:(size/2)-c*Rx;
-
+                if(c>size/2){
+                    x= (size/2)+(size- c)*Rx;
+                }//Variable to move in the width direction
+                else {
+                    x=(size/2)-c*Rx;
+                }
              //   x = (c - (size - 1) / 2d) * Rx;
                 Point Pij = pointCnetr;
                 if (isZero(x) && isZero(y)) {
@@ -317,29 +345,28 @@ public class Camera {
         }
     }
 
-    /**
-     * Take imageWriter and call func writePixel
-     * @param Nx
+    /** Antialiasing
+     Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
      * @param Ny
      * @param i
      * @param j
      */
     private void castRay(int Nx, int Ny, int j, int i) {
-     if (size==1){
+     if (size==1){//If we have one fund left
          imageWriter.writePixel(j, i,rayTracerBase.traceRay(constructRay(Nx, Ny, j, i)));
      }
      else {
-        int a=0;
-        int b=0;
-        int c=0;
-        var rays=constructRayS(Nx, Ny, j, i);
+        int red=0;
+        int green=0;
+        int blue=0;
+        var rays=constructRayS(Nx, Ny, j, i);//The list of rays cuts the pixel
         Color colors=null;
-        for (var ray: rays){
+        for (var ray: rays){//Insert a color into the appropriate variable
            Color temp=rayTracerBase.traceRay(ray);
-           a+=temp.getColor().getRed();
-           b+=temp.getColor().getGreen();
-           c+=temp.getColor().getBlue();
+            red+=temp.getColor().getRed();
+            green+=temp.getColor().getGreen();
+            blue+=temp.getColor().getBlue();
         }
-        colors=new Color(a/(rays.size()),b/(rays.size()),c/(rays.size()));
+        colors=new Color(red/(rays.size()),green/(rays.size()),blue/(rays.size()));//Calculate the color mean
         imageWriter.writePixel(j, i,colors);
     }}}
