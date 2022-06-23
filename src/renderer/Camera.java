@@ -54,7 +54,7 @@ public class Camera {
      */
     private RayTracerBase rayTracerBase;
 
-    private int size=2;
+    private int size=1;
 
 
     // ***************** Constructors ********************** //
