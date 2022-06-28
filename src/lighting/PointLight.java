@@ -1,11 +1,15 @@
 package lighting;
 
 import primitives.Color;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 
+
+import java.awt.*;
+
 public class PointLight extends Light implements LightSource{
-// ????? ????? 3
+
     /**
      * the point that start the ray of this light
      */
@@ -13,15 +17,15 @@ public class PointLight extends Light implements LightSource{
     /**
      * Fixed discount coefficient
      */
-    private double kC=1;
+    private Double3 kC= Double3.ONE;
     /**
      * Discount coefficient
      */
-    private double kL=0;
+    private Double3 kL= Double3.ZERO;
     /**
      * Discount coefficient
      */
-    private double kQ=0;
+    private Double3 kQ = Double3.ZERO;
 
     // ***************** constructor ********************** //
 
@@ -58,34 +62,63 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * func setter (type builder)
-     * @param kC
+     * @param kC Double3
      * @return PointLight
      */
-    public PointLight setkC(double kC) {
+    public PointLight setkC(Double3 kC) {
         this.kC = kC;
         return this;
     }
 
     /**
      * func setter (type builder)
-     * @param _kL
+     * @param _kL Double3
      * @return PointLight
      */
-    public PointLight setkL(double _kL) {
+    public PointLight setkL(Double3 _kL) {
         this.kL = _kL;
         return this;
     }
 
     /**
      * func setter (type builder)
-     * @param _kQ
+     * @param _kQ Double3
      * @return PointLight
      */
-    public PointLight setkQ(double _kQ) {
+    public PointLight setkQ(Double3 _kQ) {
         this.kQ = _kQ;
         return  this;
     }
 
+    /**
+     * func setter (type builder)
+     * @param kC Double3
+     * @return PointLight
+     */
+    public PointLight setkC(double kC) {
+        this.kC = new Double3(kC);
+        return this;
+    }
+
+    /**
+     * func setter (type builder)
+     * @param _kL double
+     * @return PointLight
+     */
+    public PointLight setkL(double _kL) {
+        this.kL = new Double3( _kL);
+        return  this;
+    }
+
+    /**
+     * func setter (type builder)
+     * @param _kQ double
+     * @return PointLight
+     */
+    public PointLight setkQ( double _kQ) {
+        this.kQ = new Double3(_kQ);
+        return  this;
+    }
     // ***************** Override ********************** //
 
     /**
@@ -95,12 +128,12 @@ public class PointLight extends Light implements LightSource{
      */
     @Override
     public Color getIntensity(Point p) {
-        double distance = p.distance(position);
-        double distancesquared = p.distanceSquared(position);
-        double factor = (kC + kL * distance + kQ * distancesquared);
+        double distance = (p.distance(position));
+        double distancesquared =(p.distanceSquared(position));
+        Double3 factor =  (kC.add(kL.scale(distance)).add(kQ.scale(distancesquared)));
         return getIntensity().reduce(factor);
     }
-
+    // ????? ??????
     /**
      * get for L, Returns the calculation of l
      * @param p
@@ -108,6 +141,7 @@ public class PointLight extends Light implements LightSource{
      */
     @Override
     public Vector getL(Point p) {
+
         return p.subtract(position).normalize();
     }
 }

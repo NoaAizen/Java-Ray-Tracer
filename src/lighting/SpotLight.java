@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import java.awt.*;
+
 public class SpotLight  extends PointLight {
 
     /**

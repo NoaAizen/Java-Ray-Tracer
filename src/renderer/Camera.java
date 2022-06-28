@@ -57,7 +57,7 @@ public class Camera {
      * A field that helps calculate how many rays we want to have
      */
     //לבדוק רנדומלי או שאני מחליטה
-    private int size=4;
+    private int size=1;
 
 
     // ***************** Constructors ********************** //
