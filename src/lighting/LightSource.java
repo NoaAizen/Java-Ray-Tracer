@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
-import java.awt.*;
+import java.util.List;
 
 public interface LightSource {
 
@@ -29,5 +29,5 @@ public interface LightSource {
      * @param p
      * @return Vector
      */
-    public Vector getL(Point p);
+    public List<Vector> getL(Point p);
 }

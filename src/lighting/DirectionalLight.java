@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
-import java.awt.*;
+import java.util.List;
 
 public class DirectionalLight extends Light implements LightSource{
 
@@ -50,7 +50,7 @@ public class DirectionalLight extends Light implements LightSource{
      * @return Vector
      */
     @Override
-    public Vector getL(Point p) {
+    public List<Vector> getL(Point p) {
         return this.direction;
     }
 }

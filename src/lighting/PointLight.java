@@ -1,12 +1,14 @@
 package lighting;
 
+import geometries.Circle;
+import geometries.Cylinder;
+import primitives.*;
 import primitives.Color;
-import primitives.Double3;
 import primitives.Point;
-import primitives.Vector;
 
 
-import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PointLight extends Light implements LightSource{
 
@@ -133,15 +135,17 @@ public class PointLight extends Light implements LightSource{
         Double3 factor =  (kC.add(kL.scale(distance)).add(kQ.scale(distancesquared)));
         return getIntensity().reduce(factor);
     }
-    // ????? ??????
     /**
      * get for L, Returns the calculation of l
      * @param p
      * @return Vector
      */
     @Override
-    public Vector getL(Point p) {
+    public List<Vector> getL(Point p) {
+        List<Vector> vectorList=new LinkedList<>();
+        Circle circle=new Circle();
 
-        return p.subtract(position).normalize();
+        //   return p.subtract(position).normalize();
+        return vectorList;
     }
 }

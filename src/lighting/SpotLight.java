@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
-import java.awt.*;
+import java.util.List;
 
 public class SpotLight  extends PointLight {
 
@@ -71,7 +71,7 @@ public class SpotLight  extends PointLight {
      * @return
      */
     @Override
-    public Vector getL(Point point) {
+    public List<Vector> getL(Point point) {
         return super.getL(point);
     }
 }
