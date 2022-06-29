@@ -137,4 +137,11 @@ public class Point {
     public double getY() {
         return xyz.d2;
     }
+
+    /**
+     * return d3 of point
+     *
+     * @return double
+     */
+    public double getZ() {return xyz.d3; }
 }

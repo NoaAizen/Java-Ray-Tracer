@@ -2,6 +2,7 @@ package lighting;
 
 import geometries.Circle;
 import geometries.Cylinder;
+import geometries.Sphere;
 import primitives.*;
 import primitives.Color;
 import primitives.Point;
@@ -9,9 +10,11 @@ import primitives.Point;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
-public class PointLight extends Light implements LightSource{
-
+public class PointLight extends Light implements LightSource {
+    private int size = 5;
+    private int lenVector = 100;
     /**
      * the point that start the ray of this light
      */
@@ -19,11 +22,11 @@ public class PointLight extends Light implements LightSource{
     /**
      * Fixed discount coefficient
      */
-    private Double3 kC= Double3.ONE;
+    private Double3 kC = Double3.ONE;
     /**
      * Discount coefficient
      */
-    private Double3 kL= Double3.ZERO;
+    private Double3 kL = Double3.ZERO;
     /**
      * Discount coefficient
      */
@@ -33,6 +36,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * constructor
+     *
      * @param intensity
      */
     public PointLight(Color intensity, Point _position) {
@@ -42,10 +46,11 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * call to func distance in class point
+     *
      * @param point
      * @return
      */
-    public double getDistance(Point point){
+    public double getDistance(Point point) {
         double distance = point.distance(position);
         return distance;
     }
@@ -54,6 +59,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * func setter (type builder)
+     *
      * @param position
      * @return PointLight
      */
@@ -64,6 +70,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * func setter (type builder)
+     *
      * @param kC Double3
      * @return PointLight
      */
@@ -74,6 +81,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * func setter (type builder)
+     *
      * @param _kL Double3
      * @return PointLight
      */
@@ -84,16 +92,18 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * func setter (type builder)
+     *
      * @param _kQ Double3
      * @return PointLight
      */
     public PointLight setkQ(Double3 _kQ) {
         this.kQ = _kQ;
-        return  this;
+        return this;
     }
 
     /**
      * func setter (type builder)
+     *
      * @param kC Double3
      * @return PointLight
      */
@@ -104,48 +114,77 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * func setter (type builder)
+     *
      * @param _kL double
      * @return PointLight
      */
     public PointLight setkL(double _kL) {
-        this.kL = new Double3( _kL);
-        return  this;
+        this.kL = new Double3(_kL);
+        return this;
     }
 
     /**
      * func setter (type builder)
+     *
      * @param _kQ double
      * @return PointLight
      */
-    public PointLight setkQ( double _kQ) {
+    public PointLight setkQ(double _kQ) {
         this.kQ = new Double3(_kQ);
-        return  this;
+        return this;
     }
     // ***************** Override ********************** //
 
     /**
      * Get light intensity at a point IL
+     *
      * @param p
      * @return Color
      */
     @Override
     public Color getIntensity(Point p) {
         double distance = (p.distance(position));
-        double distancesquared =(p.distanceSquared(position));
-        Double3 factor =  (kC.add(kL.scale(distance)).add(kQ.scale(distancesquared)));
+        double distancesquared = (p.distanceSquared(position));
+        Double3 factor = (kC.add(kL.scale(distance)).add(kQ.scale(distancesquared)));
         return getIntensity().reduce(factor);
     }
+
     /**
      * get for L, Returns the calculation of l
+     *
      * @param p
      * @return Vector
      */
     @Override
-    public List<Vector> getL(Point p) {
-        List<Vector> vectorList=new LinkedList<>();
-        Circle circle=new Circle();
-
-        //   return p.subtract(position).normalize();
+    public List<Vector> listGetL(Point p) {
+        // ????? ?? ???????
+        List<Vector> vectorList = new LinkedList<>();
+        //?????? ?? ?????? ???????
+        vectorList.add(p.subtract(position).normalize());
+        //????? ?? ?????? ?????
+        Sphere sphere = new Sphere(position, lenVector);
+        Random r = new Random();
+        int in = size / 2;
+        int out = size - size / 2;
+        if (size > 1) {
+            int t;
+            for (int i = 0; i < in; i++) {
+                t = r.nextInt(0, (int) sphere.getRadius() - 5);
+                Point pt = new Point(position.getX() + t, position.getY() + t, position.getZ() + t);
+                Vector v = pt.subtract(p).normalize();
+                vectorList.add(v);
+            }
+            for (int i = 0; i < out; i++) {
+                t = r.nextInt((int) -sphere.getRadius() + 5, 0);
+                Point pt = new Point(position.getX() + t, position.getY() + t, position.getZ() + t);
+                Vector v = pt.subtract(p).normalize();
+                vectorList.add(v);
+            }
+        }
         return vectorList;
+    }
+
+    public Vector getL(Point p) {
+        return p.subtract(position).normalize();
     }
 }

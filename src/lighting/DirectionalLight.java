@@ -44,13 +44,19 @@ public class DirectionalLight extends Light implements LightSource{
         return getIntensity();
     }
 
+    //-----?????????????------
     /**
      * geter for parameter L
      * @param p
      * @return Vector
      */
     @Override
-    public List<Vector> getL(Point p) {
+    public List<Vector> listGetL(Point p) {
+     //   return this.direction;
+        return null;
+    }
+
+    public Vector getL(Point p) {
         return this.direction;
     }
 }

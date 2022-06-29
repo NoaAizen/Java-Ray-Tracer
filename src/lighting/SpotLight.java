@@ -7,6 +7,19 @@ import primitives.Vector;
 import java.util.List;
 
 public class SpotLight  extends PointLight {
+    /**
+     * get for Intensity
+     * @param point
+     * @return Color
+     */
+    @Override
+    public Color getIntensity(Point point) {
+        Color Ic = super.getIntensity(point);
+        double lv= getL(point).dotProduct(direction);
+        double factor = Math.max(0,lv);
+        return Ic.scale(factor);
+    }
+
 
     /**
      * the direction of the light
@@ -52,18 +65,7 @@ public class SpotLight  extends PointLight {
 
     // ***************** Override ********************** //
 
-    /**
-     * get for Intensity
-     * @param point
-     * @return Color
-     */
-    @Override
-    public Color getIntensity(Point point) {
-        Color Ic = super.getIntensity(point);
-        double lv= getL(point).dotProduct(direction);
-        double factor = Math.max(0,lv);
-        return Ic.scale(factor);
-    }
+
 
     /**
      * get for L, Returns the calculation of l
@@ -71,7 +73,11 @@ public class SpotLight  extends PointLight {
      * @return
      */
     @Override
-    public List<Vector> getL(Point point) {
+    public List<Vector> listGetL(Point point) {
+        return super.listGetL(point);
+    }
+
+    public Vector getL(Point point) {
         return super.getL(point);
     }
 }

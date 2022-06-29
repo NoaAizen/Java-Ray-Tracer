@@ -29,8 +29,10 @@ public class RayTracerBasic extends RayTracerBase {
      *  ??
      */
     private static final double DELTA = 0.1;
-
-
+    /**
+     * true if use soft shadows
+     */
+    private boolean useSoftShadows = true;
     // ***************** Constructors ********************** //
 
     /**
@@ -147,7 +149,10 @@ public class RayTracerBasic extends RayTracerBase {
      * @return Color
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray,Double3 k) {
-        Color color = geoPoint.geometry.getEmission();
+
+    Color sumColor = Color.BLACK;
+
+    Color color = geoPoint.geometry.getEmission();
     Vector v = ray.getDir();
     Vector n = geoPoint.geometry.getNormal(geoPoint.point);
     double nv = alignZero(n.dotProduct(v));
@@ -155,17 +160,36 @@ public class RayTracerBasic extends RayTracerBase {
         if (nv == 0)
             return color.BLACK;
         for (LightSource lightSource : scene.getLights()) {
-        Vector l = lightSource.getL(geoPoint.point);
-        double nl = alignZero(n.dotProduct(l));
-        if (nl * nv > 0) {
-            Double3 ktr = transparency(geoPoint,lightSource,l, n, nv);
-            if(!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)){
-                Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
-                color = color.add(iL.scale(calcDiffusive(material, nl)),
-                        iL.scale(calcSpecular(material, n, l, nl, v)));
+            //Vector l = lightSource.getL(geoPoint.point);
+
+            if (useSoftShadows) {
+                for (Vector vector : lightSource.listGetL(geoPoint.point))
+                {
+                    double nl = alignZero(n.dotProduct(vector));
+                    if (nl * nv > 0) {
+                        Double3 ktr = transparency(geoPoint,lightSource,vector, n, nv);
+                        if(!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
+                            Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
+                            color = color.add
+                                    (iL.scale(calcDiffusive(material, nl)),iL.scale(calcSpecular(material, n, vector, nl, v)));
+                        }
+                    }
+                    sumColor = sumColor.add((color.reduce(lightSource.listGetL(geoPoint.point).size())));
+                }
+            }
+            else {
+                Vector vector = lightSource.getL(geoPoint.point);
+                double nl = alignZero(n.dotProduct(vector));
+                if (nl * nv > 0) {
+                    Double3 ktr = transparency(geoPoint, lightSource, vector, n, nv);
+                    if (!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
+                        Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
+                        color = color.add
+                                (iL.scale(calcDiffusive(material, nl)), iL.scale(calcSpecular(material, n, vector, nl, v)));
+                    }
+                }
             }
         }
-    }
         return color;
     }
 

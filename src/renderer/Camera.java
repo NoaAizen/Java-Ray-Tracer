@@ -341,7 +341,7 @@ public class Camera {
             }
         }
         catch (Exception exception){
-            throw new UnsupportedOperationException("can not render the image " );
+    throw new UnsupportedOperationException("can not render the image " );
         }
     }
 
