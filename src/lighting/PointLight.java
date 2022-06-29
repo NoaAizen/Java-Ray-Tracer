@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class PointLight extends Light implements LightSource {
-    private int size = 5;
-    private int lenVector = 100;
+    private int size = 40;
+    private int lenVector = 300;
     /**
      * the point that start the ray of this light
      */
