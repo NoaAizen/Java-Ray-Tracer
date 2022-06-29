@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class PointLight extends Light implements LightSource {
-    private int size = 5;
-    private int lenVector = 100;
+    private int size = 20;
+    private int lenVector = 300;
     /**
      * the point that start the ray of this light
      */
@@ -156,13 +156,15 @@ public class PointLight extends Light implements LightSource {
      * @return Vector
      */
     @Override
-    public List<Vector> listGetL(Point p) {
+    public List<Vector> listGetL(Point p,Vector n) {
         // ????? ?? ???????
         List<Vector> vectorList = new LinkedList<>();
         //?????? ?? ?????? ???????
         vectorList.add(p.subtract(position).normalize());
         //????? ?? ?????? ?????
         Sphere sphere = new Sphere(position, lenVector);
+        Ray ray= new Ray(p, getL(p), n);
+        p=ray.getP0();
         Random r = new Random();
         int in = size / 2;
         int out = size - size / 2;
