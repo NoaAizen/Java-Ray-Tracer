@@ -149,33 +149,32 @@ public class RayTracerBasic extends RayTracerBase {
      * @return Color
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray,Double3 k) {
-
-    Color sumColor = Color.BLACK;
-
-    Color color = geoPoint.geometry.getEmission();
-    Vector v = ray.getDir();
-    Vector n = geoPoint.geometry.getNormal(geoPoint.point);
-    double nv = alignZero(n.dotProduct(v));
-    Material material = geoPoint.geometry.getMaterial();
+        Color sumColor = Color.BLACK;
+        Color color = geoPoint.geometry.getEmission();
+        Vector v = ray.getDir();
+        Vector n = geoPoint.geometry.getNormal(geoPoint.point);
+        double nv = alignZero(n.dotProduct(v));
+        Material material = geoPoint.geometry.getMaterial();
         if (nv == 0)
             return color.BLACK;
         for (LightSource lightSource : scene.getLights()) {
+            List<Vector> listVector = lightSource.listGetL(geoPoint.point,n);
             //Vector l = lightSource.getL(geoPoint.point);
-
+            Color c = Color.BLACK;
             if (useSoftShadows) {
-                for (Vector vector : lightSource.listGetL(geoPoint.point,n))
+                for (Vector vector : listVector)
                 {
                     double nl = alignZero(n.dotProduct(vector));
                     if (nl * nv > 0) {
-                        Double3 ktr = transparency(geoPoint,lightSource,vector, n, nv);
-                        if(!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
+                        Double3 ktr = transparency(geoPoint, lightSource, vector, n, nv);
+                        if (!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
                             Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
-                            color = color.add
-                                    (iL.scale(calcDiffusive(material, nl)),iL.scale(calcSpecular(material, n, vector, nl, v)));
+                            c = c.add
+                                    (iL.scale(calcDiffusive(material, nl)), iL.scale(calcSpecular(material, n, vector, nl, v)));
                         }
                     }
-                    sumColor = sumColor.add((color.reduce(lightSource.listGetL(geoPoint.point,n).size())));
                 }
+                color = color.add((c.reduce(listVector.size())));
             }
             else {
                 Vector vector = lightSource.getL(geoPoint.point);

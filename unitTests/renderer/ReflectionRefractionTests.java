@@ -343,7 +343,7 @@ class ReflectionRefractionTests {
 		scene.getLights().add(
 				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.0000006));
 
-		ImageWriter imageWriter = new ImageWriter("444", 800,800);
+		ImageWriter imageWriter = new ImageWriter("there", 800,800);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
