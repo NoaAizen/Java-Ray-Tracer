@@ -163,7 +163,7 @@ public class RayTracerBasic extends RayTracerBase {
             //Vector l = lightSource.getL(geoPoint.point);
 
             if (useSoftShadows) {
-                for (Vector vector : lightSource.listGetL(geoPoint.point))
+                for (Vector vector : lightSource.listGetL(geoPoint.point,n))
                 {
                     double nl = alignZero(n.dotProduct(vector));
                     if (nl * nv > 0) {
@@ -174,7 +174,7 @@ public class RayTracerBasic extends RayTracerBase {
                                     (iL.scale(calcDiffusive(material, nl)),iL.scale(calcSpecular(material, n, vector, nl, v)));
                         }
                     }
-                    sumColor = sumColor.add((color.reduce(lightSource.listGetL(geoPoint.point).size())));
+                    sumColor = sumColor.add((color.reduce(lightSource.listGetL(geoPoint.point,n).size())));
                 }
             }
             else {

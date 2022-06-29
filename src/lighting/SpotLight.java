@@ -73,8 +73,8 @@ public class SpotLight  extends PointLight {
      * @return
      */
     @Override
-    public List<Vector> listGetL(Point point) {
-        return super.listGetL(point);
+    public List<Vector> listGetL(Point point,Vector n) {
+        return super.listGetL(point,n);
     }
 
     public Vector getL(Point point) {

@@ -29,7 +29,7 @@ public interface LightSource {
      * @param p
      * @return Vector
      */
-    public List<Vector> listGetL(Point p);
+    public List<Vector> listGetL(Point p,Vector n);
 
     public Vector getL(Point p);
 

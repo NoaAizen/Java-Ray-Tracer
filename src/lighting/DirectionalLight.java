@@ -51,9 +51,8 @@ public class DirectionalLight extends Light implements LightSource{
      * @return Vector
      */
     @Override
-    public List<Vector> listGetL(Point p) {
-     //   return this.direction;
-        return null;
+    public List<Vector> listGetL(Point p,Vector n) {
+      return List.of (this.direction);
     }
 
     public Vector getL(Point p) {
