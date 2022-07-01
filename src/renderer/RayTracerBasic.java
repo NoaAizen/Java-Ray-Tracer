@@ -32,7 +32,7 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * true if use soft shadows
      */
-    private boolean useSoftShadows = true;
+    private boolean useSoftShadows =true;
     // ***************** Constructors ********************** //
 
     /**

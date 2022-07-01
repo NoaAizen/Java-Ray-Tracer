@@ -56,8 +56,7 @@ public class Camera {
     /**
      * A field that helps calculate how many rays we want to have
      */
-    private int size=1;
-
+    private int size=40;
 
     // ***************** Constructors ********************** //
     /**
@@ -260,23 +259,10 @@ public class Camera {
         double y=0;
 
         for (int r=0;r<size;r++){
-            //y = -(r - (size - 1) / 2d) * Ry;
-            if(r>size/2){
-               y= (size/2)+(size- r)*Ry;//
-            }//Variable to move lengthwise
-            else {
-                y=(size/2)-r*Ry;
-            }
-         //   y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
+             y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
             for (int c=0;c<size;c++){
                 x=c>size/2?(size/2)+(size- c)*Rx:(size/2)-c*Rx;
-                if(c>size/2){
-                    x= (size/2)+(size- c)*Rx;
-                }//Variable to move in the width direction
-                else {
-                    x=(size/2)-c*Rx;
                 }
-             //   x = (c - (size - 1) / 2d) * Rx;
                 Point Pij = pointCnetr;
                 if (isZero(x) && isZero(y)) {
                    Pij= Pij.subtract(P0);
@@ -291,7 +277,7 @@ public class Camera {
                     Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
                 }
                 rayList.add(new Ray(P0, Pij.subtract(P0)));
-              }
+
         }
         return rayList;
     }
@@ -334,7 +320,6 @@ public class Camera {
                 for (int j = 0; j < Nx; j++) {
                     x=i;
                     y=j;
-
                     castRay(Nx, Ny, j, i);
                 }
             }
