@@ -56,7 +56,7 @@ public class Camera {
     /**
      * A field that helps calculate how many rays we want to have
      */
-    private int size=1;
+    private int size=50;
 
 
     // ***************** Constructors ********************** //
@@ -249,7 +249,7 @@ public class Camera {
      * @param i- Pixel     Location
      * @return List of rays cut
      */
-        public List<Ray> constructRayS(int nX, int nY, int j, int i){
+    public List<Ray> constructRayS(int nX, int nY, int j, int i){
 
         Point pointCnetr=PointMiddle(nX,nY,j,i);
         List <Ray> rayList=new LinkedList<>();
@@ -260,38 +260,25 @@ public class Camera {
         double y=0;
 
         for (int r=0;r<size;r++){
-            //y = -(r - (size - 1) / 2d) * Ry;
-            if(r>size/2){
-               y= (size/2)+(size- r)*Ry;//
-            }//Variable to move lengthwise
-            else {
-                y=(size/2)-r*Ry;
-            }
-         //   y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
+            y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
             for (int c=0;c<size;c++){
                 x=c>size/2?(size/2)+(size- c)*Rx:(size/2)-c*Rx;
-                if(c>size/2){
-                    x= (size/2)+(size- c)*Rx;
-                }//Variable to move in the width direction
-                else {
-                    x=(size/2)-c*Rx;
-                }
-             //   x = (c - (size - 1) / 2d) * Rx;
-                Point Pij = pointCnetr;
-                if (isZero(x) && isZero(y)) {
-                   Pij= Pij.subtract(P0);
-                }
-                if (isZero(y)){
-                    Pij = Pij.add(Vright.scale(x));
-                }
-                else  if (isZero(x)) {
-                    Pij = Pij.add(Vup.scale(y));
-                }
-                else {
-                    Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
-                }
-                rayList.add(new Ray(P0, Pij.subtract(P0)));
-              }
+            }
+            Point Pij = pointCnetr;
+            if (isZero(x) && isZero(y)) {
+                Pij= Pij.subtract(P0);
+            }
+            if (isZero(y)){
+                Pij = Pij.add(Vright.scale(x));
+            }
+            else  if (isZero(x)) {
+                Pij = Pij.add(Vup.scale(y));
+            }
+            else {
+                Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
+            }
+            rayList.add(new Ray(P0, Pij.subtract(P0)));
+
         }
         return rayList;
     }
@@ -334,7 +321,7 @@ public class Camera {
                 for (int j = 0; j < Nx; j++) {
                     x=i;
                     y=j;
-
+                    //System.out.println("x = "+ x + "y=" + y );
                     castRay(Nx, Ny, j, i);
                 }
             }
