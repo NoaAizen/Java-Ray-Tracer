@@ -337,13 +337,13 @@ class ReflectionRefractionTests {
 		scene.getLights().add(
 			new SpotLight(new Color(400, 240, 0), new Point(350,-1200,12050),new Vector(-130,700,-2100)).setkL(1E-5).setkQ(1.5E-7) );
 		scene.getLights().add(
-						new PointLight(new Color(255,197,143),new Point(-525,700,9425)).setkL(0.0004).setkQ(0.0000006));
+						new PointLight(new Color(255,197,143),new Point(-525,700,9425)).setkL(0.0004).setkQ(0.000006));
 		scene.getLights().add(
-				new PointLight(new Color(255,197,143),new Point(-935,700,9825)).setkL(0.0004).setkQ(0.0000006));
+				new PointLight(new Color(255,197,143),new Point(-935,700,9825)).setkL(0.0004).setkQ(0.000006));
 		scene.getLights().add(
-				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.0000006));
+				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.000006));
 
-		ImageWriter imageWriter = new ImageWriter("ThreadsCount anti 10", 800,800);
+		ImageWriter imageWriter = new ImageWriter("ThreadsCount shadow", 800,800);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //

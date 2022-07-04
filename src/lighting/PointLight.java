@@ -168,20 +168,14 @@ public class PointLight extends Light implements LightSource {
         int out = size - size / 2;
         if (size > 1) {
             int t;
-            for (double i = 0; i < sphere.getRadius(); i += sphere.getRadius() / 2) {
-                for (double j = 0; j < sphere.getRadius(); j += sphere.getRadius() / 2) {
-                    //t = r.nextInt(0, 10);
-                    //Point pt = new Point(position.getX() + t, position.getY() + t, position.getZ() + t);
-                    //vectorList.add( v = pt.subtract(p).normalize());
+            for (double i = 0; i < sphere.getRadius(); i += sphere.getRadius() / 10) {
+                for (double j = 0; j < sphere.getRadius(); j += sphere.getRadius() / 10) {
                     Point point = position.add(new Vector(sphere.getRadius() - i, 0.1d, sphere.getRadius() - j));
                     vectorList.add(p.subtract(point).normalize());
                 }
             }
-            for (double i = sphere.getRadius(); i < 0; i += sphere.getRadius() / 2) {
-                for (double j = -sphere.getRadius(); j < 0; j += sphere.getRadius() / 2) {
-                    //t = r.nextInt(-10, 0);
-                    //Point pt = new Point(position.getX() + t, position.getY() + t, position.getZ() + t);
-                    //vectorList.add( pt.subtract(p).normalize());
+            for (double i = -sphere.getRadius(); i < 0; i += sphere.getRadius() / 8) {
+                for (double j = -sphere.getRadius(); j < 0; j += sphere.getRadius() / 8) {
                     Point point = position.add(new Vector(0 + i, 0.1d, 0 + j));
                     vectorList.add(p.subtract(point).normalize());
                 }
@@ -189,44 +183,7 @@ public class PointLight extends Light implements LightSource {
         }
         return vectorList;
     }
-    /**
-    public List<Vector> listGetL(Point p,Vector n) {
-        // ????? ?? ???????
-        List<Vector> vectorList = new LinkedList<>();
-        //?????? ?? ?????? ???????
-        vectorList.add(p.subtract(position).normalize());
-        //????? ?? ?????? ?????
-        Sphere sphere = new Sphere(position, lenVector);
-        //Ray ray= new Ray(p, getL(p), n);
-        //p=ray.getP0();
-        Random r = new Random();
-        //int in = size / 2;
-        //int out = size - size / 2;
-        if (size > 1) {
-            int t;
-            for (double i = -sphere.getRadius(); i < sphere.getRadius(); i += sphere.getRadius() / 2) {
-                for (double j = -sphere.getRadius(); j < sphere.getRadius(); j += sphere.getRadius() / 2) {
-                    if (i != 0 && j != 0) {
-                        Point point = position.add(new Vector(i, 0.1d, j));
-                        if (point.equals(position)) {
-                            vectorList.add(p.subtract(point).normalize());
-                        }
-                        else {
-                            try {
-                                if (point.subtract(position).dotProduct(point.subtract(position)) <= sphere.getRadius() * sphere.getRadius()) {
-                                    vectorList.add(p.subtract(point).normalize());
-                                }
-                            } catch (Exception e) {
-                                vectorList.add(p.subtract(point).normalize());
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return vectorList;
-    }
-*/
+
 
     public Vector getL(Point p) {
         return p.subtract(position).normalize();

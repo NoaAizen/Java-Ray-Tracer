@@ -66,7 +66,7 @@ public class Camera {
     /**
      * A field that helps calculate how many rays we want to have
      */
-    private int size=100;
+    private int size=1;
 
     // ***************** Constructors ********************** //
     /**
