@@ -16,6 +16,16 @@ import static primitives.Util.isZero;
  */
 public class Camera {
 
+    public Camera setPrintInterval(double printInterval) {
+        this.printInterval = printInterval;
+        return this;
+    }
+
+    private  double printInterval;
+    /**
+     * num of threads
+     */
+    private int threadsCount;
     /**
      *  The distance from our viewing plane
      */
@@ -56,8 +66,7 @@ public class Camera {
     /**
      * A field that helps calculate how many rays we want to have
      */
-    private int size=50;
-
+    private int size=100;
 
     // ***************** Constructors ********************** //
     /**
@@ -151,6 +160,14 @@ public class Camera {
         return this;
     }
 
+    /**
+     * set of ThreadsCount
+     * @param threadsCount
+     */
+    public Camera setThreadsCount(int threadsCount) {
+        this.threadsCount = threadsCount;
+        return  this;
+    }
     /**
      * Update method for the View Plane distance from the camera
      * @param d
@@ -249,7 +266,7 @@ public class Camera {
      * @param i- Pixel     Location
      * @return List of rays cut
      */
-    public List<Ray> constructRayS(int nX, int nY, int j, int i){
+        public List<Ray> constructRayS(int nX, int nY, int j, int i){
 
         Point pointCnetr=PointMiddle(nX,nY,j,i);
         List <Ray> rayList=new LinkedList<>();
@@ -260,29 +277,38 @@ public class Camera {
         double y=0;
 
         for (int r=0;r<size;r++){
-            y=r>size/2?(size/2)+(size- r)*Ry:(size/2)-r*Ry;
-            for (int c=0;c<size;c++){
-                x=c>size/2?(size/2)+(size- c)*Rx:(size/2)-c*Rx;
-            }
-            Point Pij = pointCnetr;
-            if (isZero(x) && isZero(y)) {
-                Pij= Pij.subtract(P0);
-            }
-            if (isZero(y)){
-                Pij = Pij.add(Vright.scale(x));
-            }
-            else  if (isZero(x)) {
-                Pij = Pij.add(Vup.scale(y));
-            }
-            else {
-                Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
-            }
-            rayList.add(new Ray(P0, Pij.subtract(P0)));
+             if (r>size/2){
+                 y= (size/2)+(size- r)*Ry;
+             }
+             else {
+                 y=(size/2)-r*Ry;
+             }
+             for (int c=0;c<size;c++){
+                if (c>size/2){
+                   x=(size/2)+(size- c)*Rx;
+                }
+                else {
+                    x=(size/2)-c*Rx;
+                }
+                }
+                Point Pij = pointCnetr;
+                if (isZero(x) && isZero(y)) {
+                   Pij= Pij.subtract(P0);
+                }
+                if (isZero(y)){
+                    Pij = Pij.add(Vright.scale(x));
+                }
+                else  if (isZero(x)) {
+                    Pij = Pij.add(Vup.scale(y));
+                }
+                else {
+                    Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
+                }
+                rayList.add(new Ray(P0, Pij.subtract(P0)));
 
         }
         return rayList;
     }
-
     /**
      * turn off writeToImage
      * @return
@@ -317,14 +343,22 @@ public class Camera {
 
             int Ny = imageWriter.getNy();
             int Nx = imageWriter.getNx();
-            for (int i = 0; i < Ny; i++) {//שורות
-                for (int j = 0; j < Nx; j++) {
-                    x=i;
-                    y=j;
-                    //System.out.println("x = "+ x + "y=" + y );
-                    castRay(Nx, Ny, j, i);
-                }
+            //  for (int i = 0; i < Ny; i++) {//שורות
+            //    for (int j = 0; j < Nx; j++) {
+            //      x=i;
+            //    y=j;
+            //  castRay(Nx, Ny, j, i);
+            Pixel.initialize(Ny, Nx, printInterval);
+            while (threadsCount-- > 0) {
+                new Thread(() -> {
+                    for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                        castRay(Nx, Ny, pixel.col, pixel.row);
+                }).start();
             }
+            Pixel.waitToFinish();
+
+        //}
+       // }
         }
         catch (Exception exception){
     throw new UnsupportedOperationException("can not render the image " );
