@@ -1,12 +1,19 @@
 package Scene;
 
+import geometries.Sphere;
+import geometries.Triangle;
 import lighting.AmbientLight;
 import geometries.Geometries;
 import lighting.LightSource;
+import parser.SenceDescriptor;
 import primitives.Color;
+import primitives.Double3;
+import primitives.Point;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Scene class : Compound class for all the objects of the 3D world to render
@@ -22,7 +29,7 @@ public class Scene {
      * Construcor using Builder Pattern
      * @param builder the builder for the scene
      */
-    private Scene(SceneBuilder builder){
+    public Scene(SceneBuilder builder){
         name = builder._name;
         background = builder._background;
         ambientLight = builder._ambientLight;
@@ -55,7 +62,9 @@ public class Scene {
      * inner class for Scene Builder
      */
     public static class SceneBuilder {
-
+        private String _filePath; //
+        private Scene _scene; //
+        private SenceDescriptor senceDesc; //
         private final String _name;        // Scene Builder name
         private Color _background = Color.BLACK;////Scene Builder background color
         private AmbientLight _ambientLight = new AmbientLight();// //  Scene Builder ambient light
@@ -72,23 +81,24 @@ public class Scene {
         }
 
         // ***************** Setters  ********************** //
-        /**
-         * func setter type builder
-         * @param background
-         * @return SceneBuilder
-         */
+
+        public SceneBuilder setFilePath(String filePath) {
+            _filePath = filePath;
+            return this;
+        }
+
         public SceneBuilder setBackground(Color background) {
             _background = background;
             return this;
         }
 
-        /**
-         * func setter type builder
-         * @param ambientLight
-         * @return SceneBuilder
-         */
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             _ambientLight = ambientLight;
+            return this;
+        }
+
+        public SceneBuilder setScene(Scene scene) {
+            _scene = scene;
             return this;
         }
 
@@ -120,6 +130,41 @@ public class Scene {
          */
         public Scene build(){
             return new Scene(this);
+        }
+
+        public void loadSceneFromFile(File myFile){
+            senceDesc = senceDesc.InitializeFromXMLstring(myFile.getName());//+.xml
+            //geometries
+            //sphere
+            List<Map<String, String>> spheres = senceDesc.getSpheres();
+            for (int i= 0; i<spheres.size(); i++)
+            {
+                Map<String, String> sphereMap = spheres.get(i);
+                String[] pointS = sphereMap.get(0).split(",")[0].split(" ");
+                Point p = new Point(Double.valueOf(pointS[0]), Double.valueOf(pointS[1]),Double.valueOf(pointS[2]));
+                Sphere sphere = new Sphere(p,Double.valueOf(sphereMap.get(0).split(",")[1]));
+                _geometries.add(sphere);
+            }
+            //Triangles
+            List<Map<String, String>> triangles = senceDesc.getTriangles();
+            for (int i= 0; i<triangles.size(); i++)
+            {
+                Map<String, String> triangleMap = triangles.get(i);
+                String[] pointsThree = triangleMap.get(0).split(",");
+                String[] pointS1 =pointsThree[0].split(" ");
+                Point p1 = new Point(Double.valueOf(pointS1[0]), Double.valueOf(pointS1[1]),Double.valueOf(pointS1[2]));
+                String[] pointS2 =pointsThree[0].split(" ");
+                Point p2 = new Point(Double.valueOf(pointS2[0]), Double.valueOf(pointS2[1]),Double.valueOf(pointS2[2]));
+                String[] pointS3 =pointsThree[0].split(" ");
+                Point p3 = new Point(Double.valueOf(pointS3[0]), Double.valueOf(pointS3[1]),Double.valueOf(pointS3[2]));
+                Triangle triangle = new Triangle(p1,p2,p3);
+                _geometries.add(triangle);
+            }
+            String[] ambientLightS = senceDesc.getAmbientLightAttributes().get(0).split(" ");
+            _ambientLight= new AmbientLight(new Color(Double.valueOf(ambientLightS[0]), Double.valueOf(ambientLightS[1]),Double.valueOf(ambientLightS[2])),new Double3(1,1,1));
+
+            String[] background  = senceDesc.getSceneAttributes().get(0).split(" ");
+            _background = new Color(Double.valueOf(background[0]), Double.valueOf(background[1]),Double.valueOf(background[2]));
         }
     }
 }

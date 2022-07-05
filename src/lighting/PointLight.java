@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class PointLight extends Light implements LightSource {
-    private int size = 40;
     private int lenVector = 10;
+    int sizeRadius = 1;
     /**
      * the point that start the ray of this light
      */
@@ -162,20 +162,19 @@ public class PointLight extends Light implements LightSource {
         //?????? ?? ?????? ???????
         vectorList.add(p.subtract(position).normalize());
         //????? ?? ?????? ?????
-        Sphere sphere = new Sphere(position, lenVector);
+
+        Sphere sphere = new Sphere(position, sizeRadius);
         Random r = new Random();
-        int in = size / 2;
-        int out = size - size / 2;
-        if (size > 1) {
+        if (lenVector > 1) {
             int t;
-            for (double i = 0; i < sphere.getRadius(); i += sphere.getRadius() / 10) {
-                for (double j = 0; j < sphere.getRadius(); j += sphere.getRadius() / 10) {
+            for (double i = 0; i < sphere.getRadius(); i += sphere.getRadius() / lenVector) {
+                for (double j = 0; j < sphere.getRadius(); j += sphere.getRadius() / lenVector) {
                     Point point = position.add(new Vector(sphere.getRadius() - i, 0.1d, sphere.getRadius() - j));
                     vectorList.add(p.subtract(point).normalize());
                 }
             }
-            for (double i = -sphere.getRadius(); i < 0; i += sphere.getRadius() / 8) {
-                for (double j = -sphere.getRadius(); j < 0; j += sphere.getRadius() / 8) {
+            for (double i = -sphere.getRadius(); i < 0; i += sphere.getRadius() / lenVector) {
+                for (double j = -sphere.getRadius(); j < 0; j += sphere.getRadius() / lenVector) {
                     Point point = position.add(new Vector(0 + i, 0.1d, 0 + j));
                     vectorList.add(p.subtract(point).normalize());
                 }
