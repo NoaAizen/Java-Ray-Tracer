@@ -4,23 +4,24 @@ import org.w3c.dom.Document;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import primitives.Point;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SenceDescriptor {
     private Map<String,String> sceneAttributes;
-    private  Map<String,String> ambientLightAttributes;
-    private List< Map<String,String>> spheres;
-    private List< Map<String,String>> triangles;
+    private Map<String,String> ambientLightAttributes;
+    private List<Map<String,String>> spheres = new ArrayList<>();
+    private List<Map<String,String>> triangles = new ArrayList<>();
     // ***************** Constructors ********************** //
 
     /**
@@ -35,7 +36,13 @@ public class SenceDescriptor {
         this.ambientLightAttributes = ambientLightAttributes;
         this.spheres = spheres;
         this.triangles = triangles;
+
     }
+
+    public SenceDescriptor() {
+
+    }
+
     // ***************** getter ********************** //
     public Map<String, String> getSceneAttributes() {
         return sceneAttributes;
@@ -53,62 +60,67 @@ public class SenceDescriptor {
         return triangles;
     }
 
-    public SenceDescriptor InitializeFromXMLstring(String xmlText) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            //get document
-            Document document = builder.parse(new File(xmlText));//.xml
+    public SenceDescriptor InitializeFromXMLstring(Document document) {
             //Normalize the xml structure
             //document.getDocumentElement().normalize();
-            var scene = document.getDocumentElement();
+        var scene = document.getDocumentElement();
             //get all data
-            //background-color
-            sceneAttributes = new HashMap<>();
-            sceneAttributes.put("0", scene.getAttribute("background-color"));
+        //background-color
+        sceneAttributes = new HashMap<>();
+        sceneAttributes.put("0", scene.getAttribute("background-color"));
             //ambient-light color
-            ambientLightAttributes = new HashMap<>();
-            ambientLightAttributes.put("0", scene.getAttribute("ambient-light color"));
-            //geometries
-            var geometries = document.getElementsByTagName("geometries");
-            //sphere
-            Map<String, String> sphere = new HashMap<>();
-            int countSphere = 0;
-            String dataSphere;
-            // triangle
-            Map<String, String> triangle = new HashMap<>();
-            int countTriangle = 0;
-            String dataTriangle;
-            for (int i = 0; i < geometries.getLength(); i++) {
-                var node = geometries.item(i);
-                if (node.hasAttributes()) {
-                    String attribute = node.getNodeName();
-                    var element1 = (Element) node;
-                    switch (attribute) {
-                        //sphere
-                        case "sphere":
-                            dataSphere = element1.getAttribute("center") + "," + element1.getAttribute("radius");
-                            sphere.put(String.valueOf(countSphere), dataSphere);
-                            countSphere++;
-                            spheres.add(sphere);
+
+        ambientLightAttributes = new HashMap<>();
+            //ambientLightAttributes.put("0", scene.getElementsByTagName("ambient-light color"));
+        var list = scene.getElementsByTagName("ambient-light");
+        var ambientLight = list.item(0);
+        var element = (Element) ambientLight;
+        ambientLightAttributes.put("0",((Element) ambientLight).getAttribute("color"));
+        //sphere
+        Map<String, String> sphere = new HashMap<String,String>();
+        int countSphere = 0;
+        String dataSphere;
+        // triangle
+        Map<String, String> triangle = new HashMap<String,String>();
+        int countTriangle = 0;
+        String dataTriangle;
+        //geometries
+        NodeList geometriesList = document.getElementsByTagName("geometries");
+        for(int i = 0; i <geometriesList.getLength(); i++) {
+            Node geometries = geometriesList.item(i);
+            if(geometries.getNodeType() == Node.ELEMENT_NODE) {
+                NodeList geometryDetails =  geometries.getChildNodes();
+                for(int j = 0; j < geometryDetails.getLength(); j++){
+                    Node geometry = geometryDetails.item(j);
+                    if(geometry.getNodeType() == Node.ELEMENT_NODE) {
+                        Element geometryElement = (Element) geometry;
+                        System.out.println("     " + geometryElement.getTagName() + ": ");
+                        switch (geometryElement.getTagName()) {
+                            //sphere
+                            case "sphere":
+                                dataSphere = geometryElement.getAttribute("center") + "," + geometryElement.getAttribute("radius");
+                                sphere.put(String.valueOf(countSphere), dataSphere);
+                                sphere.entrySet();
+                                countSphere++;
+                                break;
                             //triangle
-                        case "triangle":
-                            dataTriangle = element1.getAttribute("p0") + "," + element1.getAttribute("p1") + "," + element1.getAttribute("p2");
-                            triangle.put(String.valueOf(countTriangle), dataTriangle);
-                            countTriangle++;
-                            triangles.add(triangle);
-                        default:
-                            break;
+                            case "triangle":
+                                dataTriangle = geometryElement.getAttribute("p0") + "," + geometryElement.getAttribute("p1") + "," + geometryElement.getAttribute("p2");
+                                triangle.put(String.valueOf(countTriangle), dataTriangle);
+                                countTriangle++;
+                                triangle.entrySet();
+                                break;
+                            default:
+                                break;
+                        }
                     }
+
                 }
+
             }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
         }
+        spheres.add(sphere);
+        triangles.add(triangle);
         return new SenceDescriptor(sceneAttributes,ambientLightAttributes,spheres,triangles);
     }
 }

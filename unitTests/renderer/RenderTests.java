@@ -54,10 +54,7 @@ public class RenderTests {
 	@Test
 	public void basicRenderXml() {
 
-		Scene scene = new Scene.SceneBuilder("XML Test scene").loadSceneFromFile(new File("C:/Users/orog1/IdeaProjects/ISE5782_8965_0519/basicRenderTestTwoColors.xml")).build();
-		//("C:/Users/orog1/IdeaProjects/ISE5782_8965_0519/basicRenderTestTwoColors.xml")
-		// enter XML file name and parse from XML file into scene object
-
+		Scene scene = new Scene.SceneBuilder("XML Test scene").loadSceneFromFile("C:/Users/orog1/IdeaProjects/ISE5782_8965_0519/basicRenderTestTwoColors.xml").build();
 
 		Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPDistance(100) //
@@ -69,3 +66,4 @@ public class RenderTests {
 		camera.writeToImage();
 	}
 }
+

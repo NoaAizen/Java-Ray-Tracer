@@ -5,12 +5,18 @@ import geometries.Triangle;
 import lighting.AmbientLight;
 import geometries.Geometries;
 import lighting.LightSource;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 import parser.SenceDescriptor;
 import primitives.Color;
 import primitives.Double3;
 import primitives.Point;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +31,13 @@ public class Scene {
     private final AmbientLight ambientLight;   // ambient light
     private final Geometries geometries;       // composite for all geometric object
     private List<LightSource> lights = new LinkedList<>();
+
     /**
      * Construcor using Builder Pattern
+     *
      * @param builder the builder for the scene
      */
-    public Scene(SceneBuilder builder){
+    public Scene(SceneBuilder builder) {
         name = builder._name;
         background = builder._background;
         ambientLight = builder._ambientLight;
@@ -54,7 +62,7 @@ public class Scene {
         return geometries;
     }
 
-    public List<LightSource>  getLights() {
+    public List<LightSource> getLights() {
         return lights;
     }
 
@@ -64,7 +72,7 @@ public class Scene {
     public static class SceneBuilder {
         private String _filePath; //
         private Scene _scene; //
-        private SenceDescriptor senceDesc; //
+        private SenceDescriptor _senceDesc = new SenceDescriptor(); //
         private final String _name;        // Scene Builder name
         private Color _background = Color.BLACK;////Scene Builder background color
         private AmbientLight _ambientLight = new AmbientLight();// //  Scene Builder ambient light
@@ -72,11 +80,13 @@ public class Scene {
         private List<LightSource> _lights = new LinkedList<>();   // Scene Builder name
 
         // ***************** Constructors ********************** //
+
         /**
          * Construcor for builder
+         *
          * @param name mandatory name
          */
-        public SceneBuilder(String name){
+        public SceneBuilder(String name) {
             _name = name;
         }
 
@@ -104,6 +114,7 @@ public class Scene {
 
         /**
          * func setter type builder
+         *
          * @param geometries
          * @return SceneBuilder
          */
@@ -114,10 +125,11 @@ public class Scene {
 
         /**
          * func setter type builder
+         *
          * @param lights
          * @return SceneBuilder
          */
-        public SceneBuilder setLights(List<LightSource> lights){
+        public SceneBuilder setLights(List<LightSource> lights) {
             _lights = lights;
             return this;
         }
@@ -126,45 +138,75 @@ public class Scene {
 
         /**
          * build Scene
+         *
          * @return Scene
          */
-        public Scene build(){
+        public Scene build() {
             return new Scene(this);
         }
 
-        public void loadSceneFromFile(File myFile){
-            senceDesc = senceDesc.InitializeFromXMLstring(myFile.getName());//+.xml
+        public SceneBuilder loadSceneFromFile(String myFile) {
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = null;
+            try {
+                builder = factory.newDocumentBuilder();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+            //get document
+            Document document = null;//.xml
+            try {
+                document = builder.parse(new File(myFile));
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Normalize the xml structure
+            document.getDocumentElement().normalize();
+            _senceDesc = _senceDesc.InitializeFromXMLstring(document);//+.xml
             //geometries
             //sphere
-            List<Map<String, String>> spheres = senceDesc.getSpheres();
-            for (int i= 0; i<spheres.size(); i++)
-            {
-                Map<String, String> sphereMap = spheres.get(i);
-                String[] pointS = sphereMap.get(0).split(",")[0].split(" ");
-                Point p = new Point(Double.valueOf(pointS[0]), Double.valueOf(pointS[1]),Double.valueOf(pointS[2]));
-                Sphere sphere = new Sphere(p,Double.valueOf(sphereMap.get(0).split(",")[1]));
-                _geometries.add(sphere);
+            List<Map<String, String>> spheres = _senceDesc.getSpheres();
+            for (int i = 0; i < spheres.size(); i++) {
+                for (Map.Entry m : spheres.get(i).entrySet()) {
+                    String temp = (String) m.getValue();
+                    var temp1 = temp.split(",");
+                    var pointS = temp1[0].split(" ");
+                    Point p = new Point(Double.valueOf(pointS[0]), Double.valueOf(pointS[1]), Double.valueOf(pointS[2]));
+                    Sphere sphere = new Sphere(p, Double.valueOf(((String) m.getValue()).split(",")[1]));
+                    _geometries.add(sphere);
+                }
             }
             //Triangles
-            List<Map<String, String>> triangles = senceDesc.getTriangles();
-            for (int i= 0; i<triangles.size(); i++)
-            {
-                Map<String, String> triangleMap = triangles.get(i);
-                String[] pointsThree = triangleMap.get(0).split(",");
-                String[] pointS1 =pointsThree[0].split(" ");
-                Point p1 = new Point(Double.valueOf(pointS1[0]), Double.valueOf(pointS1[1]),Double.valueOf(pointS1[2]));
-                String[] pointS2 =pointsThree[0].split(" ");
-                Point p2 = new Point(Double.valueOf(pointS2[0]), Double.valueOf(pointS2[1]),Double.valueOf(pointS2[2]));
-                String[] pointS3 =pointsThree[0].split(" ");
-                Point p3 = new Point(Double.valueOf(pointS3[0]), Double.valueOf(pointS3[1]),Double.valueOf(pointS3[2]));
-                Triangle triangle = new Triangle(p1,p2,p3);
-                _geometries.add(triangle);
+            List<Map<String, String>> triangles = _senceDesc.getTriangles();
+            for (int i = 0; i < triangles.size(); i++) {
+                for (Map.Entry m : triangles.get(i).entrySet()) {
+                    //String temp = (String) m.getValue();
+                    String[] pointsThree = ((String) m.getValue()).split(",");
+                    String[] pointS1 = pointsThree[0].split(" ");
+                    Point p1 = new Point(Double.valueOf(pointS1[0]), Double.valueOf(pointS1[1]), Double.valueOf(pointS1[2]));
+                    String[] pointS2 = pointsThree[1].split(" ");
+                    Point p2 = new Point(Double.valueOf(pointS2[0]), Double.valueOf(pointS2[1]), Double.valueOf(pointS2[2]));
+                    String[] pointS3 = pointsThree[2].split(" ");
+                    Point p3 = new Point(Double.valueOf(pointS3[0]), Double.valueOf(pointS3[1]), Double.valueOf(pointS3[2]));
+                    Triangle triangle = new Triangle(p1, p2, p3);
+                    _geometries.add(triangle);
+                }
             }
-            String[] ambientLightS = senceDesc.getAmbientLightAttributes().get(0).split(" ");
-            _ambientLight= new AmbientLight(new Color(Double.valueOf(ambientLightS[0]), Double.valueOf(ambientLightS[1]),Double.valueOf(ambientLightS[2])),new Double3(1,1,1));
+            //ambientLight
+            for (Map.Entry m : _senceDesc.getAmbientLightAttributes().entrySet()) {
+                var colorStr = ((String) m.getValue()).split(" ");
+                _ambientLight = new AmbientLight(new Color(Double.valueOf(colorStr[0]), Double.valueOf(colorStr[1]), Double.valueOf(colorStr[2])), new Double3(1, 1, 1));
+            }
 
-            String[] background  = senceDesc.getSceneAttributes().get(0).split(" ");
-            _background = new Color(Double.valueOf(background[0]), Double.valueOf(background[1]),Double.valueOf(background[2]));
+            for (Map.Entry m : _senceDesc.getSceneAttributes().entrySet()) {
+                var background = ((String) m.getValue()).split(" ");
+                _background = new Color(Double.valueOf(background[0]), Double.valueOf(background[1]), Double.valueOf(background[2]));
+            }
+            return this;
         }
+
     }
 }
