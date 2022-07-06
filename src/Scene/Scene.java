@@ -7,7 +7,6 @@ import primitives.Color;
 
 import java.util.LinkedList;
 import java.util.List;
-// * @author noga and noa
 
 /**
  * Scene class : Compound class for all the objects of the 3D world to render
