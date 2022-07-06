@@ -91,7 +91,8 @@ public class RenderTests {
 	 */
 	@Test
 	public void basicRenderXml() {
-		Scene scene = new Scene.SceneBuilder("XML Test scene").build();
+		Scene scene = new Scene.SceneBuilder("XML Test scene").loadSceneFromFile("C:/Users/orog1/IdeaProjects/ISE5782_8965_0519/basicRenderTestTwoColors.xml").build();
+
 		// enter XML file name and parse from XML file into scene object
 		// ...
 
@@ -99,7 +100,7 @@ public class RenderTests {
 				.setVPDistance(100) //
 				.setVPSize(500, 500)
 				.setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-				.setRayTracer(new RayTracerBasic(scene));
+				.setRayTracer(new RayTracerBasic(scene)).setThreadsCount(3).setPrintInterval(0.1);
 		camera.renderImage();
 		camera.printGrid(100, new Color(java.awt.Color.YELLOW));
 		camera.writeToImage();
