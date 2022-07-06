@@ -94,7 +94,6 @@ public class SenceDescriptor {
                     Node geometry = geometryDetails.item(j);
                     if(geometry.getNodeType() == Node.ELEMENT_NODE) {
                         Element geometryElement = (Element) geometry;
-                        System.out.println("     " + geometryElement.getTagName() + ": ");
                         switch (geometryElement.getTagName()) {
                             //sphere
                             case "sphere":
