@@ -10,6 +10,7 @@ import static geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 import static primitives.Util.alignZero;
+// * @author noga and noa
 
 public class RayTracerBasic extends RayTracerBase {
 
@@ -55,8 +56,9 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * Calculate the Color
-     * @param gp
-     * @return color
+     * @param gp-geopoint cut
+     * @param ray-ray cut
+     * @return color- The final color before a point
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
         Color color=calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K);
@@ -65,11 +67,11 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * A recursive function that returns the color at a specific point
-     * @param gp
-     * @param ray
-     * @param level
-     * @param k
-     * @return Color
+     * @param gp- poibt cut
+     * @param ray- ray cut
+     * @param level-stop ryorya
+     * @param k- foctor of color
+     * @return Color-  the final color before a point
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(gp, ray,k);
@@ -82,12 +84,11 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      *  She is responsible for the global effects
-     * (Transparency and reflection of color)
-     * @param gp
-     * @param ray
-     * @param level
-     * @param k
-     * @return Color
+     *  reflected and refracted rays )
+     * @param ray- ray cut
+     * @param level-stop ryorya
+     * @param k- foctor of color
+     * @return Color-     The final color before a point
      */
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = Color.BLACK;
@@ -116,23 +117,24 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
 }
 
-    /**
+    /**Construct
      *  The thought of transparency
-     * @param point
-     * @param ray
-     * @param n
-     * @return
+
+     * @param point- point on the geometry
+     * @param ray -ray cut
+     * @param n-normal vector
+     * @return refracted ray
      */
     private Ray constructRefractedRay(Point point, Ray ray, Vector n) {
         return  new Ray(point,ray.getDir(),n.normalize());
     }
 
     /**
-     *  Thought reflection
-     * @param point
-     * @param ray
-     * @param n
-     * @return
+     *  Thought reflection     *
+     *  @param point- point on the geometry
+     *      * @param ray -ray cut
+     *      * @param n-normal vector
+     * @return ray   reflection ray
      */
     private Ray constructReflectedRay(Point point, Ray ray, Vector n) {
         Vector v = ray.getDir();
@@ -142,15 +144,14 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * Calculate refraction and reflection of bodies
+     * Calculate effect of lights
      *
-     * @param geoPoint
-     * @param ray
-     * @return Color
+     * @param geoPoint -piont cut
+     * @param ray-ray cut
+     * @return Color-Color according to calculations of light effects
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray,Double3 k) {
         Color color = geoPoint.geometry.getEmission();
-        //Color color = Color.BLACK;
 
         Vector v = ray.getDir();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point);
@@ -161,9 +162,8 @@ public class RayTracerBasic extends RayTracerBase {
         Double3 ktr=Double3.ZERO;
         double nl=0.0;
         for (LightSource lightSource : scene.getLights()) {
-            List<Vector> listVector = lightSource.listGetL(geoPoint.point,n);
+            List<Vector> listVector = lightSource.listGetL(geoPoint.point,n);//for the soft shadows
             Vector l = lightSource.getL(geoPoint.point);
-            Color c = Color.BLACK;
             int count = 0;
             if (useSoftShadows) {
                 for (Vector vector : listVector)
@@ -201,13 +201,12 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * Calculate Flashes, a kind of reflection of light, on the surface
-     *
-     * @param material
-     * @param n
-     * @param l
-     * @param nl
-     * @param v
-     * @return Double3
+     * @param material thr data
+     * @param n-normal of cur geometry
+     * @param l-light
+     * @param nl- nukt n,l
+     * @param v-dinction of ray
+     * @return Double3- reflection
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
         Vector r = l.add(n.scale(-2 * nl));
@@ -222,9 +221,9 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculate Diffusive, The surfaces of the bodies are not smooth, so the reflected light is scattered
      * In all directions, affects light and shadow on the body, creates a deep look.
      *
-     * @param material
-     * @param nl
-     * @return Double3
+     * @param material= data
+     * @param nl-scale of n l
+     * @return Double3-Coefficient of the distributing color
      */
     private Double3 calcDiffusive (Material material, double nl) {
         nl = Math.abs(nl);
@@ -234,13 +233,13 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * Calculates the shading
-     * @param gp
-     * @param lightSource
-     * @param l
-     * @param n
-     * @param nv
-     * @return
+     Is there a shadow and how many
+     * @param gp-point og gomtry
+     * @param lightSource-light
+     * @param l- direction of ray from lught
+     * @param n- normal vectoor
+     * @param nv- mult n v
+     * @return Double3- transparency factor
      */
     private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nv) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -261,8 +260,8 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      *  Finds the point of intersection closest to you
-     * @param ray
-     * @return
+     * @param ray- ray cut
+     * @return point closest
      */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(ray);
@@ -273,12 +272,11 @@ public class RayTracerBasic extends RayTracerBase {
         return closestPoint;
     }
 
-    // ***************** Override ********************** //
 
     /**
      * trace ray, and find cross point and return calcColor of the point if dont have point return Backgroung
      *
-     * @param ray
+     * @param ray-ray cut
      * @return Color
      */
     @Override

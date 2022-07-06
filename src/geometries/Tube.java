@@ -28,10 +28,11 @@ public class Tube extends Geometry {
     // ***************** constructor ********************** //
 
     /**
-     *  constructor
-     * @param axisRay
-     * @param radius
+     *  constructor with prmetrim
+     * @param axisRay - Tube of ray
+     * @param radius- Tube of radius
      */
+
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
@@ -54,10 +55,11 @@ public class Tube extends Geometry {
     public double getRadius() {
         return radius;
     }
+    // ***************** fuc ********************** //
 
     /**
      * return vector normal
-     * @param p
+     * @param p- point for the normal
      * @return vector normal
      */
     public Vector getNormal(Point p){

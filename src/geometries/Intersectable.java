@@ -4,12 +4,13 @@ import primitives.Ray;
 
 import java.util.List;
 import java.util.Objects;
+ //* @author noga and noa
 
 public abstract class Intersectable {
 
     /**
      * Function for finding intersection points
-     * @param ray
+     * @param ray -The fund ray calculating the points is cut
      * @return list of point of cross
      */
     public  List<Point> findIntersections(Ray ray){
@@ -20,8 +21,8 @@ public abstract class Intersectable {
 
     /**
      * Function for finding intersection points
-     * @param ray
-     * @return List
+     * @param ray- The fund ray calculating the points is cut
+     * @return List of the GeoPoint Cut with the ray
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
@@ -29,20 +30,20 @@ public abstract class Intersectable {
 
     /**
      * call to func findGeoIntersectionsHelper
-     * @param ray
-     * @param maxDistance
-     * @return
+     * @param ray-   -The fund ray calculating the points is cut
+     * @param maxDistance- max Distance
+     * @return List of the GeoPoint Cut with the ray
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         return findGeoIntersectionsHelper(ray, maxDistance);
     }
 
     /**
-     *  func abstract
-     * @param ray
-     * @param maxDistance
-     * @return
-     */
+     *  func abstract-That all departments that inherit must be exercised
+     * @param ray-   -The fund ray calculating the points is cut
+     * @param maxDistance- max Distance
+     * @return List of the GeoPoint Cut with the ray
+     * */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 
     /**
@@ -62,7 +63,7 @@ public abstract class Intersectable {
 
         /**
          * constructor
-         * @param geometry
+         * @param geometry of
          * @param point
          */
         public GeoPoint(Geometry geometry, Point point) {
@@ -74,8 +75,8 @@ public abstract class Intersectable {
 
         /**
          * equals
-         * @param o
-         * @return boolean
+         * @param o-The second variable for equals
+         * @return boolean-If this is true then they are equal, otherwise false
          */
         @Override
         public boolean equals(Object o) {

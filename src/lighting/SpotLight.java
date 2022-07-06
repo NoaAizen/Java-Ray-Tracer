@@ -5,6 +5,7 @@ import primitives.Point;
 import primitives.Vector;
 
 import java.util.List;
+// * @author noga and noa
 
 public class SpotLight  extends PointLight {
     /**
@@ -54,8 +55,9 @@ public class SpotLight  extends PointLight {
 
     // ***************** constructor ********************** //
 
+
     /**
-     * constructor
+     * constructor with Parameters
      * @param intensity
      */
     public SpotLight(Color intensity, Point _position, Vector _direction) {
@@ -69,14 +71,22 @@ public class SpotLight  extends PointLight {
 
     /**
      * get for L, Returns the calculation of l
-     * @param point
-     * @return
+     get for L, A function that does the calculation of vectors that damage light
+     *- soft shadows
+     * @param point-point of     light
+     *    @param n- vector of ray
+     * @return List<Vector> -Vectors that damage light
      */
     @Override
     public List<Vector> listGetL(Point point,Vector n) {
         return super.listGetL(point,n);
     }
 
+    /**
+     *Returns one vector that meets a point of light
+     * @param point-point of  light
+     * @return-vector
+     */
     public Vector getL(Point point) {
         return super.getL(point);
     }

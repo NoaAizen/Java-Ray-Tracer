@@ -40,8 +40,8 @@ public class Triangle extends Polygon {
 
     /**
      * use func getNormal of class plane
-     * @param p
-     * @return the normal of plane
+     * @param p point for narmal
+     * @return th e normal of plane
      */
     public Vector getNormal(Point p){
         return this.plane.getNormal(p);
@@ -49,8 +49,8 @@ public class Triangle extends Polygon {
 
     /**
      * find the cross triangle
-     * @param ray
-     * @param maxDistance
+     * @param ray-The ray for calculating the points is cut
+     * @param maxDistance-The maximum distance
      * @return list of GeoPoint - triangle cross and point cross
      */
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){

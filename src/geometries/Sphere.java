@@ -30,9 +30,9 @@ public class Sphere extends Geometry {
     // ***************** constructor ********************** //
 
     /**
-     * constructor
-     * @param center
-     * @param radius
+     * constructor with parmetrim
+     * @param center of Sphere
+     * @param radius of Sphere
      */
     public Sphere(final Point center, final double radius) {
         this.center = center;
@@ -63,8 +63,8 @@ public class Sphere extends Geometry {
     /**
      * return vector normal
      *
-     * @param p1
-     * @return vector
+     * @param p1- point for the normal
+     * @return vector normal
      */
     public Vector getNormal(Point p1) {
         return p1.subtract(center).normalize();
@@ -87,9 +87,10 @@ public class Sphere extends Geometry {
 
     /**
      * find the cross sphere
-     * @param ray
-     * @param maxDistance
+     * @param ray-The ray for calculating the points is cut
+     * @param maxDistance-The maximum distance
      * @return list of GeoPoint - sphere cross and point cross
+     *
      */
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
@@ -115,8 +116,6 @@ public class Sphere extends Geometry {
         }
         if (t1 > 0 && t2 > 0  && alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0) {
 
-            //  Point p1 = p0.add(v.Scale(t1));
-            //Point p2 = p0.add(v.Scale(t2));
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
 

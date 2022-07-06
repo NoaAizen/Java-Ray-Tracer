@@ -1,7 +1,7 @@
 package lighting;
 
 import primitives.Color;
-
+// * @author noga and noa
 abstract class Light {
 
     /**

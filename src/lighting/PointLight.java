@@ -11,9 +11,17 @@ import primitives.Point;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+// * @author noga and noa
 
 public class PointLight extends Light implements LightSource {
-    private int size = 40;
+    /**
+     * The amount of rays we want to run
+     * "- soft shadows
+     */
+    private int size = 20;
+    /**
+     * thet lenth of the shere
+     */
     private int lenVector = 10;
     /**
      * the point that start the ray of this light
@@ -36,8 +44,8 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * constructor
-     *
-     * @param intensity
+     *@param _position-point
+     * @param intensity-color
      */
     public PointLight(Color intensity, Point _position) {
         super(intensity);
@@ -45,10 +53,11 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
+     * get distance
      * call to func distance in class point
      *
-     * @param point
-     * @return
+     * @param point for the Calculating the distance of light
+     * @return double distance
      */
     public double getDistance(Point point) {
         double distance = point.distance(position);
@@ -138,8 +147,8 @@ public class PointLight extends Light implements LightSource {
     /**
      * Get light intensity at a point IL
      *
-     * @param p
-     * @return Color
+     * @param p-point
+     * @return Color-Calculate color with light
      */
     @Override
     public Color getIntensity(Point p) {
@@ -150,41 +159,38 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * get for L, Returns the calculation of l
-     *
-     * @param p
-     * @return Vector
+     * get for L, A function that does the calculation of vectors that damage light
+     *- soft shadows
+     * @param p-point of     light
+     *    @param n- vector of ray
+     * @return List<Vector> -Vectors that damage light
      */
     @Override
     public List<Vector> listGetL(Point p, Vector n) {
-        // ????? ?? ???????
         List<Vector> vectorList = new LinkedList<>();
-        //?????? ?? ?????? ???????
         vectorList.add(p.subtract(position).normalize());
-        //????? ?? ?????? ?????
-        Sphere sphere = new Sphere(position, lenVector);
-        Random r = new Random();
-        int in = size / 2;
-        int out = size - size / 2;
-        if (size > 1) {
-            int t;
-            for (double i = 0; i < sphere.getRadius(); i += sphere.getRadius() / 10) {
-                for (double j = 0; j < sphere.getRadius(); j += sphere.getRadius() / 10) {
+        Sphere sphere = new Sphere(position, lenVector);//We turned the point of light into a sphere
+            for (double i = 0; i < sphere.getRadius(); i += sphere.getRadius() / size) {//Creates vectors for the first half of the sphere
+                for (double j = 0; j < sphere.getRadius(); j += sphere.getRadius() / size) {
                     Point point = position.add(new Vector(sphere.getRadius() - i, 0.1d, sphere.getRadius() - j));
                     vectorList.add(p.subtract(point).normalize());
                 }
             }
-            for (double i = -sphere.getRadius(); i < 0; i += sphere.getRadius() / 8) {
-                for (double j = -sphere.getRadius(); j < 0; j += sphere.getRadius() / 8) {
+            for (double i = -sphere.getRadius(); i < 0; i += sphere.getRadius() / size) {//Creates vectors for the second half of the  sphere
+                for (double j = -sphere.getRadius(); j < 0; j += sphere.getRadius() / size) {
                     Point point = position.add(new Vector(0 + i, 0.1d, 0 + j));
                     vectorList.add(p.subtract(point).normalize());
                 }
-            }
+
         }
         return vectorList;
     }
 
-
+    /**
+     *Returns one vector that meets a point of light
+     * @param p-point of  light
+     * @return-vector
+     */
     public Vector getL(Point p) {
         return p.subtract(position).normalize();
     }
