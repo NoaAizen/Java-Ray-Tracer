@@ -40,7 +40,7 @@ public class Cylinder extends Tube {
 
     /**
      * return vector normal
-     * @param p
+     * @param p- point for the normal
      * @return vector normal
      */
     @Override

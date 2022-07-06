@@ -1,8 +1,10 @@
-package renderer;
+ package renderer;
 
 import Scene.Scene;
 import primitives.Color;
 import primitives.Ray;
+// * @author noga and noa
+
 public abstract class RayTracerBase {
         protected Scene scene;
 
@@ -16,9 +18,9 @@ public abstract class RayTracerBase {
                 this.scene = scene;
         }
 
-        /**
+        /** Calculates the color before the ray
          * @param ray
-         * @return Color
+         * @return Color-of pixel
          */
         public abstract Color traceRay(Ray ray);
 

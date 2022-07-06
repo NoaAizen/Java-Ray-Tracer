@@ -1,6 +1,7 @@
 package primitives;
 import java.util.Objects;
 import static primitives.Util.*;
+//* @author noa and noga
 
 public class Vector extends Point {
     // ***************** constructor ********************** //
@@ -31,9 +32,9 @@ public class Vector extends Point {
 
     // ***************** func ********************** //
     /**
-     * add vector
-     * @param vector
-     * @return
+     * add vectors-
+     * @param vector-The second vector you get for making a connection
+     * @return Vector- The new vector after the connection
      */
     public Vector add(Vector vector) {
 
@@ -46,9 +47,9 @@ public class Vector extends Point {
     }
 
     /**
-     * Scale
-     * @param factor
-     * @return
+     * Scale with vector
+     * @param factor--The second vector you get for making a Scale
+     * @return- The new vector after the scale
      */
     public Vector scale(double factor){
         if(isZero(factor)){
@@ -58,22 +59,20 @@ public class Vector extends Point {
     }
 
     /**
-     * dot Product
-     * @param vector
-     * @return
+     * Vector multiplication-dot Product
+     * @param vector- the second vector you get for making a -dot Product
+     * @return- The new number generated from a vector product
      */
     public double dotProduct(Vector vector) {
         Double3 temp = xyz.product(vector.xyz);
         return temp.d1 + temp.d2 + temp.d3;
-//        return this.xyz.d1 * vector.xyz.d1
-//                +this.xyz.d2 * vector.xyz.d2
-//                + this.xyz.d3 * vector.xyz.d3;
+
     }
 
     /**
-     * cross Product
-     * @param vector
-     * @return Vector
+     * Vectors multiplication-cross Product
+     * @param vector- the second vector you get for making a cross Product
+     * @return Vector- The new Vector generated from a vector product
      */
     public Vector crossProduct(Vector vector) {
         double ax = xyz.d1;
@@ -93,7 +92,7 @@ public class Vector extends Point {
 
     /**
      * normalize
-     * @return
+     * @return Vector-Victor who is normalized
      */
     public Vector normalize() {
         double len = length();
@@ -102,7 +101,7 @@ public class Vector extends Point {
 
     /**
      * length
-     * @return double
+     * @return double-The number returned from a root
      */
     public double length() {
         return Math.sqrt(lengthSquared());
@@ -110,7 +109,7 @@ public class Vector extends Point {
 
     /**
      * length Squared
-     * @return double
+     * @return double-The length itself
      */
     public double lengthSquared() {
         return xyz.d1 * xyz.d1

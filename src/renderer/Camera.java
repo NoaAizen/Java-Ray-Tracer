@@ -16,10 +16,6 @@ import static primitives.Util.isZero;
  */
 public class Camera {
 
-    public Camera setPrintInterval(double printInterval) {
-        this.printInterval = printInterval;
-        return this;
-    }
 
     private  double printInterval;
     /**
@@ -88,6 +84,8 @@ public class Camera {
     }
 
 // ***************** Getters ********************** //
+
+
     /**
      * return Vto the vector to the view plane
      * @return Vector
@@ -145,6 +143,21 @@ public class Camera {
     }
 
     // ***************** Setters ********************** //
+
+    /**
+     * serret PrintInterval with build
+     * @param printInterval
+     * @return
+     */
+
+    public Camera setPrintInterval(double printInterval) {
+        this.printInterval = printInterval;
+        return this;
+    }
+
+
+
+
     /**
      * constructor - Update method (set) for the View Plane size, which receives two numbers - width and height
      * @param w
@@ -204,10 +217,10 @@ public class Camera {
     // ***************** func ********************** //
     /**
      * Returns the cut ray, before a formula learned in class
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
+     * @param nX-size of view plan
+     * @param nY-size of view plan
+     * @param j-  Pixel     Location
+     * @param i- Pixel     Location
      * @return ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
@@ -267,7 +280,6 @@ public class Camera {
      * @return List of rays cut
      */
         public List<Ray> constructRayS(int nX, int nY, int j, int i){
-
         Point pointCnetr=PointMiddle(nX,nY,j,i);
         List <Ray> rayList=new LinkedList<>();
         rayList.add(new Ray(P0, pointCnetr.subtract(P0)));
@@ -319,9 +331,10 @@ public class Camera {
     }
 
     /**
+     * 	 * Print Grid call to func writePixel
      * turn on printGrid with gap and intervalColor the func get
-     * @param gap
-     * @param intervalColor
+     * @param gap-
+     * @param intervalColor-color
      */
     public void printGrid(int gap, Color intervalColor) {
         imageWriter.printGrid(gap,intervalColor);
@@ -332,7 +345,6 @@ public class Camera {
      * and write pixel.
      */
     public void renderImage() {
-        int x=0,y=0;
         try {
             if (imageWriter == null)
                 throw new MissingResourceException("dont have something in image writer ", "ImageWriter", " writer");
@@ -343,11 +355,7 @@ public class Camera {
 
             int Ny = imageWriter.getNy();
             int Nx = imageWriter.getNx();
-            //  for (int i = 0; i < Ny; i++) {//שורות
-            //    for (int j = 0; j < Nx; j++) {
-            //      x=i;
-            //    y=j;
-            //  castRay(Nx, Ny, j, i);
+            //Activating the processes
             Pixel.initialize(Ny, Nx, printInterval);
             while (threadsCount-- > 0) {
                 new Thread(() -> {
@@ -357,8 +365,6 @@ public class Camera {
             }
             Pixel.waitToFinish();
 
-        //}
-       // }
         }
         catch (Exception exception){
     throw new UnsupportedOperationException("can not render the image " );
@@ -367,9 +373,10 @@ public class Camera {
 
     /** Antialiasing
      Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
-     * @param Ny
-     * @param i
-     * @param j
+     * @param Ny-The size of the plain
+     * @param i-pixel
+     * @param j-pixel
+     * @param Nx-The size of the plain
      */
     private void castRay(int Nx, int Ny, int j, int i) {
      if (size==1){//If we have one fund left

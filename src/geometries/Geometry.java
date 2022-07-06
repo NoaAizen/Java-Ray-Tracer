@@ -8,6 +8,7 @@ import primitives.Vector;
 /**
  * this is the interface for all geometries that need to get a normalized vector.its the most basic interface for all geometries.
  */
+// * @author noga and noa
 
 public abstract class Geometry extends Intersectable
 {
@@ -48,9 +49,9 @@ public abstract class Geometry extends Intersectable
     // ***************** Setter ********************** //
 
     /**
-     * func setter
+     * func setter with build
      * @param emission
-     * @return
+     * @return Geometry
      */
     public Geometry setEmission(Color emission){
         this.emission = emission;

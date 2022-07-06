@@ -236,9 +236,9 @@ class ReflectionRefractionTests {
 				new Triangle(new Point(-667,-700,10200), new Point(-1200,-700,9700), new Point(500,-700,9000)).setEmission(new Color(black)),
 
 				//boll
-				new Sphere(new Point(-680,-1300,10300),200).setEmission(new Color(red)),
+				new Sphere(new Point(-980,-1300,9950),200).setEmission(new Color(red)),
 				//boll
-				new Sphere(new Point(-600,-1350,10500),150).setEmission(new Color(white)),
+				new Sphere(new Point(-900,-1350,10300),150).setEmission(new Color(white)),
 
 				//chair - up
 				new Triangle(new Point(-150,-1000,9150), new Point(-560,-1000,9575), new Point(350,-1000,9650)).setEmission(new Color(white)).setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)),
@@ -337,13 +337,13 @@ class ReflectionRefractionTests {
 		scene.getLights().add(
 			new SpotLight(new Color(400, 240, 0), new Point(350,-1200,12050),new Vector(-130,700,-2100)).setkL(1E-5).setkQ(1.5E-7) );
 		scene.getLights().add(
-						new PointLight(new Color(255,197,143),new Point(-525,700,9425)).setkL(0.0004).setkQ(0.00001));
+						new PointLight(new Color(255,197,143),new Point(-525,700,9425)).setkL(0.0004).setkQ(0.000006));
 		scene.getLights().add(
-				new PointLight(new Color(255,197,143),new Point(-935,700,9825)).setkL(0.0004).setkQ(0.00001));
+				new PointLight(new Color(255,197,143),new Point(-935,700,9825)).setkL(0.0004).setkQ(0.000006));
 		scene.getLights().add(
-				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.00001));
+				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.000006));
 
-		ImageWriter imageWriter = new ImageWriter("ThreadsCount1shadow1Anti", 800,800);
+		ImageWriter imageWriter = new ImageWriter("anti 8 shadown 8", 800,800);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //

@@ -1,6 +1,8 @@
 package primitives;
 
 import java.util.Objects;
+// class of point
+ //* @author noa and noga
 
 public class Point {
     /**
@@ -36,7 +38,7 @@ public class Point {
     /**
      * check if the o and this equals
      *
-     * @param o
+     * @param o- The second parameter that makes a equal
      * @return true or false if it the same class and the same value
      */
     @Override
@@ -72,7 +74,7 @@ public class Point {
     /**
      * use add from class Double3
      *
-     * @param vector
+     * @param vector -The point we need to do with it is a calculation of add
      * @return the head vector with this point
      */
     public Point add(Vector vector) {
@@ -82,7 +84,7 @@ public class Point {
     /**
      * use subtract from class Double3
      *
-     * @param point
+     * @param point- The second point we need to do with it is a calculation of subtract
      * @return Vector subtraction
      */
     public Vector subtract(Point point) {
@@ -92,7 +94,7 @@ public class Point {
     /**
      * The distance between two points squared
      *
-     * @param other
+     * @param other-T-he second point we need to do with it is a calculation of distance
      * @return d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
      */
     public double distanceSquared(Point other) {
@@ -110,9 +112,8 @@ public class Point {
     /**
      * use func distanceSquared and sqrt on it
      *
-     * @param other
+     * @param other-the point we did sqrt.
      * @return d = Sqrt (lengthSquare)
-     * @link https://www.engineeringtoolbox.com/distance-relationship-between-two-points-d_1854.html
      */
     public double distance(Point other) {
         return Math.sqrt(distanceSquared(other));

@@ -22,7 +22,7 @@ public class Plane extends Geometry{
 
     /**
      * constructor
-     * @param q0
+     * @param q0 -point
      * @param n vector for the normal (will be normalized automatically)
      */
     public Plane(Point q0, Vector n) {
@@ -30,18 +30,14 @@ public class Plane extends Geometry{
         normal = n;
     }
 
-    /**
+    /**constructor with 3 points
      * from three point found the vector normal (now put null in the next level we do it)
-     * @param p1
-     * @param p2
-     * @param p3
+     * @param p1-point
+     * @param p2-point
+     * @param p3-point
      */
     public Plane(Point p1, Point p2, Point p3) {
         p0 =p1;
-//        //TODO check direction of vectors
-//        Vector U = p1.subtract(p2);
-//        Vector V = p3.subtract(p2);
-
         Vector U = p2.subtract(p1);
         Vector V = p3.subtract(p1);
         Vector N = U.crossProduct(V);
@@ -74,8 +70,8 @@ public class Plane extends Geometry{
 
     /**
      * implementation of getNormal from Geometry
-     * @param point
-     * @return
+     * @param point for the Normal
+     * @return vector Normal
      */
     @Override
     public Vector getNormal(Point point) {
@@ -96,8 +92,9 @@ public class Plane extends Geometry{
 
     /**
      * Function for finding intersection points
-     * @param ray
-     * @return
+     * * @param ray-The ray for calculating the points is cut
+     *      * @param maxDistance-The maximum distance
+     * @return   list of GeoPoint - plane cross and point cross
      */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {

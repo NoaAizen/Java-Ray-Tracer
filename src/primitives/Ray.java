@@ -6,6 +6,7 @@ import java.util.Objects;
 import static primitives.Util.*;
 
 import static geometries.Intersectable.GeoPoint;
+//* @author noa and noga
 
 public class Ray {
     /**
@@ -26,18 +27,19 @@ public class Ray {
     /**
      * constructor
      *
-     * @param p0
-     * @param dir
+     * @param p0- the point of ray
+     * @param dir- the vector of ray
      */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
     }
     /**
-     * constructor
+     * constructor with 3 Parameters
      *
-     * @param p0
-     * @param v
+     * @param p0- the point of ray
+     * @param v-the vetor of ray
+     * @param n-For calculation of the point
      */
     public Ray(Point p0, Vector v, Vector n) {
         this.dir = v.normalize();
@@ -90,8 +92,8 @@ public class Ray {
     /**
      * equals
      *
-     * @param o
-     * @return
+     * @param o-The second parameter for equals
+     * @return boolean- if the parameters is true so they equals, other folse.
      */
     @Override
     public boolean equals(Object o) {
@@ -139,9 +141,10 @@ public class Ray {
     // ***************** func ********************** //
 
     /**
-     * @param points
-     * @return the point closest to the beginning of the foundation.
+     * @param points- List of points for finding the point closest to the ray
+     * @return the point closest to the beginning of the ray.
      */
+    /**
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findGeoClosestPoint(points
@@ -150,12 +153,12 @@ public class Ray {
                 .toList()).point;
     }
 
-
+**/
     /**
      * find Geo point Closest Point,  geo point it is the point from list of cross geometries
      *
-     * @param //geoPoints-list
-     * @return GeoPoint
+     * @param //geoPoints-list- List of points for finding the point closest to the ray
+     * @return GeoPoint- the point closest to the beginning of the ray.
     **/
     public GeoPoint findGeoClosestPoint(List<GeoPoint> geoPoints) {
         if (geoPoints == null) //In case of an empty list
