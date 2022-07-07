@@ -339,7 +339,7 @@ public class Camera {
         rayList.add(new Ray(P0, pointCentr.subtract(P0)));
         //call to rec
         rayRecList = recursion(pointCentr,Rx,Ry,recursionDepth);
-        for (  Ray ray : rayRecList)
+        for (Ray ray : rayRecList)
                rayList.add(ray);// = recursion(pointCentr,Rx,Ry,recursionDepth);//????? ?? ???????? ?????? ???????
         return rayList;
         }
