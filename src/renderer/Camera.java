@@ -337,12 +337,12 @@ public class Camera {
         List<Ray> rayRecList = new LinkedList<>();
         // ray center , add to list
         rayList.add(new Ray(P0, pointCentr.subtract(P0)));
-        //call to rec
+        //call to rec[
         rayRecList = recursion(pointCentr,Rx,Ry,recursionDepth);
         for (Ray ray : rayRecList)
-               rayList.add(ray);// = recursion(pointCentr,Rx,Ry,recursionDepth);//????? ?? ???????? ?????? ???????
+            rayList.add(ray);// = recursion(pointCentr,Rx,Ry,recursionDepth);//????? ?? ???????? ?????? ???????
         return rayList;
-        }
+}
 
     /**
      * ???? ?? ?????? ?????? ?? ????????? ?? ?????? ?? ?????? ?????? ?????
@@ -355,10 +355,11 @@ public class Camera {
         //up is plus in Vup
         //right is plus in Vright
         //left up.
-        Point PijUpLeft = pointCentr.add(Vright.scale((Ry/(double)2 )*-1).add(Vup.scale(1 * (Rx*(double) 2))));
+
+        Point PijUpLeft = pointCentr.add(Vright.scale((Ry*(-1)/2.0)).add(Vup.scale(1 * (Rx)*2.0)));
         rayList.add(new Ray(P0, PijUpLeft.subtract(P0)));
         //left down.
-        Point PijDownLeft = pointCentr.add(Vright.scale((Ry/(double)2 )*-1).add(Vup.scale(-1 * (Rx/(double)2))));
+        Point PijDownLeft = pointCentr.add(Vright.scale((Ry*-1/2.0)).add(Vup.scale(-1 * (Rx)/2.0)));
         rayList.add(new Ray(P0, PijDownLeft.subtract(P0)));
         //right up.
         Point PijUpRight = pointCentr.add(Vright.scale((Ry*(double)2 )*1).add(Vup.scale(1 * (Rx*(double)2))));
@@ -369,21 +370,33 @@ public class Camera {
         boolean checkStop = ColcrSuperSampling(rayList,Rx,Ry,recursionDepth);
         if (!checkStop)
         {
-            for (int i =0; i<5 ; i++)
+            for (int i =1; i<5 ; i++)
             {
                 if (recursionDepth==0)
                     return rayList;
-
-
                 recursionDepth--;
-                List<Ray> rayRecList = recursion(rayList.get(i).getP0(), Rx, Ry, recursionDepth);
-                for (  Ray ray : rayRecList)
+                List<Ray> rayRecList = recursion(PointuperSampling(Rx,Ry,i), Rx, Ry, recursionDepth);
+                for ( Ray ray : rayRecList)
                     rayList.add(ray);
             }
         }
         return rayList;
     }
-
+    public Point PointuperSampling(double Rx, double Ry,int counter) {
+        Point Pc = P0.add(Vto.scale(distance));
+        Point Pij=Pc;
+        switch (counter) {
+            case 1:
+                return Pij.add(Vright.scale((Ry * (-1))).add(Vup.scale(1 * (Rx))));
+            case 2:
+                return Pij.add(Vright.scale((Ry * -1)).add(Vup.scale(-1 * (Rx))));
+            case 3:
+                return Pij.add(Vright.scale((Ry )*1).add(Vup.scale(1 * (Rx))));
+            case 4:
+                return Pij.add(Vright.scale((Ry )*1).add(Vup.scale(-1 * (Rx))));
+        }
+        return null;
+    }
     public boolean ColcrSuperSampling(List<Ray> rayList,double Rx, double Ry,int recursionDepth) {
         List<Ray> rayListPoint = new LinkedList<>();
         Color color=rayTracerBase.traceRay(rayList.get(0));
@@ -394,7 +407,7 @@ public class Camera {
                 if (color.equals(temp)){
                    counter++;
                  color=color.add(temp);
-                }
+                  }
                 else{
                     return false;
                 }
