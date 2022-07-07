@@ -17,17 +17,17 @@ import static primitives.Util.isZero;
 public class Camera {
 
 
-    private  double printInterval;
+    private double printInterval;
     /**
      * num of threads
      */
     private int threadsCount;
     /**
-     *  The distance from our viewing plane
+     * The distance from our viewing plane
      */
     private Vector Vto;
     /**
-     *  Top direction of the camera
+     * Top direction of the camera
      */
     private Vector Vup;
     /**
@@ -40,19 +40,19 @@ public class Camera {
     private Point P0;
 
     /**
-     *  The distance between the camera and the view plane
+     * The distance between the camera and the view plane
      */
     private double distance;
     /**
-     *  Image width
+     * Image width
      */
     private double width;
     /**
-     *  Image height
+     * Image height
      */
     private double height;
     /**
-     *  Creating an image file, and also on holding the color matrix
+     * Creating an image file, and also on holding the color matrix
      */
     private ImageWriter imageWriter;
     /**
@@ -62,22 +62,24 @@ public class Camera {
     /**
      * A field that helps calculate how many rays we want to have
      */
-    private int size=1;
-    private  boolean Antialiasing=false;
-    private  boolean SuperSampling=true;
+    private int size = 1;
+    private boolean Antialiasing = false;
+    private boolean SuperSampling = true;
     /**
      *
      */
     //private int recursionDepth = 3;
 
     // ***************** Constructors ********************** //
+
     /**
      * constructor - with parameters for position values and two vectors of direction
+     *
      * @param p0
      * @param vto
      * @param vup
      */
-    public Camera( Point p0,Vector vto, Vector vup) {
+    public Camera(Point p0, Vector vto, Vector vup) {
         if (!isZero(vto.dotProduct(vup))) {
             throw new IllegalArgumentException("Error!! Two vectors not orthogonals");
         }
@@ -94,6 +96,7 @@ public class Camera {
 
     /**
      * return Vto the vector to the view plane
+     *
      * @return Vector
      */
     public Vector getVto() {
@@ -102,6 +105,7 @@ public class Camera {
 
     /**
      * return Vup the vector is orthogonals to Vto and Vright
+     *
      * @return Vector
      */
     public Vector getVup() {
@@ -110,6 +114,7 @@ public class Camera {
 
     /**
      * return Vright the vector is orthogonals to Vto and Vright
+     *
      * @return Vector
      */
     public Vector getVright() {
@@ -118,6 +123,7 @@ public class Camera {
 
     /**
      * return the point that the camera be there
+     *
      * @return p0
      */
     public Point getP0() {
@@ -126,6 +132,7 @@ public class Camera {
 
     /**
      * getDistance - the distance between the camera and view plane
+     *
      * @return distance
      */
     public double getDistance() {
@@ -134,6 +141,7 @@ public class Camera {
 
     /**
      * get func
+     *
      * @return width (double)
      */
     public double getWidth() {
@@ -142,6 +150,7 @@ public class Camera {
 
     /**
      * getHeight func
+     *
      * @return height (double)
      */
     public double getHeight() {
@@ -153,10 +162,12 @@ public class Camera {
     public void setSuperSampling(boolean superSampling) {
         SuperSampling = superSampling;
     }
+
     public Camera setPrintInterval(double printInterval) {
         this.printInterval = printInterval;
         return this;
     }
+
     public void setAntialiasing(boolean antialiasing) {
         Antialiasing = antialiasing;
     }
@@ -164,6 +175,7 @@ public class Camera {
 
     /**
      * constructor - Update method (set) for the View Plane size, which receives two numbers - width and height
+     *
      * @param w
      * @param h
      * @return this \ camera
@@ -179,14 +191,17 @@ public class Camera {
 
     /**
      * set of ThreadsCount
+     *
      * @param threadsCount
      */
     public Camera setThreadsCount(int threadsCount) {
         this.threadsCount = threadsCount;
-        return  this;
+        return this;
     }
+
     /**
      * Update method for the View Plane distance from the camera
+     *
      * @param d
      * @return camera
      */
@@ -194,12 +209,13 @@ public class Camera {
         if (d <= 0) {
             throw new IllegalArgumentException(" distance can not be negative or 0");
         }
-       distance=d;
-       return this;
+        distance = d;
+        return this;
     }
 
     /**
      * set Ray Tracer
+     *
      * @param rayTracer
      * @return Camera
      */
@@ -210,6 +226,7 @@ public class Camera {
 
     /**
      * turn on imageWriter
+     *
      * @param imageWriter
      * @return Camera
      */
@@ -219,18 +236,20 @@ public class Camera {
     }
 
     // ***************** func ********************** //
+
     /**
      * Returns the cut ray, before a formula learned in class
+     *
      * @param nX-size of view plan
      * @param nY-size of view plan
-     * @param j-  Pixel     Location
-     * @param i- Pixel     Location
+     * @param j-      Pixel     Location
+     * @param i-      Pixel     Location
      * @return ray
      */
-    public Ray constructRay(int nX, int nY, int j, int i){
+    public Ray constructRay(int nX, int nY, int j, int i) {
         Point Pc = P0.add(Vto.scale(distance));
-        double Rx= height/nX;
-        double Ry=width/nY;
+        double Rx = height / nX;
+        double Ry = width / nY;
 
         double Yi = -(i - (nY - 1) / 2d) * Ry;
         double Xj = (j - (nX - 1) / 2d) * Rx;
@@ -252,136 +271,174 @@ public class Camera {
     }
 
     /**
-     *A function that calculates the midpoint with a pixel with a viewing plane and a camera
+     * A function that calculates the midpoint with a pixel with a viewing plane and a camera
+     *
      * @param nX-size of view plan
      * @param nY-size of view plan
-     * @param j-  Pixel     Location
-     * @param i- Pixel     Location
-     * @return  Point Middle
+     * @param j-      Pixel     Location
+     * @param i-      Pixel     Location
+     * @return Point Middle
      */
-    public Point PointMiddle(int nX, int nY, int j, int i){
+    public Point PointMiddle(int nX, int nY, int j, int i) {
         Point Pc = P0.add(Vto.scale(distance));
-        double Rx= width/(double)nX;
-        double Ry=height/(double)nY;
-        double Yi = (-(i - ((double)nY - 1) / 2d) * Ry);
-        double Xj = ((j - ((double)nX - 1) / 2d) * Rx) ;
+        double Rx = width / (double) nX;
+        double Ry = height / (double) nY;
+        double Yi = (-(i - ((double) nY - 1) / 2d) * Ry);
+        double Xj = ((j - ((double) nX - 1) / 2d) * Rx);
         Point Pij = Pc;
-        if (Xj!=0d){
-            Pij=Pij.add(getVright().scale(Xj));
+        if (Xj != 0d) {
+            Pij = Pij.add(getVright().scale(Xj));
         }
-        if (Yi!=0d){
-            Pij=Pij.add(getVup().scale(Yi));
+        if (Yi != 0d) {
+            Pij = Pij.add(getVup().scale(Yi));
         }
         return Pij;
     }
 
-    /**Antialiasing
-     *Function for calculating that a list of rays intersects the pixel
+    /**
+     * Antialiasing
+     * Function for calculating that a list of rays intersects the pixel
+     *
      * @param nX-size of view plan
      * @param nY-size of view plan
-     * @param j-  Pixel     Location
-     * @param i- Pixel     Location
+     * @param j-      Pixel     Location
+     * @param i-      Pixel     Location
      * @return List of rays cut
      */
-        public List<Ray> constructRayS(int nX, int nY, int j, int i){
-        Point pointCnetr=PointMiddle(nX,nY,j,i);
-        List <Ray> rayList=new LinkedList<>();
+    public List<Ray> constructRayS(int nX, int nY, int j, int i) {
+        Point pointCnetr = PointMiddle(nX, nY, j, i);
+        List<Ray> rayList = new LinkedList<>();
         rayList.add(new Ray(P0, pointCnetr.subtract(P0)));
-        double Rx= ((width)/nX)/(double) size;
-        double Ry=((height)/nY)/(double) size;
-        double x=0;
-        double y=0;
+        double Rx = ((width) / nX) / (double) size;
+        double Ry = ((height) / nY) / (double) size;
+        double x = 0;
+        double y = 0;
 
-        for (int r=0;r<size;r++){
-             if (r>size/2){
-                 y= (size/2)+(size- r)*Ry;
-             }
-             else {
-                 y=(size/2)-r*Ry;
-             }
-             for (int c=0;c<size;c++){
-                if (c>size/2){
-                   x=(size/2)+(size- c)*Rx;
+        for (int r = 0; r < size; r++) {
+            if (r > size / 2) {
+                y = (size / 2) + (size - r) * Ry;
+            } else {
+                y = (size / 2) - r * Ry;
+            }
+            for (int c = 0; c < size; c++) {
+                if (c > size / 2) {
+                    x = (size / 2) + (size - c) * Rx;
+                } else {
+                    x = (size / 2) - c * Rx;
                 }
-                else {
-                    x=(size/2)-c*Rx;
-                }
-                }
-                Point Pij = pointCnetr;
-                if (isZero(x) && isZero(y)) {
-                   Pij= Pij.subtract(P0);
-                }
-                if (isZero(y)){
-                    Pij = Pij.add(Vright.scale(x));
-                }
-                else  if (isZero(x)) {
-                    Pij = Pij.add(Vup.scale(y));
-                }
-                else {
-                    Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
-                }
-                rayList.add(new Ray(P0, Pij.subtract(P0)));
+            }
+            Point Pij = pointCnetr;
+            if (isZero(x) && isZero(y)) {
+                Pij = Pij.subtract(P0);
+            }
+            if (isZero(y)) {
+                Pij = Pij.add(Vright.scale(x));
+            } else if (isZero(x)) {
+                Pij = Pij.add(Vup.scale(y));
+            } else {
+                Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
+            }
+            rayList.add(new Ray(P0, Pij.subtract(P0)));
 
         }
         return rayList;
     }
+
     //???? ?? ?????? ??????? ????????
     // ???? ???????? ??????? ?? ????????
     // ???? ?? ????? ??????? ??????? (???? ????????)
-    public List<Ray> constructRaySuperSampling(int nX, int nY, int j, int i) {
-        int recursionDepth = 1;
+    public void constructRaySuperSampling(int nX, int nY, int j, int i) {
+        int recursionDepth = 10;
         Point pointCentr = PointMiddle(nX, nY, j, i);
         double Rx = height / nX;
         double Ry = width / nY;
         List<Ray> rayList = new LinkedList<>();
         List<Ray> rayRecList = new LinkedList<>();
         // ray center , add to list
-        rayList.add(new Ray(P0, pointCentr.subtract(P0)));
-        //call to rec[
-        rayRecList = recursion(pointCentr,Rx,Ry,recursionDepth);
-        for (Ray ray : rayRecList)
+        var rayFriest = new Ray(P0, pointCentr.subtract(P0));
+        rayList.add(rayFriest);
+        Color color = rayTracerBase.traceRay(rayFriest);
+        rayRecList = recursion(pointCentr, Rx, Ry, recursionDepth);
+        int counter = 1;
+        Color temp = null;
+        Color C=null;
+        for (var ray : rayList) {
+            temp = rayTracerBase.traceRay(ray);
+            if (color.equals(temp)) {
+                counter++;
+                color = color.add(temp);
+            } else {
+                recursionDepth--;
+                counter++;
+                rayRecList = recursion(PointuperSampling(Rx, Ry, counter), Rx, Ry, recursionDepth);
+            }
+        }
+        for (Ray ray : rayRecList) {
             rayList.add(ray);// = recursion(pointCentr,Rx,Ry,recursionDepth);//????? ?? ???????? ?????? ???????
-        return rayList;
-}
+        }
+        int red=0;
+        int green=0;
+        int blue=0;
+        Color colors=null;
+        for (var ray: rayList){//Insert a color into the appropriate variable
+            Color c=rayTracerBase.traceRay(ray);
+            red+=temp.getColor().getRed();
+            green+=temp.getColor().getGreen();
+            blue+=temp.getColor().getBlue();
+        }
+        colors=new Color(red/(rayList.size()),green/(rayList.size()),blue/(rayList.size()));//call to rec[
+
+        imageWriter.writePixel(j, i,colors);
+
+    }
 
     /**
      * ???? ?? ?????? ?????? ?? ????????? ?? ?????? ?? ?????? ?????? ?????
+     *
      * @param pointCentr
      * @return
      */
-    public List<Ray> recursion(Point pointCentr,double Rx, double Ry,int recursionDepth) {
+    public List<Ray> recursion(Point pointCentr, double Rx, double Ry, int recursionDepth) {
         List<Ray> rayList = new LinkedList<>();
         //will cause the recursion to stop
         //up is plus in Vup
         //right is plus in Vright
         //left up.
+        if (recursionDepth == 0){
+            return rayList;}
 
-        Point PijUpLeft = pointCentr.add(Vright.scale((Ry*(-1)/2.0)).add(Vup.scale(1 * (Rx)*2.0)));
+        Point pij = pointCentr;
+        Point PijUpLeft = pointCentr.add(Vright.scale((Ry * (-1) / 2.0)).add(Vup.scale(1 * (Rx) * 2.0)));
         rayList.add(new Ray(P0, PijUpLeft.subtract(P0)));
         //left down.
-        Point PijDownLeft = pointCentr.add(Vright.scale((Ry*-1/2.0)).add(Vup.scale(-1 * (Rx)/2.0)));
+        Point PijDownLeft = pointCentr.add(Vright.scale((Ry * -1 / 2.0)).add(Vup.scale(-1 * (Rx) / 2.0)));
         rayList.add(new Ray(P0, PijDownLeft.subtract(P0)));
         //right up.
-        Point PijUpRight = pointCentr.add(Vright.scale((Ry*(double)2 )*1).add(Vup.scale(1 * (Rx*(double)2))));
+        Point PijUpRight = pointCentr.add(Vright.scale((Ry * (double) 2) * 1).add(Vup.scale(1 * (Rx * (double) 2))));
         rayList.add(new Ray(P0, PijUpRight.subtract(P0)));
         //right down.
-        Point PijDownRight = pointCentr.add(Vright.scale((Ry*(double)2 )*1).add(Vup.scale(-1 * (Rx/(double)2))));
+        Point PijDownRight = pointCentr.add(Vright.scale((Ry * (double) 2) * 1).add(Vup.scale(-1 * (Rx / (double) 2))));
         rayList.add(new Ray(P0, PijDownRight.subtract(P0)));
-        boolean checkStop = ColcrSuperSampling(rayList,Rx,Ry,recursionDepth);
-        if (!checkStop)
-        {
-            for (int i =1; i<5 ; i++)
-            {
-                if (recursionDepth==0)
-                    return rayList;
-                recursionDepth--;
-                List<Ray> rayRecList = recursion(PointuperSampling(Rx,Ry,i), Rx, Ry, recursionDepth);
-                for ( Ray ray : rayRecList)
-                    rayList.add(ray);
-            }
-        }
         return rayList;
     }
+        //boolean checkStop = ColcrSuperSampling(rayList,Rx,Ry,recursionDepth);
+        //  if (!checkStop)
+        //{
+        //  for (int i =1; i<5 ; i++)
+        //{
+        //if (recursionDepth==0)
+        //return rayList;
+        //recursionDepth--;
+        //List<Ray> rayRecList = recursion(PointuperSampling(Rx,Ry,i), Rx, Ry, recursionDepth);
+        //for ( Ray ray : rayRecList)
+        //  rayList.add(ray);
+        //       }
+        //  }
+        //    return rayList;
+        //  }
+
+
+
     public Point PointuperSampling(double Rx, double Ry,int counter) {
         Point Pc = P0.add(Vto.scale(distance));
         Point Pij=Pc;
@@ -482,21 +539,12 @@ public class Camera {
     }
     private void castRaySuperSampling(int Nx, int Ny, int j, int i) {
         List<Ray> rays = new LinkedList<>();
-        rays =constructRaySuperSampling(Nx,Ny,j,i);
-        int red=0;
-        int green=0;
-        int blue=0;
-        Color colors=null;
-        for (var ray: rays){//Insert a color into the appropriate variable
-                Color temp=rayTracerBase.traceRay(ray);
-                red+=temp.getColor().getRed();
-                green+=temp.getColor().getGreen();
-                blue+=temp.getColor().getBlue();
-            }
-            colors=new Color(red/(rays.size()),green/(rays.size()),blue/(rays.size()));//Calculate the color mean
-            imageWriter.writePixel(j, i,colors);
-        }
+        constructRaySuperSampling(Nx, Ny, j, i);
 
+        //  colors=new Color(red/(rays.size()),green/(rays.size()),blue/(rays.size()));//Calculate the color mean
+        //   imageWriter.writePixel(j, i,colors);
+        //}
+    }
 
     /** Antialiasing
      Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
