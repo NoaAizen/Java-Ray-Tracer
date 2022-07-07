@@ -5,33 +5,39 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SenceDescriptor {
+public class SceneDescriptor {
+    /**
+     * Fields background
+     */
     private Map<String,String> sceneAttributes;
+    /**
+     * Fields ambientLight
+     */
     private Map<String,String> ambientLightAttributes;
+    /**
+     * Fields of sphere
+     */
     private List<Map<String,String>> spheres = new ArrayList<>();
+    /**
+     * Fields of triangle
+     */
     private List<Map<String,String>> triangles = new ArrayList<>();
     // ***************** Constructors ********************** //
 
     /**
-     *
+     * Constructors
      * @param sceneAttributes
      * @param ambientLightAttributes
      * @param spheres
      * @param triangles
      */
-    public SenceDescriptor(Map<String, String> sceneAttributes, Map<String, String> ambientLightAttributes, List<Map<String, String>> spheres, List<Map<String, String>> triangles) {
+    public SceneDescriptor(Map<String, String> sceneAttributes, Map<String, String> ambientLightAttributes, List<Map<String, String>> spheres, List<Map<String, String>> triangles) {
         this.sceneAttributes = sceneAttributes;
         this.ambientLightAttributes = ambientLightAttributes;
         this.spheres = spheres;
@@ -39,28 +45,50 @@ public class SenceDescriptor {
 
     }
 
-    public SenceDescriptor() {
+    /**
+     * Constructors empty
+     */
+    public SceneDescriptor() {
 
     }
 
     // ***************** getter ********************** //
+
+    /**
+     * func getter
+     * @return Map<String, String>
+     */
     public Map<String, String> getSceneAttributes() {
         return sceneAttributes;
     }
-
+    /**
+     * func getter
+     * @return Map<String, String>
+     */
     public Map<String, String> getAmbientLightAttributes() {
         return ambientLightAttributes;
     }
-
+    /**
+     * func getter
+     * @return  List<Map<String, String>>
+     */
     public List<Map<String, String>> getSpheres() {
         return spheres;
     }
-
+    /**
+     * func getter
+     * @return  List<Map<String, String>>
+     */
     public List<Map<String, String>> getTriangles() {
         return triangles;
     }
 
-    public SenceDescriptor InitializeFromXMLstring(Document document) {
+    /**
+     * get file, take the data on the file and put them in object (SceneDescriptor) Fields
+     * @param document
+     * @return SceneDescriptor
+     */
+    public SceneDescriptor InitializeFromXMLstring(Document document) {
             //Normalize the xml structure
             //document.getDocumentElement().normalize();
         var scene = document.getDocumentElement();
@@ -113,13 +141,11 @@ public class SenceDescriptor {
                                 break;
                         }
                     }
-
                 }
-
             }
         }
         spheres.add(sphere);
         triangles.add(triangle);
-        return new SenceDescriptor(sceneAttributes,ambientLightAttributes,spheres,triangles);
+        return new SceneDescriptor(sceneAttributes,ambientLightAttributes,spheres,triangles);
     }
 }

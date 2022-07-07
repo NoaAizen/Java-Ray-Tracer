@@ -162,7 +162,7 @@ public class PointLight extends Light implements LightSource {
      * get for L, A function that does the calculation of vectors that damage light
      *- soft shadows
      * @param p-point of     light
-     *    @param n- vector of ray
+     * @param n- vector of ray
      * @return List<Vector> -Vectors that damage light
      */
     @Override

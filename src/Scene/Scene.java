@@ -5,7 +5,7 @@ import geometries.Triangle;
 import lighting.AmbientLight;
 import geometries.Geometries;
 import lighting.LightSource;
-import parser.SenceDescriptor;
+import parser.SceneDescriptor;
 import primitives.Color;
 
 import java.io.File;
@@ -78,7 +78,7 @@ public class Scene {
         private AmbientLight _ambientLight = new AmbientLight();// //  Scene Builder ambient light
         private Geometries _geometries = new Geometries();////  Scene Builder composite for all geometric object
         private List<LightSource> _lights = new LinkedList<>();   // Scene Builder name
-        private SenceDescriptor _senceDesc = new SenceDescriptor();
+        private SceneDescriptor _senceDesc = new SceneDescriptor();
         // ***************** Constructors ********************** //
 
         /**
@@ -140,13 +140,19 @@ public class Scene {
 
         /**
          * build Scene
-         *
          * @return Scene
          */
         public Scene build() {
             return new Scene(this);
         }
 
+        /**
+         * open xml file
+         * send the file to func InitializeFromXMLstring (in packet parser , in class SenceDescriptor) that return Object (SenceDescriptor).
+         * use parameter in _senceDesc to put in SceneBuilder fields
+         * @param myFile - string
+         * @return SceneBuilder
+         */
         public SceneBuilder loadSceneFromFile(String myFile) {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
