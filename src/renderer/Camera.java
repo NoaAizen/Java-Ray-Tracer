@@ -63,6 +63,12 @@ public class Camera {
      * A field that helps calculate how many rays we want to have
      */
     private int size=1;
+    private  boolean Antialiasing=false;
+    private  boolean SuperSampling=true;
+    /**
+     *
+     */
+    //private int recursionDepth = 3;
 
     // ***************** Constructors ********************** //
     /**
@@ -144,18 +150,16 @@ public class Camera {
 
     // ***************** Setters ********************** //
 
-    /**
-     * serret PrintInterval with build
-     * @param printInterval
-     * @return
-     */
-
+    public void setSuperSampling(boolean superSampling) {
+        SuperSampling = superSampling;
+    }
     public Camera setPrintInterval(double printInterval) {
         this.printInterval = printInterval;
         return this;
     }
-
-
+    public void setAntialiasing(boolean antialiasing) {
+        Antialiasing = antialiasing;
+    }
 
 
     /**
@@ -321,10 +325,90 @@ public class Camera {
         }
         return rayList;
     }
+    //???? ?? ?????? ??????? ????????
+    // ???? ???????? ??????? ?? ????????
+    // ???? ?? ????? ??????? ??????? (???? ????????)
+    public List<Ray> constructRaySuperSampling(int nX, int nY, int j, int i) {
+        int recursionDepth = 1;
+        Point pointCentr = PointMiddle(nX, nY, j, i);
+        double Rx = height / nX;
+        double Ry = width / nY;
+        List<Ray> rayList = new LinkedList<>();
+        List<Ray> rayRecList = new LinkedList<>();
+        // ray center , add to list
+        rayList.add(new Ray(P0, pointCentr.subtract(P0)));
+        //call to rec
+        rayRecList = recursion(pointCentr,Rx,Ry,recursionDepth);
+        for (Ray ray : rayRecList)
+               rayList.add(ray);// = recursion(pointCentr,Rx,Ry,recursionDepth);//????? ?? ???????? ?????? ???????
+        return rayList;
+        }
+
     /**
-     * turn off writeToImage
+     * ???? ?? ?????? ?????? ?? ????????? ?? ?????? ?? ?????? ?????? ?????
+     * @param pointCentr
      * @return
      */
+    public List<Ray> recursion(Point pointCentr,double Rx, double Ry,int recursionDepth) {
+        List<Ray> rayList = new LinkedList<>();
+        //will cause the recursion to stop
+        //up is plus in Vup
+        //right is plus in Vright
+        //left up.
+        Point PijUpLeft = pointCentr.add(Vright.scale((Ry/(double)2 )*-1).add(Vup.scale(1 * (Rx*(double) 2))));
+        rayList.add(new Ray(P0, PijUpLeft.subtract(P0)));
+        //left down.
+        Point PijDownLeft = pointCentr.add(Vright.scale((Ry/(double)2 )*-1).add(Vup.scale(-1 * (Rx/(double)2))));
+        rayList.add(new Ray(P0, PijDownLeft.subtract(P0)));
+        //right up.
+        Point PijUpRight = pointCentr.add(Vright.scale((Ry*(double)2 )*1).add(Vup.scale(1 * (Rx*(double)2))));
+        rayList.add(new Ray(P0, PijUpRight.subtract(P0)));
+        //right down.
+        Point PijDownRight = pointCentr.add(Vright.scale((Ry*(double)2 )*1).add(Vup.scale(-1 * (Rx/(double)2))));
+        rayList.add(new Ray(P0, PijDownRight.subtract(P0)));
+        boolean checkStop = ColcrSuperSampling(rayList,Rx,Ry,recursionDepth);
+        if (!checkStop)
+        {
+            for (int i =0; i<5 ; i++)
+            {
+                if (recursionDepth==0)
+                    return rayList;
+
+
+                recursionDepth--;
+                List<Ray> rayRecList = recursion(rayList.get(i).getP0(), Rx, Ry, recursionDepth);
+                for (  Ray ray : rayRecList)
+                    rayList.add(ray);
+            }
+        }
+        return rayList;
+    }
+
+    public boolean ColcrSuperSampling(List<Ray> rayList,double Rx, double Ry,int recursionDepth) {
+        List<Ray> rayListPoint = new LinkedList<>();
+        Color color=rayTracerBase.traceRay(rayList.get(0));
+             int counter=0;
+             Color temp=null;
+            for (var ray: rayList){
+                temp=rayTracerBase.traceRay(ray);
+                if (color.equals(temp)){
+                   counter++;
+                 color=color.add(temp);
+                }
+                else{
+                    return false;
+                }
+            }
+            if (counter==4){
+                return true;
+            }
+     return false;
+    }
+
+        /**
+         * turn off writeToImage
+         * @return
+         */
     public Camera writeToImage() {
         imageWriter.writeToImage();
         return this;
@@ -356,20 +440,50 @@ public class Camera {
             int Ny = imageWriter.getNy();
             int Nx = imageWriter.getNx();
             //Activating the processes
-            Pixel.initialize(Ny, Nx, printInterval);
-            while (threadsCount-- > 0) {
-                new Thread(() -> {
-                    for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
-                        castRay(Nx, Ny, pixel.col, pixel.row);
-                }).start();
-            }
-            Pixel.waitToFinish();
+            if (Antialiasing) {
+                Pixel.initialize(Ny, Nx, printInterval);
+                while (threadsCount-- > 0) {
+                    new Thread(() -> {
+                        for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                            castRay(Nx, Ny, pixel.col, pixel.row);
+                    }).start();
+                }
+                Pixel.waitToFinish();
 
+            }
+             if (SuperSampling){//
+                 Pixel.initialize(Ny, Nx, printInterval);
+                 while (threadsCount-- > 0) {
+                     new Thread(() -> {
+                         for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                             castRaySuperSampling(Nx, Ny, pixel.col, pixel.row);
+                     }).start();
+                 }
+                 Pixel.waitToFinish();
+            }
         }
         catch (Exception exception){
-    throw new UnsupportedOperationException("can not render the image " );
+              throw new UnsupportedOperationException("can not render the image " );
         }
+
     }
+    private void castRaySuperSampling(int Nx, int Ny, int j, int i) {
+        List<Ray> rays = new LinkedList<>();
+        rays =constructRaySuperSampling(Nx,Ny,j,i);
+        int red=0;
+        int green=0;
+        int blue=0;
+        Color colors=null;
+        for (var ray: rays){//Insert a color into the appropriate variable
+                Color temp=rayTracerBase.traceRay(ray);
+                red+=temp.getColor().getRed();
+                green+=temp.getColor().getGreen();
+                blue+=temp.getColor().getBlue();
+            }
+            colors=new Color(red/(rays.size()),green/(rays.size()),blue/(rays.size()));//Calculate the color mean
+            imageWriter.writePixel(j, i,colors);
+        }
+
 
     /** Antialiasing
      Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
