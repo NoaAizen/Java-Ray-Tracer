@@ -165,7 +165,7 @@ public class ProjectTest {
         scene.getLights().add(
                 new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.000006));
 
-        ImageWriter imageWriter = new ImageWriter("shadown 20", 800,800);
+        ImageWriter imageWriter = new ImageWriter("recursion", 800,800);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage(); //
