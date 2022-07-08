@@ -68,7 +68,7 @@ public class Camera {
     /**
      *
      */
-    private int orgRecursionDepth = 2;
+    //private int recursionDepth = 3;
 
     // ***************** Constructors ********************** //
 
@@ -339,6 +339,7 @@ public class Camera {
                 Pij = Pij.add(Vright.scale(x).add(Vup.scale(y)));
             }
             rayList.add(new Ray(P0, Pij.subtract(P0)));
+
         }
         return rayList;
     }
@@ -346,21 +347,49 @@ public class Camera {
     //???? ?? ?????? ??????? ????????
     // ???? ???????? ??????? ?? ????????
     // ???? ?? ????? ??????? ??????? (???? ????????)
-    public List<Ray> constructRaySuperSampling(int nX, int nY, int j, int i) {
-        int recursionDepth = orgRecursionDepth;
-        ;
+    public void constructRaySuperSampling(int nX, int nY, int j, int i) {
+        int recursionDepth = 10;
         Point pointCentr = PointMiddle(nX, nY, j, i);
         double Rx = height / nX;
         double Ry = width / nY;
         List<Ray> rayList = new LinkedList<>();
         List<Ray> rayRecList = new LinkedList<>();
         // ray center , add to list
-        rayList.add(new Ray(P0, pointCentr.subtract(P0)));
-        //call to rec[
+        var rayFriest = new Ray(P0, pointCentr.subtract(P0));
+        rayList.add(rayFriest);
+        Color color = rayTracerBase.traceRay(rayFriest);
         rayRecList = recursion(pointCentr, Rx, Ry, recursionDepth);
-        for (Ray ray : rayRecList)
+        int counter = 1;
+        Color temp = null;
+        Color C=null;
+        for (var ray : rayList) {
+            temp = rayTracerBase.traceRay(ray);
+            if (color.equals(temp)) {
+                counter++;
+                color = color.add(temp);
+            } else {
+                recursionDepth--;
+                counter++;
+                rayRecList = recursion(PointuperSampling(Rx, Ry, counter), Rx, Ry, recursionDepth);
+            }
+        }
+        for (Ray ray : rayRecList) {
             rayList.add(ray);// = recursion(pointCentr,Rx,Ry,recursionDepth);//????? ?? ???????? ?????? ???????
-        return rayList;
+        }
+        int red=0;
+        int green=0;
+        int blue=0;
+        Color colors=null;
+        for (var ray: rayList){//Insert a color into the appropriate variable
+            Color c=rayTracerBase.traceRay(ray);
+            red+=temp.getColor().getRed();
+            green+=temp.getColor().getGreen();
+            blue+=temp.getColor().getBlue();
+        }
+        colors=new Color(red/(rayList.size()),green/(rayList.size()),blue/(rayList.size()));//call to rec[
+
+        imageWriter.writePixel(j, i,colors);
+
     }
 
     /**
@@ -372,13 +401,16 @@ public class Camera {
     public List<Ray> recursion(Point pointCentr, double Rx, double Ry, int recursionDepth) {
         List<Ray> rayList = new LinkedList<>();
         //will cause the recursion to stop
-        recursionDepth--;
         //up is plus in Vup
         //right is plus in Vright
-        //left up         Point (-156.25,2093.75,12400.0)
+        //left up.
+        if (recursionDepth == 0){
+            return rayList;}
+
+        Point pij = pointCentr;
         Point PijUpLeft = pointCentr.add(Vright.scale((Ry * (-1) / 2.0)).add(Vup.scale(1 * (Rx) * 2.0)));
         rayList.add(new Ray(P0, PijUpLeft.subtract(P0)));
-        //left down.Point (-156.25,531.25,12400.0)
+        //left down.
         Point PijDownLeft = pointCentr.add(Vright.scale((Ry * -1 / 2.0)).add(Vup.scale(-1 * (Rx) / 2.0)));
         rayList.add(new Ray(P0, PijDownLeft.subtract(P0)));
         //right up.
@@ -387,82 +419,79 @@ public class Camera {
         //right down.
         Point PijDownRight = pointCentr.add(Vright.scale((Ry * (double) 2) * 1).add(Vup.scale(-1 * (Rx / (double) 2))));
         rayList.add(new Ray(P0, PijDownRight.subtract(P0)));
-        boolean checkStop = ColcrSuperSampling(rayList, Rx, Ry, recursionDepth);
-        if (!checkStop) {
-            for (int i = 1; i < 5; i++) {
-                if (recursionDepth == 0)
-                    return rayList;
-                // recursionDepth--;
-                Point centerPointNew = PointuperSampling(pointCentr, Rx, Ry, i, recursionDepth);
-                List<Ray> rayRecList = recursion(centerPointNew, Rx / 2, Ry / 2, recursionDepth);
-                for (Ray ray : rayRecList)
-                    rayList.add(ray);
-            }
-        }
         return rayList;
     }
+        //boolean checkStop = ColcrSuperSampling(rayList,Rx,Ry,recursionDepth);
+        //  if (!checkStop)
+        //{
+        //  for (int i =1; i<5 ; i++)
+        //{
+        //if (recursionDepth==0)
+        //return rayList;
+        //recursionDepth--;
+        //List<Ray> rayRecList = recursion(PointuperSampling(Rx,Ry,i), Rx, Ry, recursionDepth);
+        //for ( Ray ray : rayRecList)
+        //  rayList.add(ray);
+        //       }
+        //  }
+        //    return rayList;
+        //  }
 
-    public Point PointuperSampling(Point oldCenter, double Rx, double Ry, int counter, int recursionDepth) {
+
+
+    public Point PointuperSampling(double Rx, double Ry,int counter) {
         Point Pc = P0.add(Vto.scale(distance));
-        Point Pij = Pc;
-        Point p;
-        //int HowMuch = orgRecursionDepth - recursionDepth;
+        Point Pij=Pc;
         switch (counter) {
-            case 1: //Point (-625.0,1937.5,12400.0)
-                p = oldCenter.add(Vright.scale((Ry / 2) * (-1)).add(Vup.scale(1 * (Rx / 2))));
-                return p;
+            case 1:
+                return Pij.add(Vright.scale((Ry * (-1))).add(Vup.scale(1 * (Rx))));
             case 2:
-                p = Pij.add(Vright.scale((Ry / 2) * -1).add(Vup.scale(-1 * ((Rx / 2)))));
-                return p;
+                return Pij.add(Vright.scale((Ry * -1)).add(Vup.scale(-1 * (Rx))));
             case 3:
-                p = Pij.add(Vright.scale(((Ry / 2)) * 1).add(Vup.scale(1 * ((Rx / 2)))));
-                return p;
+                return Pij.add(Vright.scale((Ry )*1).add(Vup.scale(1 * (Rx))));
             case 4:
-                p = Pij.add(Vright.scale(((Ry / 2)) * 1).add(Vup.scale(-1 * ((Rx / 2)))));
-                return p;
+                return Pij.add(Vright.scale((Ry )*1).add(Vup.scale(-1 * (Rx))));
         }
         return null;
     }
-
-    public boolean ColcrSuperSampling(List<Ray> rayList, double Rx, double Ry, int recursionDepth) {
+    public boolean ColcrSuperSampling(List<Ray> rayList,double Rx, double Ry,int recursionDepth) {
         List<Ray> rayListPoint = new LinkedList<>();
-        Color color = rayTracerBase.traceRay(rayList.get(0));
-        int counter = 0;
-        Color temp = null;
-        for (var ray : rayList) {
-            temp = rayTracerBase.traceRay(ray);
-            if (color.equals(temp)) {
-                counter++;
-                color = color.add(temp);
-            } else {
-                return false;
+        Color color=rayTracerBase.traceRay(rayList.get(0));
+             int counter=0;
+             Color temp=null;
+            for (var ray: rayList){
+                temp=rayTracerBase.traceRay(ray);
+                if (color.equals(temp)){
+                   counter++;
+                 color=color.add(temp);
+                  }
+                else{
+                    return false;
+                }
             }
-        }
-        if (counter == 4) {
-            return true;
-        }
-        return false;
+            if (counter==4){
+                return true;
+            }
+     return false;
     }
 
-    /**
-     * turn off writeToImage
-     *
-     * @return
-     */
+        /**
+         * turn off writeToImage
+         * @return
+         */
     public Camera writeToImage() {
         imageWriter.writeToImage();
         return this;
     }
 
     /**
-     * * Print Grid call to func writePixel
+     * 	 * Print Grid call to func writePixel
      * turn on printGrid with gap and intervalColor the func get
-     *
      * @param gap-
      * @param intervalColor-color
      */
     public void printGrid(int gap, Color intervalColor) {
-        imageWriter.printGrid(gap, intervalColor);
+        imageWriter.printGrid(gap,intervalColor);
     }
 
     /**
@@ -492,66 +521,54 @@ public class Camera {
                 Pixel.waitToFinish();
 
             }
-            if (SuperSampling) {//
-                Pixel.initialize(Ny, Nx, printInterval);
-                while (threadsCount-- > 0) {
-                    new Thread(() -> {
-                        for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
-                            castRaySuperSampling(Nx, Ny, pixel.col, pixel.row);
-                    }).start();
-                }
-                Pixel.waitToFinish();
+             if (SuperSampling){//
+                 Pixel.initialize(Ny, Nx, printInterval);
+                 while (threadsCount-- > 0) {
+                     new Thread(() -> {
+                         for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                             castRaySuperSampling(Nx, Ny, pixel.col, pixel.row);
+                     }).start();
+                 }
+                 Pixel.waitToFinish();
             }
-        } catch (Exception exception) {
-            throw new UnsupportedOperationException("can not render the image ");
+        }
+        catch (Exception exception){
+              throw new UnsupportedOperationException("can not render the image " );
         }
 
     }
-
     private void castRaySuperSampling(int Nx, int Ny, int j, int i) {
         List<Ray> rays = new LinkedList<>();
-        rays = constructRaySuperSampling(Nx, Ny, j, i);
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        Color colors = null;
-        for (var ray : rays) {//Insert a color into the appropriate variable
-            Color temp = rayTracerBase.traceRay(ray);
-            red += temp.getColor().getRed();
-            green += temp.getColor().getGreen();
-            blue += temp.getColor().getBlue();
-        }
-        colors = new Color(red / (rays.size()), green / (rays.size()), blue / (rays.size()));//Calculate the color mean
-        imageWriter.writePixel(j, i, colors);
+        constructRaySuperSampling(Nx, Ny, j, i);
+
+        //  colors=new Color(red/(rays.size()),green/(rays.size()),blue/(rays.size()));//Calculate the color mean
+        //   imageWriter.writePixel(j, i,colors);
+        //}
     }
 
-
-    /**
-     * Antialiasing
-     * Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
-     *
-     * @param Ny-The  size of the plain
+    /** Antialiasing
+     Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
+     * @param Ny-The size of the plain
      * @param i-pixel
      * @param j-pixel
-     * @param Nx-The  size of the plain
+     * @param Nx-The size of the plain
      */
     private void castRay(int Nx, int Ny, int j, int i) {
-        if (size == 1) {//If we have one fund left
-            imageWriter.writePixel(j, i, rayTracerBase.traceRay(constructRay(Nx, Ny, j, i)));
-        } else {
-            int red = 0;
-            int green = 0;
-            int blue = 0;
-            var rays = constructRayS(Nx, Ny, j, i);//The list of rays cuts the pixel
-            Color colors = null;
-            for (var ray : rays) {//Insert a color into the appropriate variable
-                Color temp = rayTracerBase.traceRay(ray);
-                red += temp.getColor().getRed();
-                green += temp.getColor().getGreen();
-                blue += temp.getColor().getBlue();
-            }
-            colors = new Color(red / (rays.size()), green / (rays.size()), blue / (rays.size()));//Calculate the color mean
-            imageWriter.writePixel(j, i, colors);
+     if (size==1){//If we have one fund left
+         imageWriter.writePixel(j, i,rayTracerBase.traceRay(constructRay(Nx, Ny, j, i)));
+     }
+     else {
+        int red=0;
+        int green=0;
+        int blue=0;
+        var rays=constructRayS(Nx, Ny, j, i);//The list of rays cuts the pixel
+        Color colors=null;
+        for (var ray: rays){//Insert a color into the appropriate variable
+           Color temp=rayTracerBase.traceRay(ray);
+            red+=temp.getColor().getRed();
+            green+=temp.getColor().getGreen();
+            blue+=temp.getColor().getBlue();
         }
-    }
-}
+        colors=new Color(red/(rays.size()),green/(rays.size()),blue/(rays.size()));//Calculate the color mean
+        imageWriter.writePixel(j, i,colors);
+    }}}
