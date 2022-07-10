@@ -516,11 +516,11 @@ public class Camera {
 
         }
         color = color.reduce(rayList.size() + 1);
-
         imageWriter.writePixel(j, i, color);
     }
 
     /**
+     * thanks to ?????? ?????
      * rec fun for Super sampling calc the color of the pixel
      * @param Rx - double
      * @param Ry - double
@@ -546,8 +546,8 @@ public class Camera {
                 } else {
                     Rx = alignZero(height / Rx) / 4;
                     Ry = alignZero(width / Ry) / 4;
-                    Point subPixelCenter = PointSuperSampling(Rx, Ry, pointCenter, conter);
-                    color = color.add(RecursionSuperSampling(Rx, Ry, subPixelCenter, ray, recursionDepth));
+                    Point newpoint = PointSuperSampling(Rx, Ry, pointCenter, conter);
+                    color = color.add(RecursionSuperSampling(Rx, Ry, newpoint, ray, recursionDepth));
                     conter++;
 
                 }
