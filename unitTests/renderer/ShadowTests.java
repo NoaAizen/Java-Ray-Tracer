@@ -34,8 +34,8 @@ public class ShadowTests {
 		scene.getLights().add( //
 				new SpotLight(new Color(400, 240, 0), spotLocation, new Vector(1, 1, -3)) //
 						.setkL(1E-5).setkQ(1.5E-7));
-		camera.setImageWriter(new ImageWriter(pictName, 400, 400)) //
-				.renderImage(); //
+		camera.setImageWriter(new ImageWriter(pictName, 400, 400)) ;//
+		camera.renderImage(); //
 		camera.writeToImage();
 	}
 

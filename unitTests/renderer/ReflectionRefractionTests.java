@@ -189,7 +189,7 @@ class ReflectionRefractionTests {
 	@Test
 	public void test4() {
 		Camera camera = new Camera(new Point(0,-250, 22400), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-				.setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1);;
+				.setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(false).setSize(1).setRecursionDepthOrg(1);
 		// look from down to up
 		//Camera camera = new Camera(new Point(-300, -15000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
 		//	.setVPSize(2500, 2500).setVPDistance(10000);
@@ -343,9 +343,9 @@ class ReflectionRefractionTests {
 		scene.getLights().add(
 				new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.000006));
 
-		ImageWriter imageWriter = new ImageWriter("super1", 800,800);
+		ImageWriter imageWriter = new ImageWriter("super 1", 800,800);
 		camera.setImageWriter(imageWriter) //
-				.setRayTracer(new RayTracerBasic(scene)) //
+				.setRayTracer(new RayTracerBasic(scene).setUseSoftShadows(false)) //
 				.renderImage(); //
 		camera.writeToImage();
 	}
