@@ -11,7 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SceneDescriptor {
+/**
+ * help with file xml
+ */
+public  class SceneDescriptor {
     /**
      * Fields background
      */
@@ -32,10 +35,10 @@ public class SceneDescriptor {
 
     /**
      * Constructors
-     * @param sceneAttributes
-     * @param ambientLightAttributes
-     * @param spheres
-     * @param triangles
+     * @param sceneAttributes -  Map String, String
+     * @param ambientLightAttributes Map String, String
+     * @param spheres List Map String, String
+     * @param triangles List Map String, String
      */
     public SceneDescriptor(Map<String, String> sceneAttributes, Map<String, String> ambientLightAttributes, List<Map<String, String>> spheres, List<Map<String, String>> triangles) {
         this.sceneAttributes = sceneAttributes;
@@ -56,28 +59,28 @@ public class SceneDescriptor {
 
     /**
      * func getter
-     * @return Map<String, String>
+     * @return Map String, String
      */
     public Map<String, String> getSceneAttributes() {
         return sceneAttributes;
     }
     /**
      * func getter
-     * @return Map<String, String>
+     * @return Map String, String
      */
     public Map<String, String> getAmbientLightAttributes() {
         return ambientLightAttributes;
     }
     /**
      * func getter
-     * @return  List<Map<String, String>>
+     * @return  List Map String, String
      */
     public List<Map<String, String>> getSpheres() {
         return spheres;
     }
     /**
      * func getter
-     * @return  List<Map<String, String>>
+     * @return  List Map String, String
      */
     public List<Map<String, String>> getTriangles() {
         return triangles;
@@ -85,7 +88,7 @@ public class SceneDescriptor {
 
     /**
      * get file, take the data on the file and put them in object (SceneDescriptor) Fields
-     * @param document
+     * @param document - Document
      * @return SceneDescriptor
      */
     public SceneDescriptor InitializeFromXMLstring(Document document) {

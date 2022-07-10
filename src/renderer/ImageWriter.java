@@ -91,8 +91,8 @@ public class ImageWriter {
 
 	/**
 	 * Print Grid call to func writePixel
-	 * @param gap
-	 * @param intervalColor
+	 * @param gap int
+	 * @param intervalColor Color
 	 */
 	public void printGrid(int gap, Color intervalColor) {
 		for (int i = 0; i < nX; i++) {

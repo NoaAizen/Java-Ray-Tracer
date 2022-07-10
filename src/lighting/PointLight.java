@@ -11,8 +11,10 @@ import primitives.Point;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-// * @author noga and noa
 
+/**
+ * @author noga and noa
+ */
 public class PointLight extends Light implements LightSource {
     /**
      * The amount of rays we want to run
@@ -69,7 +71,7 @@ public class PointLight extends Light implements LightSource {
     /**
      * func setter (type builder)
      *
-     * @param position
+     * @param position Point
      * @return PointLight
      */
     public PointLight setPosition(Point position) {
@@ -163,7 +165,7 @@ public class PointLight extends Light implements LightSource {
      *- soft shadows
      * @param p-point of     light
      * @param n- vector of ray
-     * @return List<Vector> -Vectors that damage light
+     * @return List Vector - Vectors that damage light
      */
     @Override
     public List<Vector> listGetL(Point p, Vector n) {
@@ -189,7 +191,7 @@ public class PointLight extends Light implements LightSource {
     /**
      *Returns one vector that meets a point of light
      * @param p-point of  light
-     * @return-vector
+     * @return - vector
      */
     public Vector getL(Point p) {
         return p.subtract(position).normalize();

@@ -5,8 +5,11 @@ import primitives.Point;
 import primitives.Vector;
 
 import java.util.List;
-// * @author noga and noa
 
+
+/**
+ * @author noga and noa
+ */
 public class DirectionalLight extends Light implements LightSource{
 
     /**
@@ -18,7 +21,7 @@ public class DirectionalLight extends Light implements LightSource{
 
     /**
      * constructor
-     * @param intensity
+     * @param intensity - Color
      * @param _direction- Vector for the direction of Light
      */
     protected DirectionalLight(Color intensity, Vector _direction) {

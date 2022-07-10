@@ -41,7 +41,7 @@ public abstract class Geometry extends Intersectable
 
     /**
      * func getter
-     * @param point
+     * @param point - Point
      * @return Vector
      */
     public abstract Vector getNormal (Point point);
@@ -50,7 +50,7 @@ public abstract class Geometry extends Intersectable
 
     /**
      * func setter with build
-     * @param emission
+     * @param emission - Color
      * @return Geometry
      */
     public Geometry setEmission(Color emission){
@@ -60,7 +60,7 @@ public abstract class Geometry extends Intersectable
 
     /**
      * func setter type builder
-     * @param material
+     * @param material - Material
      * @return Geometry
      */
     public Geometry setMaterial(Material material) {

@@ -1,15 +1,17 @@
 package primitives;
 import java.util.Objects;
 import static primitives.Util.*;
-//* @author noa and noga
 
+/**
+ * @author noa and noga
+ */
 public class Vector extends Point {
     // ***************** constructor ********************** //
     /**
      * constructor with Double
-     * @param x
-     * @param y
-     * @param z
+     * @param x - double
+     * @param y - double
+     * @param z - double
      */
     public Vector(double x, double y, double z) {
         this(new Double3(x, y, z));
@@ -20,7 +22,7 @@ public class Vector extends Point {
 
     /**
      * constructor with Double3
-     * @param xyz
+     * @param xyz - Double3
      */
     public Vector(Double3 xyz) {
         super(xyz);
@@ -49,7 +51,7 @@ public class Vector extends Point {
     /**
      * Scale with vector
      * @param factor--The second vector you get for making a Scale
-     * @return- The new vector after the scale
+     * @return - The new vector after the scale
      */
     public Vector scale(double factor){
         if(isZero(factor)){
@@ -61,7 +63,7 @@ public class Vector extends Point {
     /**
      * Vector multiplication-dot Product
      * @param vector- the second vector you get for making a -dot Product
-     * @return- The new number generated from a vector product
+     * @return - The new number generated from a vector product
      */
     public double dotProduct(Vector vector) {
         Double3 temp = xyz.product(vector.xyz);

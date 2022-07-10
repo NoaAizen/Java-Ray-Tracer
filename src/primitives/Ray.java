@@ -6,8 +6,11 @@ import java.util.Objects;
 import static primitives.Util.*;
 
 import static geometries.Intersectable.GeoPoint;
-//* @author noa and noga
 
+
+/**
+ * @author noa and noga
+ */
 public class Ray {
     /**
      *
@@ -79,7 +82,7 @@ public class Ray {
     /**
      * toString
      *
-     * @return
+     * @return - String
      */
     @Override
     public String toString() {
@@ -127,7 +130,7 @@ public class Ray {
     /**
      * Multiply by double the point
      *
-     * @param t
+     * @param t - double
      * @return point
      */
     public Point getPoint(double t) {
@@ -136,7 +139,8 @@ public class Ray {
         }
         else{
         return p0.add(dir.scale(t));
-    }}
+        }
+    }
 
     // ***************** func ********************** //
 
@@ -156,8 +160,7 @@ public class Ray {
 **/
     /**
      * find Geo point Closest Point,  geo point it is the point from list of cross geometries
-     *
-     * @param //geoPoints-list- List of points for finding the point closest to the ray
+     * @param geoPoints-list- List of points for finding the point closest to the ray
      * @return GeoPoint- the point closest to the beginning of the ray.
     **/
     public GeoPoint findGeoClosestPoint(List<GeoPoint> geoPoints) {
