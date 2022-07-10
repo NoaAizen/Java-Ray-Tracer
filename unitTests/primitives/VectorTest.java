@@ -51,7 +51,7 @@ class VectorTest {
     void testTestDotProduct() {
         // =============== Boundary Values Tests ==================
         assertEquals(0,v1.dotProduct(v3),"ERROR: dotProduct() for orthogonal vectors is not zero");
-        assertEquals(-28,v1.dotProduct(v2),"ERROR: dotProduct() wrong value");//מקרה פשוט
+        assertEquals(-28,v1.dotProduct(v2),"ERROR: dotProduct() wrong value");
 
     }
 

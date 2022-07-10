@@ -60,7 +60,7 @@ public class Plane extends Geometry{
 
     /**
      * getter for _normal field
-     * @return
+     * @return - Vector
      */
     public Vector getNormal() {
         return normal;

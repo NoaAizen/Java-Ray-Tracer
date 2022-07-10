@@ -49,10 +49,6 @@ public class Circle extends Geometry {
         return o;
     }
 
-    public Point pointOnSurface(Vector vector){
-        return this.o.add(vector);
-    }
-
     @Override
     public Vector getNormal(Point p) {
         return plane.getNormal();

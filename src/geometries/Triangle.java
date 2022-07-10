@@ -19,9 +19,9 @@ public class Triangle extends Polygon {
 
     /**
      * constructor using super main using Polygon
-     * @param p1
-     * @param p2
-     * @param p3
+     * @param p1 - point
+     * @param p2 - point
+     * @param p3 - point
      */
     public Triangle(Point p1, Point p2, Point p3) {
         super(p1,p2,p3);
