@@ -97,7 +97,7 @@ public class Sphere extends Geometry {
         //the data from the ray
         Point p0 = ray.getP0();
         Vector v = ray.getDir().normalize();
-        if (center.equals(p0)) {// לשנות לGeoPoint
+        if (center.equals(p0)) {
             return List.of(new GeoPoint(this,center.add(v.scale(radius))));
         }
         Vector u = center.subtract(p0);

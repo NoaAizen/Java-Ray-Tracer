@@ -10,8 +10,10 @@ import static geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 import static primitives.Util.alignZero;
-// * @author noga and noa
 
+/**
+ *  author noga and noa
+ */
 public class RayTracerBasic extends RayTracerBase {
 
     /**
@@ -27,19 +29,30 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private static final Double3 INITIAL_K = Double3.ONE;
     /**
-     *  ??
+     *  ...
      */
     private static final double DELTA = 0.1;
+
     /**
      * true if use soft shadows
      */
     private boolean useSoftShadows =false;
+
+    /**
+     * setrr of soft shadows
+     * @param useSoftShadows - boolean
+     * @return RayTracerBasic - RayTracerBasic
+     */
+    public RayTracerBasic setUseSoftShadows(boolean useSoftShadows) {
+        this.useSoftShadows = useSoftShadows;
+        return  this;
+    }
     // ***************** Constructors ********************** //
 
     /**
      * Constructor
      *
-     * @param scene
+     * @param scene - Scene
      */
     public RayTracerBasic(Scene scene) {
         super(scene);
@@ -78,7 +91,7 @@ public class RayTracerBasic extends RayTracerBase {
         if(level == 1){
             return color;
         }
-         color = color.add(calcGlobalEffects(gp, ray, level, k));
+        color = color.add(calcGlobalEffects(gp, ray, level, k));
         return color;
     }
 
@@ -105,17 +118,17 @@ public class RayTracerBasic extends RayTracerBase {
             Ray reflectedRay = constructReflectedRay(gp.point, ray, n);
             GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
             if (reflectedPoint!=null){
-            color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
-        }}
-         if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
+                color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
+            }}
+        if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
             Ray refractedRay = constructRefractedRay(gp.point, ray, n);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-             if (refractedPoint!=null) {
-                 color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
-             }
+            if (refractedPoint!=null) {
+                color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
+            }
         }
         return color;
-}
+    }
 
     /**Construct
      *  The thought of transparency
@@ -174,20 +187,20 @@ public class RayTracerBasic extends RayTracerBase {
                         ktr = ktr.add(transparency(geoPoint, lightSource, vector, n, nv));
                     }
                 }
-                 if (nl * nv > 0) {
-                if (!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
-                    Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr.reduce(count));
-                    color = color.add(iL.scale(calcDiffusive(material, nl)),
-                            iL.scale(calcSpecular(material, n, l, nl, v)));
-            }
-                 }
+                if (nl * nv > 0) {
+                    if (!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
+                        Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr.reduce(count));
+                        color = color.add(iL.scale(calcDiffusive(material, nl)),
+                                iL.scale(calcSpecular(material, n, l, nl, v)));
+                    }
+                }
 
             }
             else {
                 Vector vector = lightSource.getL(geoPoint.point);
-                 nl = alignZero(n.dotProduct(vector));
+                nl = alignZero(n.dotProduct(vector));
                 if (nl * nv > 0) {
-                     ktr = transparency(geoPoint, lightSource, vector, n, nv);
+                    ktr = transparency(geoPoint, lightSource, vector, n, nv);
                     if (!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
                         Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
                         color = color.add(iL.scale(calcDiffusive(material, nl)),

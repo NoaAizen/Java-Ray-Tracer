@@ -5,8 +5,11 @@ import primitives.Point;
 import primitives.Vector;
 
 import java.util.List;
-// * @author noga and noa
 
+
+/**
+ * @author noga and noa
+ */
 public interface LightSource {
 
     // ***************** getter ********************** //
@@ -20,7 +23,7 @@ public interface LightSource {
 
     /** get Distance
      * every class that implements this class Override this func
-     * @param point
+     * @param point - Point
      * @return double Distance
      */
     double getDistance(Point point);
@@ -39,6 +42,11 @@ public interface LightSource {
      *      * @param p=point of the light
      *      * @return Returns a   vector of the
 
+     */
+    /**
+     *  geter for parameter L
+     * @param  p = point of the light
+     * @return vector
      */
     public Vector getL(Point p);
 

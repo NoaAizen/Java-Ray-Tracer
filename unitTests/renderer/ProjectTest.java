@@ -7,18 +7,27 @@ import geometries.*;
 import Scene.Scene;
 import primitives.*;
 
+/**
+ *  author noga and noa
+ *  Project Test - the picture
+ */
+
+
 public class ProjectTest {
+    /**
+     *  Project Test - the picture
+     */
     @Test
     public void ProjectTestS() {
         Camera camera = new Camera(new Point(0,-250, 22400), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1);;
-        // look from down to up
-        //Camera camera = new Camera(new Point(-300, -15000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
-        //	.setVPSize(2500, 2500).setVPDistance(10000);
+                .setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(true).setSize(1).setRecursionDepthOrg(1);
+        //look from down to up
+        //  Camera camera = new Camera(new Point(-300, -15000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
+        // .setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(true).setSize(1).setRecursionDepthOrg(0);
         // look from up to down
         //Camera camera = new Camera(new Point(200, 20000, 9500), new Vector(0, -4200, 0), new Vector(0, 0, 1)) //
-        //	.setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1);;
-        Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color(0,162,232)).setAmbientLight(new AmbientLight(new Color(white),new Double3(0.01))).build();
+        //.setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(true).setSize(1);;
+        Scene scene = new Scene.SceneBuilder("Test scene").setBackground(new Color (0,162,232)).setAmbientLight(new AmbientLight(new Color(white),new Double3(0.01))).build();
         scene.getGeometries().add(
 
                 //right
@@ -103,8 +112,8 @@ public class ProjectTest {
                 new Triangle(new Point(0,1000,8500), new Point(1500,1000,10000), new Point(0,1000,11500)).setEmission(new Color(30,30,30)).setMaterial(new Material().setkT(1).setnShininess(50)),
 
                 //down
-                new Triangle(new Point(0,-1500,8500), new Point(-1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
-                new Triangle(new Point(0,-1500,8500), new Point(1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
+                // new Triangle(new Point(0,-1500,8500), new Point(-1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
+                //   new Triangle(new Point(0,-1500,8500), new Point(1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
 
                 //lamp middle
                 new Triangle(new Point(-500,1000,9450), new Point(-550,1000,9400), new Point(-500,880,9450)).setEmission(new Color(yellow)),
@@ -151,7 +160,6 @@ public class ProjectTest {
                 new Sphere(new Point(805,-650,9830),35).setEmission(new Color(red)),
                 new Sphere(new Point(795,-652,9850),15).setEmission(new Color(white))
 
-                //new Sphere(new Point(-150,-1000,12150),100).setEmission(new Color(BLUE)).setEmission(new Color(BLUE)).setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30))
 
 
         );
@@ -165,9 +173,9 @@ public class ProjectTest {
         scene.getLights().add(
                 new PointLight(new Color(255,197,143),new Point(-110,700,9000)).setkL(0.0004).setkQ(0.000006));
 
-        ImageWriter imageWriter = new ImageWriter("recursion", 4,4);
+        ImageWriter imageWriter = new ImageWriter("super", 800,800);
         camera.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene)) //
+                .setRayTracer(new RayTracerBasic(scene).setUseSoftShadows(false)) //
                 .renderImage(); //
         camera.writeToImage();
     }

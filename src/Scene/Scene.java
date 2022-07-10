@@ -47,23 +47,42 @@ public class Scene {
         lights = builder._lights;
     }
 
-    //getters without Dan permission
+    /**
+     *  getters without Dan permission
+     * @return - String
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * getter
+     * @return - Color
+     */
     public Color getBackground() {
         return background;
     }
 
+    /**
+     * getter
+     * @return - AmbientLight
+     */
     public AmbientLight getAmbientLight() {
         return ambientLight;
     }
 
+    /**
+     * getter
+     * @return - Geometries
+     */
     public Geometries getGeometries() {
         return geometries;
     }
 
+    /**
+     * getter
+     * @return - List LightSource
+     */
     public List<LightSource> getLights() {
         return lights;
     }
@@ -95,7 +114,7 @@ public class Scene {
         /**
          * func setter type builder
          *
-         * @param background
+         * @param background - Color
          * @return SceneBuilder
          */
         public SceneBuilder setBackground(Color background) {
@@ -106,7 +125,7 @@ public class Scene {
         /**
          * func setter type builder
          *
-         * @param ambientLight
+         * @param ambientLight - AmbientLight
          * @return SceneBuilder
          */
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
@@ -117,7 +136,7 @@ public class Scene {
         /**
          * func setter type builder
          *
-         * @param geometries
+         * @param geometries - Geometries
          * @return SceneBuilder
          */
         public SceneBuilder setGeometries(Geometries geometries) {
@@ -128,7 +147,7 @@ public class Scene {
         /**
          * func setter type builder
          *
-         * @param lights
+         * @param lights - List LightSource
          * @return SceneBuilder
          */
         public SceneBuilder setLights(List<LightSource> lights) {

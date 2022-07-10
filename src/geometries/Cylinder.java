@@ -22,6 +22,9 @@ public class Cylinder extends Tube {
 
     /**
      * constructor using super main using Polygon
+     * @param axisRay - Ray
+     * @param radius - double
+     * @param height - double
      */
     public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);

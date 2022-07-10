@@ -101,8 +101,8 @@ public class Tube extends Geometry {
 
     /**
      * find the cross Tube (bunus)
-     * @param ray
-     * @param maxDistance
+     * @param ray - Ray
+     * @param maxDistance - double
      * @return list of GeoPoint - tube cross and point cross
      */
    @Override

@@ -4,8 +4,11 @@ import primitives.Ray;
 
 import java.util.List;
 import java.util.Objects;
- //* @author noga and noa
 
+
+/**
+ * @author noga and noa
+ */
 public abstract class Intersectable {
 
     /**
@@ -63,8 +66,8 @@ public abstract class Intersectable {
 
         /**
          * constructor
-         * @param geometry of
-         * @param point
+         * @param geometry - Geometry
+         * @param point - Point
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;

@@ -2,8 +2,10 @@ package lighting;
 
 import primitives.Color;
 import primitives.Double3;
-// * @author noga and noa
 
+/**
+ * @author noga and noa
+ */
 public class AmbientLight extends Light {
 
     // ***************** constructor ********************** //
