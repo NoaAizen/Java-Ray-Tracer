@@ -20,7 +20,7 @@ public class ProjectTest {
     @Test
     public void ProjectTestS() {
         Camera camera = new Camera(new Point(0,-250, 22400), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(true).setSize(1).setRecursionDepthOrg(1);
+                .setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(false).setSize(1).setRecursionDepthOrg(1);
         //look from down to up
         //  Camera camera = new Camera(new Point(-300, -15000, 9500), new Vector(0, 4200, 0), new Vector(0, 0, 1)) //
         // .setVPSize(2500, 2500).setVPDistance(10000).setThreadsCount(3).setPrintInterval(0.1).setAntialiasing(false).setSuperSampling(true).setSize(1).setRecursionDepthOrg(0);
@@ -112,8 +112,8 @@ public class ProjectTest {
                 new Triangle(new Point(0,1000,8500), new Point(1500,1000,10000), new Point(0,1000,11500)).setEmission(new Color(30,30,30)).setMaterial(new Material().setkT(1).setnShininess(50)),
 
                 //down
-                // new Triangle(new Point(0,-1500,8500), new Point(-1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
-                //   new Triangle(new Point(0,-1500,8500), new Point(1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
+                new Triangle(new Point(0,-1500,8500), new Point(-1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
+                new Triangle(new Point(0,-1500,8500), new Point(1500,-1500,10000), new Point(0,-1500,11500)).setEmission(new Color(235,235,235)).setMaterial(new Material().setkT(1).setnShininess(50)),
 
                 //lamp middle
                 new Triangle(new Point(-500,1000,9450), new Point(-550,1000,9400), new Point(-500,880,9450)).setEmission(new Color(yellow)),
