@@ -13,74 +13,85 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * noa and noga
+ * The Camera class represents a virtual camera used for rendering images through ray tracing.
+ * It defines the camera's position, orientation, field of view, and provides methods for generating rays for each pixel on the view plane.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class Camera {
 
+    /**
+     * The distance between the camera and the view plane.
+     */
+    private double distance;
 
-    private double printInterval;
     /**
-     * num of threads
+     * The width and height of the view plane.
      */
-    private int threadsCount;
+    private double width;
+    private double height;
+
     /**
-     * The distance from our viewing plane
-     */
-    private Vector Vto;
-    /**
-     * Top direction of the camera
-     */
-    private Vector Vup;
-    /**
-     * Camera direction - Vright Camera right direction
-     */
-    private Vector Vright;
-    /**
-     * Position the camera in the space of the center of the lens
+     * The position of the camera in 3D space, representing the center of the lens.
      */
     private Point P0;
 
     /**
-     * The distance between the camera and the view plane
+     * The direction vectors of the camera.
      */
-    private double distance;
+    private Vector Vto;
+    private Vector Vup;
+    private Vector Vright;
+
     /**
-     * Image width
-     */
-    private double width;
-    /**
-     * Image height
-     */
-    private double height;
-    /**
-     * Creating an image file, and also on holding the color matrix
+     * The image writer responsible for generating the final rendered image.
      */
     private ImageWriter imageWriter;
+
     /**
-     *
+     * The ray tracer used to trace rays and calculate colors in the scene.
      */
     private RayTracerBase rayTracerBase;
 
     /**
-     * A field that helps calculate how many rays we want to have
+     * The number of rays used for super-sampling (for anti-aliasing and high-quality rendering).
      */
     private int size = 1;
-    private boolean Antialiasing = false;
-    private boolean SuperSampling = false;
-    private int recursionDepthOrg = 0;
-    /**
-     *
-     */
 
+    /**
+     * Flag for enabling/disabling anti-aliasing.
+     */
+    private boolean Antialiasing = false;
+
+    /**
+     * Flag for enabling/disabling super-sampling.
+     */
+    private boolean SuperSampling = false;
+
+    /**
+     * The recursion depth for recursive ray tracing (for reflections and refractions).
+     */
+    private int recursionDepthOrg = 0;
+
+    /**
+     * The number of threads to be used for rendering.
+     */
+    private int threadsCount;
+
+    /**
+     * The interval at which to print progress during rendering.
+     */
+    private double printInterval;
 
     // ***************** Constructors ********************** //
 
     /**
-     * constructor - with parameters for position values and two vectors of direction
+     * Constructs a camera with the specified position and orientation.
      *
-     * @param p0 - Point
-     * @param vto - Vector
-     * @param vup - Vector
+     * @param p0  The position of the camera (center of the lens).
+     * @param vto The vector representing the direction towards the view plane.
+     * @param vup The vector representing the upward direction of the camera.
+     * @throws IllegalArgumentException If the given direction vectors are not orthogonal.
      */
     public Camera(Point p0, Vector vto, Vector vup) {
         if (!isZero(vto.dotProduct(vup))) {
@@ -134,27 +145,27 @@ public class Camera {
     }
 
     /**
-     * getDistance - the distance between the camera and view plane
+     * Returns the distance between the camera and the view plane.
      *
-     * @return distance
+     * @return The distance between the camera and the view plane.
      */
     public double getDistance() {
         return distance;
     }
 
     /**
-     * get func
+     * Returns the width of the view plane.
      *
-     * @return width (double)
+     * @return The width of the view plane.
      */
     public double getWidth() {
         return width;
     }
 
     /**
-     * getHeight func
+     * Returns the height of the view plane.
      *
-     * @return height (double)
+     * @return The height of the view plane.
      */
     public double getHeight() {
         return height;
@@ -163,10 +174,10 @@ public class Camera {
     // ***************** Setters ********************** //
 
     /**
-     * func setter
+     * Sets the size of the rays used for super-sampling (for anti-aliasing and high-quality rendering).
      *
-     * @param size int
-     * @return Camera
+     * @param size The number of rays used for super-sampling.
+     * @return This Camera object with the updated size setting.
      */
     public Camera setSize(int size) {
         this.size = size;
@@ -174,10 +185,10 @@ public class Camera {
     }
 
     /**
-     * func setter
+     * Enables or disables super-sampling.
      *
-     * @param superSampling - boolean
-     * @return - Camera
+     * @param superSampling A boolean value indicating whether to enable or disable super-sampling.
+     * @return This Camera object with the updated super-sampling setting.
      */
     public Camera setSuperSampling(boolean superSampling) {
 
@@ -186,10 +197,10 @@ public class Camera {
     }
 
     /**
-     * func setter
+     * Sets the interval at which to print progress during rendering.
      *
-     * @param printInterval - double
-     * @return - Camera
+     * @param printInterval The interval at which to print progress during rendering.
+     * @return This Camera object with the updated print interval setting.
      */
     public Camera setPrintInterval(double printInterval) {
         this.printInterval = printInterval;
@@ -197,10 +208,10 @@ public class Camera {
     }
 
     /**
-     * func setter
+     * Enables or disables anti-aliasing.
      *
-     * @param antialiasing - boolean
-     * @return Camera
+     * @param antialiasing A boolean value indicating whether to enable or disable anti-aliasing.
+     * @return This Camera object with the updated anti-aliasing setting.
      */
     public Camera setAntialiasing(boolean antialiasing) {
         Antialiasing = antialiasing;
@@ -208,10 +219,10 @@ public class Camera {
     }
 
     /**
-     * func setter
+     * Sets the recursion depth for recursive ray tracing (for reflections and refractions).
      *
-     * @param recursionDepthOrg int
-     * @return Camera
+     * @param recursionDepth The recursion depth for recursive ray tracing.
+     * @return This Camera object with the updated recursion depth setting.
      */
     public Camera setRecursionDepthOrg(int recursionDepthOrg) {
         this.recursionDepthOrg = recursionDepthOrg;
@@ -219,11 +230,12 @@ public class Camera {
     }
 
     /**
-     * constructor - Update method (set) for the View Plane size, which receives two numbers - width and height
+     * Sets the width and height of the view plane.
      *
-     * @param w double
-     * @param h double
-     * @return this \ camera
+     * @param w The width of the view plane.
+     * @param h The height of the view plane.
+     * @return This Camera object with the updated view plane size.
+     * @throws IllegalArgumentException If the width or height is zero or negative.
      */
     public Camera setVPSize(double w, double h) {
         if (w <= 0 || h <= 0) {
@@ -235,9 +247,10 @@ public class Camera {
     }
 
     /**
-     *  set of ThreadsCount
-     * @param threadsCount int
-     * @return Camera
+     * Sets the number of threads to be used for rendering.
+     *
+     * @param threadsCount The number of threads to be used for rendering.
+     * @return This Camera object with the updated threads count setting.
      */
     public Camera setThreadsCount(int threadsCount) {
         this.threadsCount = threadsCount;
@@ -259,10 +272,10 @@ public class Camera {
     }
 
     /**
-     * set Ray Tracer
+     * Sets the ray tracer to be used for rendering the scene.
      *
-     * @param rayTracer - RayTracerBase
-     * @return Camera
+     * @param rayTracer The ray tracer to be used for rendering.
+     * @return This Camera object with the updated ray tracer setting.
      */
     public Camera setRayTracer(RayTracerBase rayTracer) {
         rayTracerBase = rayTracer;
@@ -270,10 +283,10 @@ public class Camera {
     }
 
     /**
-     * turn on imageWriter
+     * Sets the image writer responsible for generating the final rendered image.
      *
-     * @param imageWriter ImageWriter
-     * @return Camera
+     * @param imageWriter The image writer to be used for rendering.
+     * @return This Camera object with the updated image writer setting.
      */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
@@ -283,13 +296,13 @@ public class Camera {
     // ***************** func ********************** //
 
     /**
-     * Returns the cut ray, before a formula learned in class
+     * Constructs a ray passing through a specific pixel on the view plane.
      *
-     * @param nX-size of view plan
-     * @param nY-size of view plan
-     * @param j-      Pixel     Location
-     * @param i-      Pixel     Location
-     * @return ray
+     * @param nX The number of pixels in the X direction of the view plane.
+     * @param nY The number of pixels in the Y direction of the view plane.
+     * @param j  The pixel's X coordinate (column index).
+     * @param i  The pixel's Y coordinate (row index).
+     * @return Ray The constructed ray passing through the specified pixel.
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
         Point Pc = P0.add(Vto.scale(distance));
@@ -316,13 +329,13 @@ public class Camera {
     }
 
     /**
-     * A function that calculates the midpoint with a pixel with a viewing plane and a camera
+     * Calculates the point in the middle of a pixel on the viewing plane.
      *
-     * @param nX-size of view plan
-     * @param nY-size of view plan
-     * @param j-      Pixel     Location
-     * @param i-      Pixel     Location
-     * @return Point Middle
+     * @param nX The width of the viewing plane (number of pixels in the x-direction).
+     * @param nY The height of the viewing plane (number of pixels in the y-direction).
+     * @param j The x-coordinate of the pixel location.
+     * @param i The y-coordinate of the pixel location.
+     * @return The point in the middle of the specified pixel on the viewing plane.
      */
     public Point PointMiddle(int nX, int nY, int j, int i) {
         Point Pc = P0.add(Vto.scale(distance));
@@ -390,8 +403,10 @@ public class Camera {
     }
 
     /**
-     * turn off writeToImage
-     * @return Camera
+     * Writes the final rendered image to the file specified in the ImageWriter.
+     * This method should be called after rendering the image.
+     *
+     * @return This Camera object.
      */
     public Camera writeToImage() {
         imageWriter.writeToImage();
@@ -410,8 +425,9 @@ public class Camera {
     }
 
     /**
-     * check imageWriter and rayTracerBase is null, and check height and width and distance is zero
-     * and write pixel.
+     * Renders the image using ray tracing.
+     * This method generates rays for each pixel in the view plane and traces those rays to determine the color of each pixel.
+     * It takes into account anti-aliasing and super-sampling settings if enabled.
      */
     public void renderImage() {
         try {
@@ -453,13 +469,13 @@ public class Camera {
     }
 
     /**
-     * Antialiasing
-     * Returns the color of a pixel before the average color and also with more rays cut in the pixel     * @param Nx
+     * Casts a single ray or averages the colors from multiple rays for the specified pixel on the view plane.
+     * This method is used for anti-aliasing and super-sampling.
      *
-     * @param Ny-The  size of the plain
-     * @param i-pixel
-     * @param j-pixel
-     * @param Nx-The  size of the plain
+     * @param nX The number of pixels in the X direction of the view plane.
+     * @param nY The number of pixels in the Y direction of the view plane.
+     * @param j  The pixel's X coordinate (column index).
+     * @param i  The pixel's Y coordinate (row index).
      */
     private void castRay(int Nx, int Ny, int j, int i) {
         if (size == 1) {//If we have one fund left
@@ -484,11 +500,12 @@ public class Camera {
     // ***************** super ********************** //
 
     /**
-     * cell to rec func
-     * @param nX - int
-     * @param nY - int
-     * @param j - int
-     * @param i - int
+     * Casts multiple rays and averages their colors for super-sampling at the specified pixel on the view plane.
+     *
+     * @param nX The number of pixels in the X direction of the view plane.
+     * @param nY The number of pixels in the Y direction of the view plane.
+     * @param j  The pixel's X coordinate (column index).
+     * @param i  The pixel's Y coordinate (row index).
      */
     private void castRaySuperSampling(int nX, int nY, int j, int i) {
         int recursionDepth = 1;
@@ -520,14 +537,15 @@ public class Camera {
     }
 
     /**
-     * thanks to ?????? ?????
-     * rec fun for Super sampling calc the color of the pixel
-     * @param Rx - double
-     * @param Ry - double
-     * @param pointCenter - Point
-     * @param ray - Ray
-     * @param recursionDepth - int
-     * @return Color
+     * Performs recursive super-sampling to calculate the color of the pixel.
+     * This method subdivides the pixel into smaller parts and traces rays to determine the color.
+     *
+     * @param Rx             The width of the sub-pixel in the X direction.
+     * @param Ry             The width of the sub-pixel in the Y direction.
+     * @param pointCenter    The center point of the sub-pixel.
+     * @param ray            The main ray passing through the center of the pixel.
+     * @param recursionDepth The remaining recursion depth.
+     * @return Color The calculated color of the pixel after super-sampling.
      */
     private Color RecursionSuperSampling(double Rx, double Ry, Point pointCenter, Ray ray, int recursionDepth) {
 
@@ -561,11 +579,13 @@ public class Camera {
     }
 
     /**
-     * calcu the rays of 4 ver
-     * @param Rx - double
-     * @param Ry - double
-     * @param pointCenter - Point
-     * @return List Ray
+     * Constructs rays for super-sampling at the specified pixel on the view plane.
+     * This method is used for super-sampling to generate rays for each sub-pixel within the main pixel.
+     *
+     * @param Rx          The width of the sub-pixel in the X direction.
+     * @param Ry          The width of the sub-pixel in the Y direction.
+     * @param pointCenter The center point of the pixel.
+     * @return List<Ray> The list of rays used for super-sampling at the specified pixel.
      */
     public List<Ray> constructRaySSuperSampling(double Rx, double Ry, Point pointCenter) {
 
@@ -587,12 +607,14 @@ public class Camera {
     }
 
     /**
-     * return new point center of tt pixel
-     * @param Rx - double
-     * @param Ry - double
-     * @param pointCenter - Point
-     * @param counter - int
-     * @return Point
+     * Returns the new center point of a sub-pixel for super-sampling at the specified pixel.
+     * This method is used to calculate the center point of each sub-pixel within the main pixel.
+     *
+     * @param Rx      The width of the sub-pixel in the X direction.
+     * @param Ry      The width of the sub-pixel in the Y direction.
+     * @param pointCenter The center point of the main pixel.
+     * @param counter The counter indicating the sub-pixel's position (1, 2, 3, or 4).
+     * @return Point The center point of the sub-pixel for super-sampling.
      */
     public Point PointSuperSampling(double Rx, double Ry, Point pointCenter, int counter) {
         switch (counter) {

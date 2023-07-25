@@ -12,10 +12,10 @@ import javax.imageio.*;
 /**
  * Image writer class combines accumulation of pixel color matrix and finally
  * producing a non-optimized jpeg image from this matrix. The class although is
- * responsible of holding image related parameters of View Plane - pixel matrix
+ * responsible for holding image related parameters of View Plane - pixel matrix
  * size and resolution
  *
- * @author Dan
+ * Authors: Noga Jacobs and Noa
  */
 public class ImageWriter {
 
@@ -30,9 +30,11 @@ public class ImageWriter {
 	private Logger logger = Logger.getLogger("ImageWriter");
 
 	// ***************** Constructors ********************** //
+
 	/**
-	 * Image Writer constructor accepting image name and View Plane parameters,
-	 * @param imageName the name of jpeg file
+	 * Image Writer constructor accepting image name and View Plane parameters
+	 *
+	 * @param imageName the name of the PNG file
 	 * @param nX        amount of pixels by Width
 	 * @param nY        amount of pixels by height
 	 */
@@ -45,17 +47,20 @@ public class ImageWriter {
 	}
 
 	// ***************** Getters ********************** //
+
 	/**
-	 * View Plane Y axis resolution
-	 * @return the amount of vertical pixels
+	 * Get the number of vertical pixels (resolution along the Y-axis)
+	 *
+	 * @return The amount of vertical pixels
 	 */
 	public int getNy() {
 		return nY;
 	}
 
 	/**
-	 * View Plane X axis resolution
-	 * @return the amount of horizontal pixels
+	 * Get the number of horizontal pixels (resolution along the X-axis)
+	 *
+	 * @return The amount of horizontal pixels
 	 */
 	public int getNx() {
 		return nX;
@@ -64,8 +69,7 @@ public class ImageWriter {
 	// ***************** Operations ******************** //
 
 	/**
-	 * Function writeToImage produces unoptimized png file of the image according to
-	 * pixel color matrix in the directory of the project
+	 * Write the accumulated pixel color matrix to a PNG image file
 	 */
 	public void writeToImage() {
 		try {
@@ -78,21 +82,21 @@ public class ImageWriter {
 	}
 
 	/**
-	 * The function writePixel writes a color of a specific pixel into pixel color
-	 * matrix
+	 * Write the color of a specific pixel into the pixel color matrix
 	 *
-	 * @param xIndex X axis index of the pixel
-	 * @param yIndex Y axis index of the pixel
-	 * @param color  final color of the pixel
+	 * @param xIndex The X-axis index of the pixel
+	 * @param yIndex The Y-axis index of the pixel
+	 * @param color  The final color of the pixel
 	 */
 	public void writePixel(int xIndex, int yIndex, Color color) {
 		image.setRGB(xIndex, yIndex, color.getColor().getRGB());
 	}
 
 	/**
-	 * Print Grid call to func writePixel
-	 * @param gap int
-	 * @param intervalColor Color
+	 * Print a grid on the image by changing the color of pixels at regular intervals
+	 *
+	 * @param gap           The gap between grid lines
+	 * @param intervalColor The color of the grid lines
 	 */
 	public void printGrid(int gap, Color intervalColor) {
 		for (int i = 0; i < nX; i++) {

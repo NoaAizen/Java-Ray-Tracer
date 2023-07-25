@@ -8,20 +8,22 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 /**
- * Triangle class Vertex polygon
- * system
+ * Triangle class represents a three-dimensional triangle in 3D Cartesian coordinate system.
+ * The triangle is defined by its three vertices.
+ * The class inherits from the Polygon class.
  *
- * @author noga and noa
+ * Authors: Noga Jacobs and Noa
  */
 public class Triangle extends Polygon {
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor using super main using Polygon
-     * @param p1 - point
-     * @param p2 - point
-     * @param p3 - point
+     * Constructor for creating a triangle with three specified vertices.
+     *
+     * @param p1 The first vertex of the triangle.
+     * @param p2 The second vertex of the triangle.
+     * @param p3 The third vertex of the triangle.
      */
     public Triangle(Point p1, Point p2, Point p3) {
         super(p1,p2,p3);
@@ -30,8 +32,9 @@ public class Triangle extends Polygon {
     // ***************** Override ********************** //
 
     /**
-     * with parameter of triangle
-     * @return string
+     * Returns a string representation of the triangle.
+     *
+     * @return A string representation of the triangle.
      */
     @Override
     public  String toString() {
@@ -39,19 +42,23 @@ public class Triangle extends Polygon {
     }
 
     /**
-     * use func getNormal of class plane
-     * @param p point for narmal
-     * @return th e normal of plane
+     * Calculates the normal vector to the triangle at any given point on its surface.
+     * This method uses the getNormal method from the Plane class, which is inherited from the Polygon class.
+     *
+     * @param p The point for which to calculate the normal vector.
+     * @return The normalized normal vector to the triangle at the specified point.
      */
     public Vector getNormal(Point p){
         return this.plane.getNormal(p);
     }
 
     /**
-     * find the cross triangle
-     * @param ray-The ray for calculating the points is cut
-     * @param maxDistance-The maximum distance
-     * @return list of GeoPoint - triangle cross and point cross
+     * Finds the intersection points of a ray with the triangle.
+     *
+     * @param ray The ray for calculating the intersection points.
+     * @param maxDistance The maximum distance for valid intersections.
+     * @return A list containing GeoPoint objects representing the intersection points of the ray with the triangle.
+     * If there are no intersections, the list is null.
      */
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
 

@@ -4,9 +4,10 @@
 package primitives;
 
 /**
- * This class will serve all primitive classes based on three numbers
+ * Double3 class represents a triad of three double-precision numbers.
+ * It provides methods for basic arithmetic operations and comparisons.
  *
- * @author Dan Zilberstein
+ * Authors: Noga Jacobs and Noa
  */
 public class Double3 {
 	final double d1;
@@ -24,11 +25,11 @@ public class Double3 {
 	public static final Double3 ONE = new Double3(1, 1, 1);
 
 	/**
-	 * Constructor to initialize Double3 based object with its three number values
+	 * Constructor to initialize a Double3 object with its three number values.
 	 *
-	 * @param d1 first number value
-	 * @param d2 second number value
-	 * @param d3 third number value
+	 * @param d1 First number value
+	 * @param d2 Second number value
+	 * @param d3 Third number value
 	 */
 	public Double3(double d1, double d2, double d3) {
 		this.d1 = d1;
@@ -46,6 +47,8 @@ public class Double3 {
 		this.d2 = value;
 		this.d3 = value;
 	}
+
+	// ***************** Override methods ********************** //
 
 	@Override
 	public boolean equals(Object obj) {
@@ -67,6 +70,8 @@ public class Double3 {
 	public String toString() {
 		return "(" + d1 + "," + d2 + "," + d3 + ")";
 	}
+
+		// ***************** Arithmetic operations ********************** //
 
 	/**
 	 * Sum two floating point triads into a new triad where each couple of numbers
@@ -123,12 +128,14 @@ public class Double3 {
 		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
 	}
 
-	/**
-	 * Checks whether all the numbers are lower than a test number
-	 * @param k the test number
-	 * @return true if all the numbers are less than k, false otherwise
-	 */
+	// ***************** Comparison operation ********************** //
 
+	/**
+	 * Checks whether all the numbers are lower than a test number.
+	 *
+	 * @param k The test number
+	 * @return True if all the numbers are less than k, false otherwise
+	 */
 	public boolean lowerThan(double k) {
 		return d1 < k && d2 < k && d3 < k;
 	}

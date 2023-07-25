@@ -2,18 +2,15 @@ package renderer;
 
 /**
  * Pixel is a helper class. It is used for multi-threading in the renderer and
- * for follow up its progress.<br/>
- * There is a main follow up object and several secondary objects - one in each
+ * for tracking its progress. There is a main follow-up object and several secondary objects - one in each
  * thread.
  *
- * @author Dan
- *
+ * Authors: Noga Jacobs and Noa
  */
 class Pixel {
     private static int maxRows = 0;
     private static int maxCols = 0;
     private static long totalPixels = 0l;
-
     private static volatile int cRow = 0;
     private static volatile int cCol = -1;
     private static volatile long pixels = 0l;

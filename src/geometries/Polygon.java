@@ -9,45 +9,43 @@ import primitives.Vector;
 import static primitives.Util.*;
 
 /**
- * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
- * system
- * 
- * @author Dan
+ * The Polygon class represents a two-dimensional polygon in 3D Cartesian coordinate system.
+ * A polygon is defined by a list of vertices in order, forming an edge path.
+ * The class inherits from the Geometry class.
+ *
+ * The Polygon must be convex, meaning it forms no angles greater than 180 degrees between consecutive edges.
+ * The vertices of the polygon must lie in the same plane.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class Polygon extends Geometry {
 
 	/**
-	 * List of polygon's vertices
+	 * List of polygon's vertices in order by edge path
 	 */
 	protected List<Point> vertices;
 
 	/**
-	 * Associated plane in which the polygon lays
+	 * The plane in which the polygon lays (associated with the polygon).
 	 */
 	protected Plane plane;
 	/**
-	 *
+	 * The number of vertices in the polygon
 	 */
 	private int size;
 
 	/**
-	 * Polygon constructor based on vertices list. The list must be ordered by edge
-	 * path. The polygon must be convex.
-	 * 
-	 * @param vertices list of vertices according to their order by edge path
-	 * @throws IllegalArgumentException in any case of illegal combination of
-	 *                                  vertices:
+	 * Constructs a polygon based on a list of vertices. The vertices must be in order
+	 * by edge path, and the polygon must be convex.
+	 *
+	 * @param vertices The list of vertices, ordered by edge path.
+	 * @throws IllegalArgumentException In any case of an illegal combination of vertices:
 	 *                                  <ul>
 	 *                                  <li>Less than 3 vertices</li>
-	 *                                  <li>Consequent vertices are in the same
-	 *                                  point
-	 *                                  <li>The vertices are not in the same
-	 *                                  plane</li>
-	 *                                  <li>The order of vertices is not according
-	 *                                  to edge path</li>
-	 *                                  <li>Three consequent vertices lay in the
-	 *                                  same line (180&#176; angle between two
-	 *                                  consequent edges)
+	 *                                  <li>Consecutive vertices are the same point</li>
+	 *                                  <li>The vertices are not in the same plane</li>
+	 *                                  <li>The order of vertices is not according to edge path</li>
+	 *                                  <li>Three consecutive vertices lay in the same line (180° angle between two consecutive edges)</li>
 	 *                                  <li>The polygon is concave (not convex)</li>
 	 *                                  </ul>
 	 */
@@ -91,12 +89,29 @@ public class Polygon extends Geometry {
 		}
 		size = vertices.length;
 	}
+	// ***************** Overrides ********************** //
 
+	/**
+	 * Calculates the normal vector to the polygon at any given point.
+	 * Since the polygon lies in a plane, the normal vector is constant and
+	 * is calculated based on the plane associated with the polygon.
+	 *
+	 * @param point The point for which to calculate the normal.
+	 * @return The normal vector.
+	 */
 	@Override
 	public Vector getNormal(Point point) {
 		return plane.getNormal();
 	}
 
+	/**
+	 * Finds the intersection point of a ray with the polygon.
+	 *
+	 * @param ray         The ray for calculating the intersection point.
+	 * @param maxDistance The maximum distance for valid intersections.
+	 * @return A list containing a single GeoPoint object representing the intersection point of the ray with the polygon.
+	 * If there is no intersection, the list is null.
+	 */
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 		List<GeoPoint> list = plane.findGeoIntersectionsHelper(ray, maxDistance);

@@ -6,52 +6,62 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * this is the interface for all geometries that need to get a normalized vector.its the most basic interface for all geometries.
+ * The Geometry abstract class is the base class for all geometries that require a normalized vector.
+ * It extends the Intersectable class.
+ * Geometry objects represent 3D geometrical shapes that can be intersected with rays in a Cartesian coordinate system.
+ * Each geometry has properties for emission color and material used for shading.
+ * The getNormal method must be implemented by subclasses to provide the normalized vector at a given point on the geometry.
+ *
+ * Author: Noga Jacobs and Noa
  */
-// * @author noga and noa
 
 public abstract class Geometry extends Intersectable
 {
     /**
-     *  glowing color
+     * The glowing color of the geometry
      */
     protected Color emission = Color.BLACK;
     /**
-     * parameter of a department that is responsible for entering data into coefficients
+     * The material of the geometry used for shading
      */
     private Material material = new Material();
 
     // ***************** Getter ********************** //
 
     /**
-     * func getter
-     * @return Color
+     * Gets the glowing color of the geometry.
+     *
+     * @return The emission color
      */
     public Color getEmission() {
         return emission;
     }
 
     /**
-     * func getter
-     * @return Material
+     * Gets the material of the geometry used for shading.
+     *
+     * @return The material
      */
     public Material getMaterial() {
         return material;
     }
 
     /**
-     * func getter
-     * @param point - Point
-     * @return Vector
+     * Returns the normalized vector at the given point on the geometry.
+     * Subclasses must implement this method to provide the correct normal vector for each specific geometry.
+     *
+     * @param point The point on the geometry
+     * @return The normalized vector at the given point
      */
     public abstract Vector getNormal (Point point);
 
     // ***************** Setter ********************** //
 
     /**
-     * func setter with build
-     * @param emission - Color
-     * @return Geometry
+     * Sets the glowing color of the geometry using a builder pattern.
+     *
+     * @param emission The emission color to set
+     * @return The current geometry object
      */
     public Geometry setEmission(Color emission){
         this.emission = emission;
@@ -59,9 +69,10 @@ public abstract class Geometry extends Intersectable
     }
 
     /**
-     * func setter type builder
-     * @param material - Material
-     * @return Geometry
+     * Sets the material of the geometry using a builder pattern.
+     *
+     * @param material The material to set
+     * @return The current geometry object
      */
     public Geometry setMaterial(Material material) {
         this.material = material;

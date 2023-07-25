@@ -8,29 +8,32 @@ import java.util.List;
 
 import static primitives.Util.*;
 /**
- * Triangle class Vertex polygon
- * system
+ * Tube class represents a tube in 3D Cartesian coordinate system.
+ * A tube is defined by its axis, which is a ray, and its radius.
+ * The tube is an infinite cylinder with a finite radius.
+ * The class inherits from the Geometry class.
  *
- * @author noga and noa
+ * Authors: Noga Jacobs and Noa
  */
 public class Tube extends Geometry {
 
     /**
-     *  the ray that Passes inside the tube and determines its direction
+     * The ray that passes inside the tube and determines its direction.
      */
     final Ray axisRay;
 
     /**
-     *  radius of tube determines his size
+     * The radius of the tube, determines its size.
      */
     final double radius;
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     *  constructor with prmetrim
-     * @param axisRay - Tube of ray
-     * @param radius- Tube of radius
+     * Constructor for creating a tube with the specified axis ray and radius.
+     *
+     * @param axisRay The ray that passes inside the tube and determines its direction.
+     * @param radius  The radius of the tube.
      */
 
     public Tube(Ray axisRay, double radius) {
@@ -38,29 +41,32 @@ public class Tube extends Geometry {
         this.radius = radius;
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getters  ********************** //
 
     /**
-     * func get return axisRay of Tube
-     * @return Ray
+     * Get the axis ray of the tube.
+     *
+     * @return The axis ray of the tube.
      */
     public Ray getAxisRay() {
         return axisRay;
     }
 
     /**
-     * func get return radius of Tube
-     * @return double
+     * Get the radius of the tube.
+     *
+     * @return The radius of the tube.
      */
     public double getRadius() {
         return radius;
     }
-    // ***************** fuc ********************** //
+    // ***************** Methods ********************** //
 
     /**
-     * return vector normal
-     * @param p- point for the normal
-     * @return vector normal
+     * Returns the normal vector to the tube at the specified point.
+     *
+     * @param p The point for which to calculate the normal vector.
+     * @return The normalized normal vector to the tube at the specified point.
      */
     public Vector getNormal(Point p){
         Point P0 = axisRay.getP0();
@@ -88,8 +94,9 @@ public class Tube extends Geometry {
     // ***************** Override ********************** //
 
     /**
-     * with Ray (axisRay) and radius (double)
-     * @return string
+     * Returns a string representation of the tube.
+     *
+     * @return A string representation of the tube.
      */
     @Override
     public String toString() {
@@ -100,10 +107,13 @@ public class Tube extends Geometry {
     }
 
     /**
-     * find the cross Tube (bunus)
-     * @param ray - Ray
-     * @param maxDistance - double
-     * @return list of GeoPoint - tube cross and point cross
+     * Finds the intersection points of a ray with the tube.
+     * (Note: This method returns null because the intersection calculation is not implemented for the tube).
+     *
+     * @param ray         The ray for calculating the intersection points.
+     * @param maxDistance The maximum distance for valid intersections.
+     * @return A list containing GeoPoint objects representing the intersection points of the ray with the tube.
+     * If there are no intersections, the list is null.
      */
    @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {

@@ -1,29 +1,36 @@
 package lighting;
 
 import primitives.Color;
-// * @author noga and noa
+/**
+ * Light class is an abstract class representing a light source in a scene.
+ * It contains the color intensity of the light, which determines the brightness of the light source.
+ *
+ * Authors: Noga Jacobs and Noa
+ */
 abstract class Light {
 
     /**
-     *Color intensity
+     * The color intensity of the light source.
      */
     private Color intensity;
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor
-     * @param intensity
+     * Constructor for creating a light source with the specified intensity.
+     *
+     * @param intensity The color intensity of the light.
      */
     protected Light(Color intensity) {
         this.intensity = intensity;
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getter ********************** //
 
     /**
-     * func get for  intensity
-     * @return color
+     * Get the color intensity of the light source.
+     *
+     * @return The color intensity of the light.
      */
     public Color getIntensity() {
         return intensity;

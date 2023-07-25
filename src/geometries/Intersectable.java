@@ -7,14 +7,21 @@ import java.util.Objects;
 
 
 /**
- * @author noga and noa
+ * The Intersectable abstract class represents a 3D geometric shape that can be intersected with a ray.
+ * Subclasses of Intersectable must implement the findGeoIntersectionsHelper method to find intersections with a given ray.
+ * The findIntersections method provides a list of intersection points as regular Point objects.
+ * The GeoPoint inner class holds a Geometry object and the corresponding intersection point.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public abstract class Intersectable {
 
     /**
-     * Function for finding intersection points
-     * @param ray -The fund ray calculating the points is cut
-     * @return list of point of cross
+     * Finds intersection points of the geometry with the given ray.
+     * Converts the GeoPoint objects into regular Point objects for ease of use.
+     *
+     * @param ray The ray for calculating the intersection points.
+     * @return A list of the intersection points, or null if there are no intersections.
      */
     public  List<Point> findIntersections(Ray ray){
         var geoList = findGeoIntersections(ray);
@@ -23,9 +30,11 @@ public abstract class Intersectable {
     }
 
     /**
-     * Function for finding intersection points
-     * @param ray- The fund ray calculating the points is cut
-     * @return List of the GeoPoint Cut with the ray
+     * Finds the intersections of the geometry with the given ray, up to a maximum distance.
+     * Converts the GeoPoint objects into regular Point objects for ease of use.
+     *
+     * @param ray         The ray for calculating the intersection points.
+     * @return A list of the intersection points, or null if there are no intersections.
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
@@ -42,32 +51,34 @@ public abstract class Intersectable {
     }
 
     /**
-     *  func abstract-That all departments that inherit must be exercised
-     * @param ray-   -The fund ray calculating the points is cut
-     * @param maxDistance- max Distance
-     * @return List of the GeoPoint Cut with the ray
-     * */
+     * Finds the intersections of the geometry with the given ray, up to a maximum distance.
+     *
+     * @param ray         The ray for calculating the intersection points.
+     * @param maxDistance The maximum distance for valid intersections.
+     * @return A list of the intersection GeoPoints, or null if there are no intersections.
+     */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 
     /**
-     * class for to put geometry that cross with the point cross.
+     * The GeoPoint inner class holds a Geometry object and the corresponding intersection point.
      */
     public static class GeoPoint{
         /**
-         * the geometry that cross
+         * The geometry that intersects with the ray.
          */
         public Geometry geometry;
         /**
-         * the point cross
+         * The point of intersection with the geometry.
          */
         public Point point;
 
-        // ***************** constructor ********************** //
+        // ***************** Constructor ********************** //
 
         /**
-         * constructor
-         * @param geometry - Geometry
-         * @param point - Point
+         * Constructs a GeoPoint with the given geometry and intersection point.
+         *
+         * @param geometry The geometry that intersects with the ray.
+         * @param point    The point of intersection with the geometry.
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
@@ -77,9 +88,10 @@ public abstract class Intersectable {
         // ***************** Override ********************** //
 
         /**
-         * equals
-         * @param o-The second variable for equals
-         * @return boolean-If this is true then they are equal, otherwise false
+         * Checks if this GeoPoint is equal to another object.
+         *
+         * @param o The other object to compare to.
+         * @return True if they are equal, otherwise false.
          */
         @Override
         public boolean equals(Object o) {
@@ -90,8 +102,9 @@ public abstract class Intersectable {
         }
 
         /**
-         * cFunction for comparison function
-         * @return int
+         * Generates a hash code for this GeoPoint.
+         *
+         * @return The hash code.
          */
         @Override
         public int hashCode() {
@@ -99,8 +112,9 @@ public abstract class Intersectable {
         }
 
         /**
-         * to string
-         * @return string
+         * Converts this GeoPoint to a string representation.
+         *
+         * @return The string representation of the GeoPoint.
          */
         @Override
         public String toString() {

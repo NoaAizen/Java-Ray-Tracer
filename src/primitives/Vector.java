@@ -3,15 +3,22 @@ import java.util.Objects;
 import static primitives.Util.*;
 
 /**
- * @author noa and noga
+ * Vector class represents a three-dimensional vector in 3D space.
+ * It provides operations for vector addition, scalar multiplication, dot product, cross product, normalization,
+ * length calculation, and more.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class Vector extends Point {
-    // ***************** constructor ********************** //
+
+    // ***************** Constructor ********************** //
+
     /**
-     * constructor with Double
-     * @param x - double
-     * @param y - double
-     * @param z - double
+     * Constructor with individual components.
+     *
+     * @param x The x-component of the vector
+     * @param y The y-component of the vector
+     * @param z The z-component of the vector
      */
     public Vector(double x, double y, double z) {
         this(new Double3(x, y, z));
@@ -21,8 +28,9 @@ public class Vector extends Point {
     }
 
     /**
-     * constructor with Double3
-     * @param xyz - Double3
+     * Constructor with Double3.
+     *
+     * @param xyz The Double3 representing the vector components.
      */
     public Vector(Double3 xyz) {
         super(xyz);
@@ -32,11 +40,13 @@ public class Vector extends Point {
 
     }
 
-    // ***************** func ********************** //
+    // ***************** Methods  ********************** //
+
     /**
-     * add vectors-
-     * @param vector-The second vector you get for making a connection
-     * @return Vector- The new vector after the connection
+     * Adds two vectors together.
+     *
+     * @param vector The second vector to add.
+     * @return Vector The resulting vector after addition.
      */
     public Vector add(Vector vector) {
 
@@ -49,9 +59,10 @@ public class Vector extends Point {
     }
 
     /**
-     * Scale with vector
-     * @param factor--The second vector you get for making a Scale
-     * @return - The new vector after the scale
+     * Scales the vector by a scalar factor.
+     *
+     * @param factor The scaling factor.
+     * @return Vector The new vector after scaling.
      */
     public Vector scale(double factor){
         if(isZero(factor)){
@@ -61,9 +72,10 @@ public class Vector extends Point {
     }
 
     /**
-     * Vector multiplication-dot Product
-     * @param vector- the second vector you get for making a -dot Product
-     * @return - The new number generated from a vector product
+     * Calculates the dot product (scalar product) of two vectors.
+     *
+     * @param vector The second vector to compute the dot product with.
+     * @return double The dot product value.
      */
     public double dotProduct(Vector vector) {
         Double3 temp = xyz.product(vector.xyz);
@@ -72,9 +84,10 @@ public class Vector extends Point {
     }
 
     /**
-     * Vectors multiplication-cross Product
-     * @param vector- the second vector you get for making a cross Product
-     * @return Vector- The new Vector generated from a vector product
+     * Calculates the cross product of two vectors.
+     *
+     * @param vector The second vector to compute the cross product with.
+     * @return Vector The new vector generated from the cross product.
      */
     public Vector crossProduct(Vector vector) {
         double ax = xyz.d1;
@@ -93,8 +106,9 @@ public class Vector extends Point {
     }
 
     /**
-     * normalize
-     * @return Vector-Victor who is normalized
+     * Normalizes the vector to have a length of 1.
+     *
+     * @return Vector The normalized vector.
      */
     public Vector normalize() {
         double len = length();
@@ -102,16 +116,18 @@ public class Vector extends Point {
     }
 
     /**
-     * length
-     * @return double-The number returned from a root
+     * Calculates the length of the vector.
+     *
+     * @return double The length of the vector.
      */
     public double length() {
         return Math.sqrt(lengthSquared());
     }
 
     /**
-     * length Squared
-     * @return double-The length itself
+     * Calculates the squared length of the vector (avoiding square root calculations).
+     *
+     * @return double The squared length of the vector.
      */
     public double lengthSquared() {
         return xyz.d1 * xyz.d1
@@ -120,9 +136,11 @@ public class Vector extends Point {
     }
 
     // ***************** Override ********************** //
+
     /**
-     * to String
-     * @return string
+     * Returns a string representation of the vector.
+     *
+     * @return String A string representation of the vector.
      */
     @Override
     public String toString() {

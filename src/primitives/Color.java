@@ -1,16 +1,16 @@
 package primitives;
 
 /**
- * Wrapper class for java.jwt.Color The constructors operate with any
- * non-negative RGB values. The colors are maintained without upper limit of
+ * Wrapper class for java.awt.Color. The constructors operate with any
+ * non-negative RGB values. The colors are maintained without an upper limit of
  * 255. Some additional operations are added that are useful for manipulating
- * light's colors
+ * light's colors.
  *
- * @author Dan Zilberstein
+ * Authors: Noga Jacobs and Noa
  */
 public class Color {
 	/**
-	 * The internal fields tx`o maintain RGB components as double numbers from 0 to
+	 * The internal fields to maintain RGB components as double numbers from 0 to
 	 * whatever...
 	 */
 	private final Double3 rgb;
@@ -19,6 +19,8 @@ public class Color {
 	 * Black color = (0,0,0)
 	 */
 	public static final Color BLACK = new Color();
+
+		// ***************** constructor ********************** //
 
 	/**
 	 * Default constructor - to generate Black Color (privately)
@@ -55,9 +57,9 @@ public class Color {
 	}
 
 	/**
-	 * Constructor on base of java.awt.Color object
+	 * Constructor based on a java.awt.Color object.
 	 *
-	 * @param other java.awt.Color's source object
+	 * @param other The java.awt.Color source object.
 	 */
 	public Color(java.awt.Color other) {
 		rgb = new Double3(other.getRed(), other.getGreen(), other.getBlue());

@@ -12,7 +12,11 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 /**
- *  author noga and noa
+ * The class RayTracerBasic extends RayTracerBase and is responsible for performing ray tracing calculations to render a 3D scene.
+ * It calculates the color of pixels in the scene by simulating the interaction of light rays with the scene elements.
+ * It supports global effects such as reflection and refraction.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class RayTracerBasic extends RayTracerBase {
 
@@ -34,14 +38,15 @@ public class RayTracerBasic extends RayTracerBase {
     private static final double DELTA = 0.1;
 
     /**
-     * true if use soft shadows
+     * Flag to enable soft shadows
      */
     private boolean useSoftShadows =false;
 
     /**
-     * setrr of soft shadows
-     * @param useSoftShadows - boolean
-     * @return RayTracerBasic - RayTracerBasic
+     * Setter for enabling or disabling soft shadows
+     *
+     * @param useSoftShadows - true to enable soft shadows, false to disable
+     * @return RayTracerBasic - Returns the current instance of RayTracerBasic
      */
     public RayTracerBasic setUseSoftShadows(boolean useSoftShadows) {
         this.useSoftShadows = useSoftShadows;
@@ -50,9 +55,9 @@ public class RayTracerBasic extends RayTracerBase {
     // ***************** Constructors ********************** //
 
     /**
-     * Constructor
+     * Constructor for RayTracerBasic
      *
-     * @param scene - Scene
+     * @param scene - The Scene object representing the 3D scene to be rendered.
      */
     public RayTracerBasic(Scene scene) {
         super(scene);
@@ -68,10 +73,11 @@ public class RayTracerBasic extends RayTracerBase {
     // ***************** func's calcColor ********************** //
 
     /**
-     * Calculate the Color
-     * @param gp-geopoint cut
-     * @param ray-ray cut
-     * @return color- The final color before a point
+     * Private method to calculate the color at a specific point (including global effects)
+     *
+     * @param gp  - The GeoPoint representing the point of intersection with the ray.
+     * @param ray - The Ray for which to calculate the color.
+     * @return Color - The calculated color at the given point.
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
         Color color=calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K);
@@ -79,12 +85,13 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * A recursive function that returns the color at a specific point
-     * @param gp- poibt cut
-     * @param ray- ray cut
-     * @param level-stop ryorya
-     * @param k- foctor of color
-     * @return Color-  the final color before a point
+     * Recursive method to calculate the color at a specific point (including global effects)
+     *
+     * @param gp    - The GeoPoint representing the point of intersection with the ray.
+     * @param ray   - The Ray for which to calculate the color.
+     * @param level - The recursion level (to limit the number of recursive calls).
+     * @param k     - The coefficient to determine the color contribution from global effects.
+     * @return Color - The calculated color at the given point with global effects.
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(gp, ray,k);
@@ -96,12 +103,13 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     *  She is responsible for the global effects
-     *  reflected and refracted rays )
-     * @param ray- ray cut
-     * @param level-stop ryorya
-     * @param k- foctor of color
-     * @return Color-     The final color before a point
+     * Private method to calculate global effects such as reflection and refraction.
+     *
+     * @param gp    - The GeoPoint representing the point of intersection with the ray.
+     * @param ray   - The Ray for which to calculate the color.
+     * @param level - The recursion level (to limit the number of recursive calls).
+     * @param k     - The coefficient to determine the color contribution from global effects.
+     * @return Color - The color contribution from global effects (reflection and refraction).
      */
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = Color.BLACK;
@@ -130,24 +138,25 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
-    /**Construct
-     *  The thought of transparency
-
-     * @param point- point on the geometry
-     * @param ray -ray cut
-     * @param n-normal vector
-     * @return refracted ray
+    /**
+     * Private method to construct a refracted ray.
+     *
+     * @param point - The point on the geometry surface.
+     * @param ray   - The original ray.
+     * @param n     - The normal vector at the point.
+     * @return Ray - The refracted ray.
      */
     private Ray constructRefractedRay(Point point, Ray ray, Vector n) {
         return  new Ray(point,ray.getDir(),n.normalize());
     }
 
     /**
-     *  Thought reflection     *
-     *  @param point- point on the geometry
-     *      * @param ray -ray cut
-     *      * @param n-normal vector
-     * @return ray   reflection ray
+     * Private method to construct a reflected ray.
+     *
+     * @param point - The point on the geometry surface.
+     * @param ray   - The original ray.
+     * @param n     - The normal vector at the point.
+     * @return Ray - The reflected ray.
      */
     private Ray constructReflectedRay(Point point, Ray ray, Vector n) {
         Vector v = ray.getDir();
@@ -213,13 +222,14 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * Calculate Flashes, a kind of reflection of light, on the surface
-     * @param material thr data
-     * @param n-normal of cur geometry
-     * @param l-light
-     * @param nl- nukt n,l
-     * @param v-dinction of ray
-     * @return Double3- reflection
+     * Private method to calculate specular reflection.
+     *
+     * @param material - The material properties of the geometry.
+     * @param n        - The normal vector at the point.
+     * @param l        - The direction vector from the light source to the point.
+     * @param nl       - The dot product of n and l.
+     * @param v        - The direction vector of the original ray.
+     * @return Double3 - The reflection coefficient.
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
         Vector r = l.add(n.scale(-2 * nl));
@@ -231,12 +241,11 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * Calculate Diffusive, The surfaces of the bodies are not smooth, so the reflected light is scattered
-     * In all directions, affects light and shadow on the body, creates a deep look.
+     * Private method to calculate diffuse reflection.
      *
-     * @param material= data
-     * @param nl-scale of n l
-     * @return Double3-Coefficient of the distributing color
+     * @param material - The material properties of the geometry.
+     * @param nl       - The dot product of n and l.
+     * @return Double3 - The coefficient for the diffuse color.
      */
     private Double3 calcDiffusive (Material material, double nl) {
         nl = Math.abs(nl);
@@ -246,13 +255,14 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     Is there a shadow and how many
-     * @param gp-point og gomtry
-     * @param lightSource-light
-     * @param l- direction of ray from lught
-     * @param n- normal vectoor
-     * @param nv- mult n v
-     * @return Double3- transparency factor
+     * Private method to calculate the transparency of an object for shadow rays.
+     *
+     * @param gp          - The GeoPoint representing the point of intersection with the ray.
+     * @param lightSource - The light source.
+     * @param l           - The direction vector from the light source to the point.
+     * @param n           - The normal vector at the point.
+     * @param nv          - The dot product of n and the ray's direction.
+     * @return Double3 - The transparency factor.
      */
     private Double3 transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nv) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -272,9 +282,10 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     *  Finds the point of intersection closest to you
-     * @param ray- ray cut
-     * @return point closest
+     * Private method to find the closest intersection point of a ray with scene geometry.
+     *
+     * @param ray - The ray for which to find the closest intersection.
+     * @return GeoPoint - The closest intersection point.
      */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(ray);
@@ -287,10 +298,10 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     /**
-     * trace ray, and find cross point and return calcColor of the point if dont have point return Backgroung
+     * The method to trace rays and find the color of pixels in the scene.
      *
-     * @param ray-ray cut
-     * @return Color
+     * @param ray - The ray to trace.
+     * @return Color - The color of the pixel represented by the ray.
      */
     @Override
     public Color traceRay(Ray ray) {

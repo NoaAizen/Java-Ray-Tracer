@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Scene class : Compound class for all the objects of the 3D world to render
+ * Scene class represents the 3D world to be rendered, containing geometries, lights, and other properties.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class Scene {
 
@@ -32,10 +34,10 @@ public class Scene {
     private final Color background;            // background color
     private final AmbientLight ambientLight;   // ambient light
     private final Geometries geometries;       // composite for all geometric object
-    private List<LightSource> lights = new LinkedList<>();
+    private List<LightSource> lights = new LinkedList<>(); // list of light sources
 
     /**
-     * Construcor using Builder Pattern
+     * Private constructor used by the SceneBuilder to construct the Scene object.
      *
      * @param builder the builder for the scene
      */
@@ -48,62 +50,67 @@ public class Scene {
     }
 
     /**
-     *  getters without Dan permission
-     * @return - String
+     * Get the name of the scene.
+     *
+     * @return the scene name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * getter
-     * @return - Color
+     * Get the background color of the scene.
+     *
+     * @return the background color
      */
     public Color getBackground() {
         return background;
     }
 
     /**
-     * getter
-     * @return - AmbientLight
+     * Get the ambient light of the scene.
+     *
+     * @return the ambient light
      */
     public AmbientLight getAmbientLight() {
         return ambientLight;
     }
 
     /**
-     * getter
-     * @return - Geometries
+     * Get the composite of all geometric objects in the scene.
+     *
+     * @return the geometries composite
      */
     public Geometries getGeometries() {
         return geometries;
     }
 
     /**
-     * getter
-     * @return - List LightSource
+     * Get the list of light sources in the scene.
+     *
+     * @return the list of light sources
      */
     public List<LightSource> getLights() {
         return lights;
     }
 
     /**
-     * inner class for Scene Builder
+     * Nested static class for Scene Builder.
      */
     public static class SceneBuilder {
 
-        private final String _name;        // Scene Builder name
-        private Color _background = Color.BLACK;////Scene Builder background color
-        private AmbientLight _ambientLight = new AmbientLight();// //  Scene Builder ambient light
-        private Geometries _geometries = new Geometries();////  Scene Builder composite for all geometric object
-        private List<LightSource> _lights = new LinkedList<>();   // Scene Builder name
+        private final String _name;  // SceneBuilder name
+        private Color _background = Color.BLACK; // SceneBuilder background color
+        private AmbientLight _ambientLight = new AmbientLight(); // SceneBuilder ambient light
+        private Geometries _geometries = new Geometries(); // SceneBuilder composite for all geometric objects
+        private List<LightSource> _lights = new LinkedList<>();   // SceneBuilder list of light sources
         private SceneDescriptor _senceDesc = new SceneDescriptor();
         // ***************** Constructors ********************** //
 
         /**
-         * Construcor for builder
+         * Constructor for the SceneBuilder.
          *
-         * @param name mandatory name
+         * @param name the mandatory name of the scene
          */
         public SceneBuilder(String name) {
             _name = name;
@@ -112,10 +119,10 @@ public class Scene {
         // ***************** Setters  ********************** //
 
         /**
-         * func setter type builder
+         * Set the background color of the scene.
          *
-         * @param background - Color
-         * @return SceneBuilder
+         * @param background the background color to set
+         * @return the SceneBuilder with the updated background color
          */
         public SceneBuilder setBackground(Color background) {
             _background = background;
@@ -123,10 +130,10 @@ public class Scene {
         }
 
         /**
-         * func setter type builder
+         * Set the ambient light of the scene.
          *
-         * @param ambientLight - AmbientLight
-         * @return SceneBuilder
+         * @param ambientLight the ambient light to set
+         * @return the SceneBuilder with the updated ambient light
          */
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             _ambientLight = ambientLight;
@@ -134,10 +141,10 @@ public class Scene {
         }
 
         /**
-         * func setter type builder
+         * Set the composite for all geometric objects in the scene.
          *
-         * @param geometries - Geometries
-         * @return SceneBuilder
+         * @param geometries the composite for geometric objects to set
+         * @return the SceneBuilder with the updated geometries composite
          */
         public SceneBuilder setGeometries(Geometries geometries) {
             _geometries = geometries;
@@ -145,32 +152,32 @@ public class Scene {
         }
 
         /**
-         * func setter type builder
+         * Set the list of light sources in the scene.
          *
-         * @param lights - List LightSource
-         * @return SceneBuilder
+         * @param lights the list of light sources to set
+         * @return the SceneBuilder with the updated list of light sources
          */
         public SceneBuilder setLights(List<LightSource> lights) {
             _lights = lights;
             return this;
         }
 
-        // ***************** class Sence Type Build  ********************** //
+        // ***************** class Scene Type Build  ********************** //
 
         /**
-         * build Scene
-         * @return Scene
+         * Build the Scene object using the values set in the SceneBuilder.
+         *
+         * @return the built Scene object
          */
         public Scene build() {
             return new Scene(this);
         }
 
         /**
-         * open xml file
-         * send the file to func InitializeFromXMLstring (in packet parser , in class SenceDescriptor) that return Object (SenceDescriptor).
-         * use parameter in _senceDesc to put in SceneBuilder fields
-         * @param myFile - string
-         * @return SceneBuilder
+         * Load the scene from an XML file using SceneDescriptor and initialize the SceneBuilder fields.
+         *
+         * @param myFile the path to the XML file
+         * @return the SceneBuilder with the updated fields
          */
         public SceneBuilder loadSceneFromFile(String myFile) {
 

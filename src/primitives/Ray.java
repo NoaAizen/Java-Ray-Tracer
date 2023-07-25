@@ -9,40 +9,43 @@ import static geometries.Intersectable.GeoPoint;
 
 
 /**
- * @author noa and noga
+ * Ray class represents a ray in 3D space, consisting of a starting point (p0) and a direction vector (dir).
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class Ray {
     /**
-     *
+     * A small delta value used for constructing a new ray slightly above or below a geometry's surface.
      */
     private static final double DELTA = 0.1 ;//
     /**
-     *point of ray
+     * The starting point of the ray.
      */
     final Point p0;
     /**
-     * The direction of the point
+     * The direction vector of the ray.
      */
     final Vector dir;
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor
+     * Constructor for a ray given a starting point and a direction vector.
      *
-     * @param p0- the point of ray
-     * @param dir- the vector of ray
+     * @param p0  The starting point of the ray.
+     * @param dir The direction vector of the ray.
      */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
     }
     /**
-     * constructor with 3 Parameters
+     * Constructor for a ray given a starting point, a direction vector, and a normal vector for the geometry.
+     * Used for calculating a slightly offset starting point to avoid self-intersections.
      *
-     * @param p0- the point of ray
-     * @param v-the vetor of ray
-     * @param n-For calculation of the point
+     * @param p0  The starting point of the ray.
+     * @param v   The direction vector of the ray.
+     * @param n   The normal vector of the geometry.
      */
     public Ray(Point p0, Vector v, Vector n) {
         this.dir = v.normalize();
@@ -57,7 +60,7 @@ public class Ray {
 
         this.p0 = p0.add(epsilon);
     }
-    // ***************** getter ********************** //
+    // ***************** Getter ********************** //
 
     /**
      * start of the ray
@@ -80,9 +83,9 @@ public class Ray {
     // ***************** Override ********************** //
 
     /**
-     * toString
+     * Returns a string representation of this ray.
      *
-     * @return - String
+     * @return String A string containing the starting point and direction vector of the ray.
      */
     @Override
     public String toString() {
@@ -93,10 +96,10 @@ public class Ray {
     }
 
     /**
-     * equals
+     * Checks if this ray is equal to the given object.
      *
-     * @param o-The second parameter for equals
-     * @return boolean- if the parameters is true so they equals, other folse.
+     * @param o The second parameter to compare with this ray.
+     * @return boolean Returns true if the object is of the same class and has the same value as this ray, false otherwise.
      */
     @Override
     public boolean equals(Object o) {
@@ -107,31 +110,31 @@ public class Ray {
     }
 
     /**
-     * hash Code
+     * Calculates the hash code for this ray.
      *
-     * @return int
+     * @return int The hash code value.
      */
     @Override
     public int hashCode() {
         return Objects.hash(p0, dir);
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getter ********************** //
 
     /**
-     * func of get
+     * Returns the direction vector of this ray.
      *
-     * @return vector
+     * @return Vector The direction vector of the ray.
      */
     public Vector getDirection() {
         return new Vector(dir.xyz);
     }
 
     /**
-     * Multiply by double the point
+     * Calculates a point along the ray at a given distance from the starting point.
      *
-     * @param t - double
-     * @return point
+     * @param t The distance parameter.
+     * @return Point The point along the ray at the given distance.
      */
     public Point getPoint(double t) {
         if ((t)==0.0) {
@@ -142,27 +145,14 @@ public class Ray {
         }
     }
 
-    // ***************** func ********************** //
+    // ***************** Methods ********************** //
 
     /**
-     * @param points- List of points for finding the point closest to the ray
-     * @return the point closest to the beginning of the ray.
+     * Finds the closest geometry point to the ray's starting point from a list of geometry points.
+     *
+     * @param geoPoints List of geometry points to search from.
+     * @return GeoPoint The geometry point closest to the starting point of the ray.
      */
-    /**
-    public Point findClosestPoint(List<Point> points) {
-        return points == null || points.isEmpty() ? null
-                : findGeoClosestPoint(points
-                .stream()
-                .map(p -> new GeoPoint(null, p))
-                .toList()).point;
-    }
-
-**/
-    /**
-     * find Geo point Closest Point,  geo point it is the point from list of cross geometries
-     * @param geoPoints-list- List of points for finding the point closest to the ray
-     * @return GeoPoint- the point closest to the beginning of the ray.
-    **/
     public GeoPoint findGeoClosestPoint(List<GeoPoint> geoPoints) {
         if (geoPoints == null) //In case of an empty list
             return null;

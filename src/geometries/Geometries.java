@@ -8,37 +8,46 @@ import java.util.List;
 
 
 /**
- * @author noga and noa
+ * The Geometries class represents a collection of intersectable geometries in 3D Cartesian coordinate system.
+ * It is a subclass of the Intersectable class.
+ * Geometries objects are used to store multiple intersectable geometries together and find their intersection points with a given ray.
+ * Geometries are immutable, and new geometries can be added to the collection using the "add" method.
+ * The findGeoIntersectionsHelper method calculates the intersection points of the ray with all the geometries in the collection.
+ *
+ * Author: Noga Jacobs and Noa
  */
 public class Geometries extends Intersectable {
     /**
-     * list of cross points
+     * List of intersectable geometries
      */
     private List<Intersectable> _intersectableList = new LinkedList<>();
+
     // ***************** constructor ********************** //
     /**
-     * constructor, add point cross to the list
+     * Constructs a Geometries object and adds the given intersectable geometries to the collection.
      *
-     * @param geometries - Intersectable...
+     * @param geometries The intersectable geometries to add to the collection
      */
     public Geometries(Intersectable... geometries) {
         add(geometries);
     }
 
     /**
-     * add all point cross to the list
+     * Adds the given intersectable geometries to the collection.
      *
-     * @param geometries - Intersectable...
+     * @param geometries The intersectable geometries to add to the collection
      */
     public void add(Intersectable... geometries) {
         Collections.addAll(_intersectableList, geometries);
     }
 
     /**
-     * This function unites all the intersection points closest to the beam and before the geometric shape
-     * @param ray-   -The fund ray calculating the points is cut
-     * @param maxDistance- max Distance
-     * @return (List GeoPoint) this;
+     * Finds the intersection points of the given ray with all the geometries in the collection.
+     * The function unites all the intersection points closest to the ray's origin and before the maximum distance.
+     *
+     * @param ray         The ray for calculating the intersection points
+     * @param maxDistance The maximum distance for valid intersection points
+     * @return A list of GeoPoint objects representing the intersection points with the geometries in the collection
      */
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         List<GeoPoint> totalIntersections = null;

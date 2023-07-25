@@ -7,62 +7,87 @@ import java.util.List;
 import primitives.*;
 
 /**
- * Circle class represents Euclidean 2D circle in 3D Cartesian coordinate system
- * represented by its center, radius and orthogonal unit vector
+ * The Circle class represents a two-dimensional circle in 3D Cartesian coordinate system.
+ * It is defined by its center, radius, and an orthogonal unit vector (normal).
+ * The Circle class is a type of Geometry.
+ * Circle objects are immutable.
  *
- * @author Dan
+ * @author Noga Jacobs and Noa
  */
 public class Circle extends Geometry {
-    private Point o;
-    private double radius;
-    private Plane plane;
+
+    // Fields
+    private Point center;   // The center point of the circle
+    private double radius;  // The radius of the circle
+    private Plane plane;    // The plane containing the circle
+
+    // ***************** Constructor ********************** //
 
     /**
-     * Circle constructor given its center, radius and orthogonal unit vector
-     * (normal)
+     * Constructs a Circle given its center, radius, and an orthogonal unit vector (normal).
+     * The plane containing the circle is also constructed using these parameters.
      *
-     * @param o      center point
-     * @param radius circle radius
-     * @param n      orthogonal vector (will be normalized)
+     * @param center The center point of the circle
+     * @param radius The radius of the circle
+     * @param normal The orthogonal vector (will be normalized) that determines the plane of the circle
      */
-    public Circle(Point o, double radius, Vector n) {
-        this.o = o;
+    public Circle(Point center, double radius, Vector normal) {
+        this.center = center;
         this.radius = radius;
-        plane = new Plane(o, n);
+        this.plane = new Plane(center, normal);
     }
 
+    // ***************** Getters ********************** //
+
     /**
-     * Radius getter for the circle
+     * Returns the radius of the circle.
      *
-     * @return the radius
+     * @return The radius of the circle
      */
     public double getRadius() {
         return radius;
     }
 
+
     /**
-     * Center getter for the circle
+     * Returns the center point of the circle.
      *
-     * @return the center point
+     * @return The center point of the circle
      */
-    public Point getO() {
-        return o;
+    public Point getCenter() {
+        return center;
     }
 
+    /**
+     * Calculates and returns the normal vector at a given point on the circle.
+     * The normal vector is the same as the normal vector of the plane containing the circle.
+     *
+     * @param point The point on the circle
+     * @return The normal vector at the given point
+     */
     @Override
-    public Vector getNormal(Point p) {
+    public Vector getNormal(Point point) {
         return plane.getNormal();
     }
 
+    /**
+     * Finds and returns the intersection points between the circle and a given ray,
+     * up to a maximum distance from the ray's starting point.
+     *
+     * @param ray The ray to find intersections with
+     * @param maxDistance The maximum distance from the ray's starting point
+     * @return A list of intersection points (GeoPoint) with the circle, or null if no intersections are found
+     */
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> intersections = plane.findGeoIntersections(ray, maxDistance);
         if (intersections == null)
             return null;
 
-        double pToEdge = alignZero(radius - o.distance(intersections.get(0).point));
+        double pToEdge = alignZero(radius - center.distance(intersections.get(0).point));
         if (pToEdge <= 0)
             return null;
+
         return intersections;
     }
 }

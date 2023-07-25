@@ -10,50 +10,52 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * Triangle class Vertex polygon
- * system
+ * Sphere class represents a three-dimensional sphere in 3D Cartesian coordinate system.
+ * The sphere is defined by its center point and its radius.
+ * The class inherits from the Geometry class.
  *
- * @author noga and noa
+ * Authors: Noga Jacobs and Noa
  */
 public class Sphere extends Geometry {
 
     /**
-     * the point of Middle of the circle
+     * The center point of the sphere.
      */
     final Point center;
 
     /**
-     * the radius of sphere
+     * The radius of the sphere.
      */
     final double radius;
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor with parmetrim
-     * @param center of Sphere
-     * @param radius of Sphere
+     * Constructor for creating a sphere with a specified center point and radius.
+     *
+     * @param center The center point of the sphere.
+     * @param radius The radius of the sphere.
      */
     public Sphere(final Point center, final double radius) {
         this.center = center;
         this.radius = radius;
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getter ********************** //
 
     /**
-     * get the point center
+     * Returns the center point of the sphere.
      *
-     * @return point
+     * @return The center point of the sphere.
      */
     public Point getCenter() {
         return center;
     }
 
     /**
-     * get the radius center
+     * Returns the radius of the sphere.
      *
-     * @return double
+     * @return The radius of the sphere.
      */
     public double getRadius() {
         return radius;
@@ -61,10 +63,10 @@ public class Sphere extends Geometry {
 
 
     /**
-     * return vector normal
+     * Calculates the normal vector to the sphere at any given point on its surface.
      *
-     * @param p1- point for the normal
-     * @return vector normal
+     * @param point The point for which to calculate the normal vector.
+     * @return The normalized normal vector to the sphere at the specified point.
      */
     public Vector getNormal(Point p1) {
         return p1.subtract(center).normalize();
@@ -73,8 +75,9 @@ public class Sphere extends Geometry {
     // ***************** Override ********************** //
 
     /**
-     * with parameter of sphere
-     * @return String
+     * Returns a string representation of the sphere, including its center point and radius.
+     *
+     * @return A string representation of the sphere.
      */
     @Override
     public String toString() {
@@ -86,11 +89,12 @@ public class Sphere extends Geometry {
 
 
     /**
-     * find the cross sphere
-     * @param ray-The ray for calculating the points is cut
-     * @param maxDistance-The maximum distance
-     * @return list of GeoPoint - sphere cross and point cross
+     * Finds the intersection points of a ray with the sphere.
      *
+     * @param ray The ray for calculating the intersection points.
+     * @param maxDistance The maximum distance for valid intersections.
+     * @return A list containing GeoPoint objects representing the intersection points of the ray with the sphere.
+     * If there are no intersections, the list is null.
      */
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 

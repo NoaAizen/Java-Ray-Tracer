@@ -4,23 +4,29 @@ import primitives.Color;
 import primitives.Double3;
 
 /**
- * @author noga and noa
+ * AmbientLight class represents ambient light in a scene.
+ * Ambient light is uniform light that illuminates all objects in the scene equally.
+ * It has an intensity and color, but no specific direction or position.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class AmbientLight extends Light {
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor, Final power of ambient lighting
-     * @param Ia- Color
-     * @param Ka-Double3 for the Discount factor
+     * Constructor for creating an ambient light with the specified intensity and discount factor.
+     *
+     * @param Ia The intensity of the ambient light.
+     * @param Ka The discount factor for the ambient light.
      */
     public AmbientLight(Color Ia, Double3 Ka) {
        super(Ia.scale(Ka));
     }
 
     /**
-     * constructor, put black in intensity of class light
+     * Default constructor for creating an ambient light with black intensity (no light).
+     * This is typically used when ambient light is not present in the scene.
      */
     public AmbientLight() {
         super(Color.BLACK);

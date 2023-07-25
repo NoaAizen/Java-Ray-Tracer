@@ -12,8 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * help with file xml
+ * SceneDescriptor class helps with parsing XML files and initializing the scene's attributes, lights, spheres, and triangles.
+ * It stores the data from the XML document in its fields for further usage in the scene creation process.
+ *
+ * Authors: Noga Jacobs and Noa
  */
+
 public  class SceneDescriptor {
     /**
      * Fields background
@@ -34,11 +38,12 @@ public  class SceneDescriptor {
     // ***************** Constructors ********************** //
 
     /**
-     * Constructors
-     * @param sceneAttributes -  Map String, String
-     * @param ambientLightAttributes Map String, String
-     * @param spheres List Map String, String
-     * @param triangles List Map String, String
+     * Constructor for SceneDescriptor with provided parameters for scene attributes, ambient light attributes, spheres, and triangles.
+     *
+     * @param sceneAttributes       Map representing the scene attributes.
+     * @param ambientLightAttributes Map representing the ambient light attributes.
+     * @param spheres               List of maps representing the spheres in the scene.
+     * @param triangles             List of maps representing the triangles in the scene.
      */
     public SceneDescriptor(Map<String, String> sceneAttributes, Map<String, String> ambientLightAttributes, List<Map<String, String>> spheres, List<Map<String, String>> triangles) {
         this.sceneAttributes = sceneAttributes;
@@ -49,47 +54,53 @@ public  class SceneDescriptor {
     }
 
     /**
-     * Constructors empty
+     * Empty constructor for SceneDescriptor.
      */
     public SceneDescriptor() {
 
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getters  ********************** //
 
     /**
-     * func getter
-     * @return Map String, String
+     * Get the scene attributes.
+     *
+     * @return Map of scene attributes.
      */
     public Map<String, String> getSceneAttributes() {
         return sceneAttributes;
     }
     /**
-     * func getter
-     * @return Map String, String
+     * Get the ambient light attributes.
+     *
+     * @return Map of ambient light attributes.
      */
     public Map<String, String> getAmbientLightAttributes() {
         return ambientLightAttributes;
     }
     /**
-     * func getter
-     * @return  List Map String, String
+     * Get the list of spheres in the scene.
+     *
+     * @return List of spheres.
      */
     public List<Map<String, String>> getSpheres() {
         return spheres;
     }
     /**
-     * func getter
-     * @return  List Map String, String
+     * Get the list of triangles in the scene.
+     *
+     * @return List of triangles.
      */
     public List<Map<String, String>> getTriangles() {
         return triangles;
     }
 
     /**
-     * get file, take the data on the file and put them in object (SceneDescriptor) Fields
-     * @param document - Document
-     * @return SceneDescriptor
+     * Initialize the SceneDescriptor from an XML Document.
+     * Parses the XML data and populates the SceneDescriptor fields accordingly.
+     *
+     * @param document The XML Document containing the scene data.
+     * @return SceneDescriptor object initialized with the data from the XML Document.
      */
     public SceneDescriptor InitializeFromXMLstring(Document document) {
             //Normalize the xml structure

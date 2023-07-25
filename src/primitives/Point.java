@@ -2,35 +2,38 @@ package primitives;
 
 import java.util.Objects;
 /**
- * @author noa and noga
+ * Point class represents a point in 3D space with coordinates (x, y, z).
+ * It provides methods for performing various calculations with points.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class Point {
     /**
-     *A field that constructor a point
+     * A field that holds the coordinates of the point as a Double3 object.
      */
     final Double3 xyz;
     /**
-     *  A field that is a zero point
+     * A field that represents the zero point (0, 0, 0).
      */
     public static Point ZERO = new Point(0, 0, 0);
 
     // ***************** Constructors ********************** //
 
     /**
-     * primary constructor for Point
+     * Primary constructor for Point.
      *
-     * @param xyz Double3 value for x,z,z axis
+     * @param xyz The Double3 value representing the x, y, and z coordinates.
      */
     public Point(Double3 xyz) {
         this.xyz = xyz;
     }
 
     /**
-     * secondary constructor for Point
+     * Secondary constructor for Point.
      *
-     * @param x coordinate value for X axis
-     * @param y coordinate value for Y axis
-     * @param z coordinate value for Z axis
+     * @param x The coordinate value for the X axis.
+     * @param y The coordinate value for the Y axis.
+     * @param z The coordinate value for the Z axis.
      */
     public Point(double x, double y, double z) {
         xyz = new Double3(x, y, z);
@@ -39,10 +42,10 @@ public class Point {
     // ***************** Override ********************** //
 
     /**
-     * check if the o and this equals
+     * Checks if this point is equal to the given object.
      *
-     * @param o- The second parameter that makes a equal
-     * @return true or false if it the same class and the same value
+     * @param o The second parameter to compare with this point.
+     * @return true if the object is the same class and has the same value as this point, false otherwise.
      */
     @Override
     public boolean equals(Object o) {
@@ -53,9 +56,9 @@ public class Point {
     }
 
     /**
-     * hash code
+     * Calculates the hash code for this point.
      *
-     * @return int
+     * @return int The hash code value.
      */
     @Override
     public int hashCode() {
@@ -63,42 +66,42 @@ public class Point {
     }
 
     /**
-     * to string
+     * Returns a string representation of this point.
      *
-     * @return string with point and the value
+     * @return String A string containing the point's coordinates.
      */
     @Override
     public String toString() {
         return "Point " + xyz;
     }
 
-    // ***************** func ********************** //
+    // ***************** Methods ********************** //
 
     /**
-     * use add from class Double3
+     * Adds a vector to this point, creating a new point at the end of the vector.
      *
-     * @param vector -The point we need to do with it is a calculation of add
-     * @return the head vector with this point
+     * @param vector The vector to add to this point.
+     * @return Point The new point resulting from the addition.
      */
     public Point add(Vector vector) {
         return new Point(xyz.add(vector.xyz));
     }
 
     /**
-     * use subtract from class Double3
+     * Subtracts another point from this point, creating a new vector from the two points.
      *
-     * @param point- The second point we need to do with it is a calculation of subtract
-     * @return Vector subtraction
+     * @param point The second point to subtract from this point.
+     * @return Vector The vector resulting from the subtraction.
      */
     public Vector subtract(Point point) {
         return new Vector(xyz.subtract(point.xyz));
     }
 
     /**
-     * The distance between two points squared
+     * Calculates the squared distance between two points.
      *
-     * @param other-T-he second point we need to do with it is a calculation of distance
-     * @return d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
+     * @param other The second point to calculate the squared distance with.
+     * @return double The squared distance between this point and the other point.
      */
     public double distanceSquared(Point other) {
         double x1 = xyz.d1;
@@ -113,39 +116,39 @@ public class Point {
     }
 
     /**
-     * use func distanceSquared and sqrt on it
+     * Calculates the distance between two points.
      *
-     * @param other-the point we did sqrt.
-     * @return d = Sqrt (lengthSquare)
+     * @param other The second point to calculate the distance with.
+     * @return double The distance between this point and the other point.
      */
     public double distance(Point other) {
         return Math.sqrt(distanceSquared(other));
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getter ********************** //
 
     /**
-     * return d1 of point
+     * Returns the x-coordinate of this point.
      *
-     * @return double
+     * @return double The x-coordinate value.
      */
     public double getX() {
         return xyz.d1;
     }
 
     /**
-     * return d2 of point
+     * Returns the y-coordinate of this point.
      *
-     * @return double
+     * @return double The y-coordinate value.
      */
     public double getY() {
         return xyz.d2;
     }
 
     /**
-     * return d3 of point
+     * Returns the z-coordinate of this point.
      *
-     * @return double
+     * @return double The z-coordinate value.
      */
     public double getZ() {return xyz.d3; }
 }

@@ -13,66 +13,59 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author noga and noa
+ * PointLight class represents a point light source in a scene.
+ * It provides methods to calculate the intensity of the light at a specific point,
+ * as well as to get the direction vectors from the light source to a given point.
+ * The class also supports soft shadows by considering the light source as a sphere of rays.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 public class PointLight extends Light implements LightSource {
     /**
-     * The amount of rays we want to run
-     * "- soft shadows
+     * The number of rays in the sphere of the point light for soft shadows.
      */
     private int size = 20;
     /**
-     * thet lenth of the shere
+     * The length of the vector representing the sphere of rays.
      */
     private int lenVector = 10;
     /**
-     * the point that start the ray of this light
+     * The position of the point light in the scene.
      */
     private Point position;
     /**
-     * Fixed discount coefficient
+     * Fixed discount coefficient (constant).
      */
     private Double3 kC = Double3.ONE;
     /**
-     * Discount coefficient
+     * Discount coefficient that varies with distance.
      */
     private Double3 kL = Double3.ZERO;
     /**
-     * Discount coefficient
+     * Discount coefficient that varies with the square of the distance.
      */
     private Double3 kQ = Double3.ZERO;
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor
-     *@param _position-point
-     * @param intensity-color
+     * Constructor for the PointLight class.
+     *
+     * @param intensity The color intensity of the light.
+     * @param _position  The position of the point light in the scene.
      */
     public PointLight(Color intensity, Point _position) {
         super(intensity);
         this.position = _position;
     }
 
-    /**
-     * get distance
-     * call to func distance in class point
-     *
-     * @param point for the Calculating the distance of light
-     * @return double distance
-     */
-    public double getDistance(Point point) {
-        double distance = point.distance(position);
-        return distance;
-    }
-
-    // ***************** setter ********************** //
+    // ***************** Setter ********************** //
 
     /**
-     * func setter (type builder)
+     * Setter for the position of the point light.
      *
-     * @param position Point
-     * @return PointLight
+     * @param position The position of the point light in the scene.
+     * @return The updated PointLight object.
      */
     public PointLight setPosition(Point position) {
         this.position = position;
@@ -80,10 +73,10 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * func setter (type builder)
+     * Setter for the constant discount coefficient (kC).
      *
-     * @param kC Double3
-     * @return PointLight
+     * @param kC The constant discount coefficient.
+     * @return The updated PointLight object.
      */
     public PointLight setkC(Double3 kC) {
         this.kC = kC;
@@ -91,10 +84,10 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * func setter (type builder)
+     * Setter for the linear discount coefficient (kL).
      *
-     * @param _kL Double3
-     * @return PointLight
+     * @param _kL The linear discount coefficient.
+     * @return The updated PointLight object.
      */
     public PointLight setkL(Double3 _kL) {
         this.kL = _kL;
@@ -102,10 +95,10 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * func setter (type builder)
+     * Setter for the quadratic discount coefficient (kQ).
      *
-     * @param _kQ Double3
-     * @return PointLight
+     * @param _kQ The quadratic discount coefficient.
+     * @return The updated PointLight object.
      */
     public PointLight setkQ(Double3 _kQ) {
         this.kQ = _kQ;
@@ -113,21 +106,21 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * func setter (type builder)
+     * Setter for the constant discount coefficient (kC).
      *
-     * @param kC Double3
-     * @return PointLight
+     * @param _kC The constant discount coefficient as a double.
+     * @return The updated PointLight object.
      */
-    public PointLight setkC(double kC) {
-        this.kC = new Double3(kC);
+    public PointLight setkC(double _kC) {
+        this.kC = new Double3(_kC);
         return this;
     }
 
     /**
-     * func setter (type builder)
+     * Setter for the linear discount coefficient (kL).
      *
-     * @param _kL double
-     * @return PointLight
+     * @param _kL The linear discount coefficient as a double.
+     * @return The updated PointLight object.
      */
     public PointLight setkL(double _kL) {
         this.kL = new Double3(_kL);
@@ -135,10 +128,10 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * func setter (type builder)
+     * Setter for the quadratic discount coefficient (kQ).
      *
-     * @param _kQ double
-     * @return PointLight
+     * @param _kQ The quadratic discount coefficient as a double.
+     * @return The updated PointLight object.
      */
     public PointLight setkQ(double _kQ) {
         this.kQ = new Double3(_kQ);
@@ -147,10 +140,10 @@ public class PointLight extends Light implements LightSource {
     // ***************** Override ********************** //
 
     /**
-     * Get light intensity at a point IL
+     * Get the intensity of the light at a specified point in the scene.
      *
-     * @param p-point
-     * @return Color-Calculate color with light
+     * @param p The point at which the intensity of the light is calculated.
+     * @return The color intensity of the light at the specified point.
      */
     @Override
     public Color getIntensity(Point p) {
@@ -161,11 +154,12 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * get for L, A function that does the calculation of vectors that damage light
-     *- soft shadows
-     * @param p-point of     light
-     * @param n- vector of ray
-     * @return List Vector - Vectors that damage light
+     * Get the list of direction vectors from the point light to a given point for soft shadows.
+     * The method creates a sphere of rays representing the point light and generates vectors from the sphere to the point.
+     *
+     * @param p The point for which the direction vectors are calculated.
+     * @param n The normal vector at the specified point.
+     * @return A list of direction vectors from the point light to the specified point.
      */
     @Override
     public List<Vector> listGetL(Point p, Vector n) {
@@ -189,11 +183,23 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     *Returns one vector that meets a point of light
-     * @param p-point of  light
-     * @return - vector
+     * Get the direction vector from the point light to a given point.
+     *
+     * @param p The point for which the direction vector is calculated.
+     * @return The direction vector from the point light to the specified point.
      */
     public Vector getL(Point p) {
         return p.subtract(position).normalize();
+    }
+
+    /**
+     * Get the distance from the point light to a given point.
+     *
+     * @param point The point for which the distance to the point light is calculated.
+     * @return The distance from the point light to the specified point.
+     */
+    public double getDistance(Point point) {
+        double distance = point.distance(position);
+        return distance;
     }
 }

@@ -10,31 +10,44 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * Plane class a point in the vector anth space
- * @author noga and noa
+ * The Plane class represents a plane in 3D Cartesian coordinate system.
+ * A plane is defined by a point on the plane (p0) and a normal vector (normal).
+ * The normal vector should be normalized automatically upon construction.
+ * The class inherits from the Geometry class.
+ *
+ * Authors: Noga Jacobs and Noa
  */
 
 public class Plane extends Geometry{
+    /**
+     * The point on the plane (origin).
+     */
     final Point p0;
+    /**
+     * The normalized normal vector to the plane.
+     */
     final Vector normal;
 
-    // ***************** constructor ********************** //
+    // ***************** Constructor ********************** //
 
     /**
-     * constructor
-     * @param q0 -point
-     * @param n vector for the normal (will be normalized automatically)
+     * Constructs a plane using a point on the plane and the normal vector.
+     *
+     * @param q0 The point on the plane.
+     * @param n  The normal vector to the plane (will be normalized automatically).
      */
     public Plane(Point q0, Vector n) {
         p0 = q0;
         normal = n;
     }
 
-    /**constructor with 3 points
-     * from three point found the vector normal (now put null in the next level we do it)
-     * @param p1-point
-     * @param p2-point
-     * @param p3-point
+    /**
+     * Constructs a plane using three points to calculate the normal vector.
+     * The normal vector will be normalized automatically.
+     *
+     * @param p1 The first point.
+     * @param p2 The second point.
+     * @param p3 The third point.
      */
     public Plane(Point p1, Point p2, Point p3) {
         p0 =p1;
@@ -47,11 +60,12 @@ public class Plane extends Geometry{
 
     }
 
-    // ***************** getter ********************** //
+    // ***************** Getter ********************** //
 
     /**
-     * func getter
-     * @return point
+     * Returns the origin point of the plane.
+     *
+     * @return The origin point.
      */
     public Point getQ0()
     {
@@ -59,8 +73,9 @@ public class Plane extends Geometry{
     }
 
     /**
-     * getter for _normal field
-     * @return - Vector
+     * Returns the normal vector of the plane.
+     *
+     * @return The normal vector.
      */
     public Vector getNormal() {
         return normal;
@@ -69,9 +84,11 @@ public class Plane extends Geometry{
     // ***************** Override ********************** //
 
     /**
-     * implementation of getNormal from Geometry
-     * @param point for the Normal
-     * @return vector Normal
+     * Calculates the normal vector to the plane at a given point.
+     * Since a plane has a constant normal, the same normal vector is returned regardless of the point.
+     *
+     * @param point The point for which to calculate the normal.
+     * @return The normal vector.
      */
     @Override
     public Vector getNormal(Point point) {
@@ -79,8 +96,9 @@ public class Plane extends Geometry{
     }
 
     /**
-     * toString with parameter of plane
-     * @return java.lang.String
+     * Returns a string representation of the plane in the format: "Plane{p0=<p0>, normal=<normal>}"
+     *
+     * @return The string representation of the plane.
      */
     @java.lang.Override
     public java.lang.String toString() {
@@ -91,10 +109,12 @@ public class Plane extends Geometry{
     }
 
     /**
-     * Function for finding intersection points
-     * * @param ray-The ray for calculating the points is cut
-     *      * @param maxDistance-The maximum distance
-     * @return   list of GeoPoint - plane cross and point cross
+     * Finds the intersection points of a ray with the plane.
+     *
+     * @param ray         The ray for calculating the intersection points.
+     * @param maxDistance The maximum distance for valid intersections.
+     * @return A list of GeoPoint objects representing the intersections of the ray with the plane.
+     * If there are no intersections, the list is null.
      */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
