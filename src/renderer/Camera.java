@@ -221,7 +221,7 @@ public class Camera {
     /**
      * Sets the recursion depth for recursive ray tracing (for reflections and refractions).
      *
-     * @param recursionDepth The recursion depth for recursive ray tracing.
+     * @param recursionDepthOrg The recursion depth for recursive ray tracing.
      * @return This Camera object with the updated recursion depth setting.
      */
     public Camera setRecursionDepthOrg(int recursionDepthOrg) {
@@ -579,13 +579,11 @@ public class Camera {
     }
 
     /**
-     * Constructs rays for super-sampling at the specified pixel on the view plane.
-     * This method is used for super-sampling to generate rays for each sub-pixel within the main pixel.
      *
-     * @param Rx          The width of the sub-pixel in the X direction.
-     * @param Ry          The width of the sub-pixel in the Y direction.
+     * @param Rx The width of the sub-pixel in the X direction.
+     * @param Ry The width of the sub-pixel in the Y direction.
      * @param pointCenter The center point of the pixel.
-     * @return List<Ray> The list of rays used for super-sampling at the specified pixel.
+     * @return  The list of rays used for super-sampling at the specified pixel.
      */
     public List<Ray> constructRaySSuperSampling(double Rx, double Ry, Point pointCenter) {
 

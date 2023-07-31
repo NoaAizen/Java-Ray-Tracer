@@ -96,17 +96,19 @@ public class Plane extends Geometry{
     }
 
     /**
-     * Returns a string representation of the plane in the format: "Plane{p0=<p0>, normal=<normal>}"
-     *
+     * Returns a string representation of the plane in the format
+     * p0 is point
+     * nurmal is Vector
      * @return The string representation of the plane.
      */
-    @java.lang.Override
-    public java.lang.String toString() {
+    @Override
+    public String toString() {
         return "Plane{" +
-                "p0=" + p0 +
-                ", normal=" + normal +
+                "p0=" + p0.toString() +
+                ", normal=" + normal.toString() +
                 '}';
     }
+
 
     /**
      * Finds the intersection points of a ray with the plane.

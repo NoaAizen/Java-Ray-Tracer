@@ -65,7 +65,7 @@ public class Sphere extends Geometry {
     /**
      * Calculates the normal vector to the sphere at any given point on its surface.
      *
-     * @param point The point for which to calculate the normal vector.
+     * @param p1 The point for which to calculate the normal vector.
      * @return The normalized normal vector to the sphere at the specified point.
      */
     public Vector getNormal(Point p1) {
