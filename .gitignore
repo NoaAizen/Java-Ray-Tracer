@@ -1,0 +1,19 @@
+# Build output
+out/
+*.class
+
+# Generated JavaDoc
+doc/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Render output (ImageWriter writes PNGs to images/ at run time)
+images/*
+!images/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
