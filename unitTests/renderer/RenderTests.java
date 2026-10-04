@@ -91,7 +91,7 @@ public class RenderTests {
 	 */
 	@Test
 	public void basicRenderXml() {
-		Scene scene = new Scene.SceneBuilder("XML Test scene").loadSceneFromFile("C:/Users/orog1/IdeaProjects/ISE5782_8965_0519/basicRenderTestTwoColors.xml").build();
+		Scene scene = new Scene.SceneBuilder("XML Test scene").loadSceneFromFile("basicRenderTestTwoColors.xml").build();
 
 		// enter XML file name and parse from XML file into scene object
 		// ...
